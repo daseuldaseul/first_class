@@ -5,17 +5,12 @@
     font-style: normal;
 }
 
-body {
-    margin: 0;
-    background: black;
-}
-
 .wrapper {
-    max-width: 1280px;
-    font-weight: 700;
+    max-width: 1200px;
     font-size: 20px;
-    color: white;
-    font-family: 'SBAggroB';
+    /*margin: auto;*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
 }
 
 .write-container {
@@ -47,7 +42,14 @@ body {
 }
 
 .movie {
-    padding-top: 30px;
+    padding: 20px 10px;
+}
+
+.movie-search {
+    background: white;
+    font-size: 18px;
+    border-radius: 5px;
+    color: #DE2A60;
 }
 
 .score fieldset {
@@ -55,9 +57,39 @@ body {
     flex-direction: row;
 }
 
-#content-input {    /* 본문 입력란 */
+/* 본문 입력란 */
+#content-input {
     font-size: 25px;
     font-family: 'SBAggroB';
+    background: white;
+    color: black;
+    padding:15px;
+    border-radius: 10px;
+    line-height: 45px;
+}
+
+/* 등록하기 버튼 */
+.bt-wrap {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+}
+
+.bt-wrap a {
+    display: inline-block;
+    min-width: 80px;
+    margin-left: 10px;
+    padding: 10px;
+    border: 2px solid #DE2A60;
+    border-radius: 2px;
+    font-size: 1.5rem;
+    color : #DE2A60;
+    font-weight: bold;
+}
+
+.bt-wrap #write {
+    background: #DE2A60;
+    color: white;
 }
 
 /*----- 별점주기 -----*/

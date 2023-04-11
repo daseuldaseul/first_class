@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <title>FilmCrush</title>
     <link rel="stylesheet" href="write.css">
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
 <div class="wrapper">
     <div class="write-container">
-        <h2>글 작성</h2>
+        <h2>리뷰작성</h2>
         <div class="title">
             <input id="title-input" type="text" placeholder="제목">
         </div>
         <div class="movie">
-            영화검색 <input type="text" placeholder="제목을 입력하세요">
+            영화검색 <input class="movie-search" type="text" placeholder="제목을 입력하세요">
      <!--  별점주기  -->
             <form id="score" method="post" action="./save">
                 <fieldset>
@@ -24,14 +25,15 @@
                     <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
                     <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
                 </fieldset>
-                <!--            <input type="submit" value="별점주기">-->
             </form>
         </div>
         <div class="contents">
      <!--  본문작성  -->
             <form>
-                <p><textarea id="content-input" cols="53" rows="15"></textarea></p>
-                <input type="submit" value="작성하기">
+                <p><textarea id="content-input" cols="50" rows="10"></textarea></p>
+                <div class="bt-wrap">
+                    <a href="#" id="write">등록하기</a>
+                </div>
             </form>
         </div>
     </div>
