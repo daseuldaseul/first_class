@@ -44,11 +44,12 @@ body {
   display: flex;
   flex-direction: row;
   color: white;
+  margin: auto;
 }
 
 #logo {
-  width: 300px;
-  height: 100px;
+  width: 240px;
+  height: 70px;
 }
 
 #join:hover{
