@@ -20,13 +20,16 @@ public class User {
     @Column(name = "user_id")
     private String id; // 회원 아이디
 
+    @Column(nullable = false)
     private String userPassword; // 비밀번호
 
+    @Column(nullable = false)
     private String userNickname; // 닉네임
 
+    @Column(nullable = false)
     private String userName; // 이름
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String userEmail; // 이메일
 
 

@@ -18,12 +18,20 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardIndex;    // 게시판 고유번호
 
+    @Column(nullable = false)
     private String boardTitle; // 게시글 제목
 
-    private String boardWriter; // 게시글 작성자
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user; // 게시글 작성자
 
     private Long boardScore; // 유저 개인의 별점
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "movie_index")
+    private Movie movie;
+
+    @Column(nullable = false)
     private String boardMovieTitle; // 게시글에서 설정한 영화 제목
 
     private String boardContent; // 리뷰 본문 내용
@@ -34,5 +42,6 @@ public class Board {
 
     private Long viewNum; // 조회수
 
+    @Column(nullable = false)
     private LocalDateTime boardDate; // 작성일자
 }

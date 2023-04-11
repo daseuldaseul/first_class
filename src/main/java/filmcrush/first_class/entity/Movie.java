@@ -26,7 +26,6 @@ public class Movie {
 
     private Long movieReviewNum; // 영화의 리뷰 개수
 
-
     private String movieDetail; // 영화 상세 정보
 
 
