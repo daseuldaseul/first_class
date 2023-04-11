@@ -17,7 +17,6 @@ public class BoardHashtags {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bhashIndex; // 게시판 해시코드 고유번호
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_index")
     private Board board;

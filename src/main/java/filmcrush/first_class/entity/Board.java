@@ -31,9 +31,6 @@ public class Board {
     @JoinColumn(name = "movie_index")
     private Movie movie;
 
-    @Column(nullable = false)
-    private String boardMovieTitle; // 게시글에서 설정한 영화 제목
-
     private String boardContent; // 리뷰 본문 내용
 
     private Long replyNum; // 댓글 수
