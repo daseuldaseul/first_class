@@ -1,6 +1,4 @@
-@import "write.css";
-@import "board-css.css";
-@import "review.css";
+@import "board.css";
 
 @font-face {
   font-family: 'SBAggroB';
@@ -45,17 +43,14 @@ ul, li {
   height: 100px;
   margin: 25px auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
+  font-size: 30px;
+  align-items: center
 }
 
-.header ul {
-  list-style: none;
-  font-size: 30px;
-  display: flex;
-  flex-direction: row;
-  color: white;
-  margin: auto;
+.join {
+  float: right;
 }
 
 #logo {

@@ -1,3 +1,5 @@
+@import "main.css";
+
 .title-area {
   font-size: 40px;
 }
@@ -15,6 +17,10 @@
 
 #title-info li:after {
   content: "ㅣ";
+}
+
+.review-container {
+  margin-top: 200px;
 }
 
 .movie-info {

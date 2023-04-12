@@ -1,3 +1,5 @@
+@import "main.css";
+
 @font-face {
     font-family: 'SBAggroB';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
@@ -9,7 +11,7 @@
     padding-top: 200px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center
 }
 
 .write-container h2 {
