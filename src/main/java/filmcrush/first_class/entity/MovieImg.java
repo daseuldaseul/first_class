@@ -21,6 +21,9 @@ public class MovieImg {
 
     private String imgUrl; // 이미지 조회 경로
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "movie_index")
+    private Movie movie;
 
     public void updateItemImg(String oriImgName, String imgName, String imgUrl) {
         this.oriImgName = oriImgName;
