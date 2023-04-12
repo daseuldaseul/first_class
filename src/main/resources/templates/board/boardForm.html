@@ -1,28 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="board-css.css">
 </head>
 <body>
-<div class="board-wrap">
-    <div class="board-title">
-        <strong>리뷰 게시판</strong>
-        <p>영화에 대한 감상을 자유롭게 남겨보세요.</p>
-    </div>
-    <div class="board-list-wrap">
-        <div class="board-list">
+    <h1>메인 게시글 페이지 ~</h1>
+    <div>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th>글번호</th>
+                    <th>제목</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="boardDto, status: ${boardList}">
+                        <td th:text="${status.index +1}"></td>
+                        <td th:text="${boardDto.}"></td>
+                        <td th:text="${boardDto.boardTitle}"></td>
+                        <td th:text="${boardDto.boardTitle}"></td>
+                        <td th:text="${boardDto.boardTitle}"></td>
+                        <td th:text="${boardDto.boardTitle}"></td>
+                    </tr>
+                </tbody>
 
-        </div>
-        <div class="board-page">
-
-        </div>
-        <div class="bt-wrap">
-            <a href="#" class="on">목록</a>
-            <a href="#" >수정</a>
+            </table>
         </div>
     </div>
-</div>
 </body>
 </html>

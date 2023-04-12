@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "board")
 public class Board {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardIndex;    // 게시판 고유번호
@@ -39,6 +38,5 @@ public class Board {
 
     private Long viewNum; // 조회수
 
-    @Column(nullable = false)
     private LocalDateTime boardDate; // 작성일자
 }
