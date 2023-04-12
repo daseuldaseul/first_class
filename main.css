@@ -1,3 +1,7 @@
+@import "write.css";
+@import "board-css.css";
+@import "review.css";
+
 @font-face {
   font-family: 'SBAggroB';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
@@ -23,7 +27,7 @@ ul, li {
 .wrapper {
   width: 100vw;
   height: 100vh;
-  margin-top: 0;
+  margin: auto;
   font-family: 'SBAggroB';
   color:white;
 }
@@ -33,14 +37,13 @@ ul, li {
   margin: auto;
   display: flex;
   flex-direction: column;
-  /*justify-content: center;*/
 }
 
 /* 헤더 */
 .header {
   max-width: 1200px;
   height: 100px;
-  margin: auto;
+  margin: 25px auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -64,8 +67,7 @@ ul, li {
   color: #DE2A60;
 }
 
-/* 개봉영화 */
-
+/* 개봉영화 구역 */
 .poster-container {
   display: flex;
   flex-direction: row;
@@ -91,4 +93,32 @@ ul, li {
   width: 270px;
   height: 350px;
   margin-bottom: 10px;
+}
+
+/* 버튼 */
+.bt-wrap {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0;
+}
+
+.bt-wrap a {
+  display: inline-block;
+  min-width: 80px;
+  margin-left: 10px;
+  padding: 10px;
+  border: 2px solid #DE2A60;
+  border-radius: 2px;
+  font-size: 1.5rem;
+  color : #DE2A60;
+  font-weight: bold;
+}
+
+.bt-wrap #write {
+  background: #DE2A60;
+  color: white;
+}
+
+#main-button {
+  margin-bottom: 300px;
 }
