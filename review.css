@@ -1,0 +1,77 @@
+.title-area {
+  font-size: 40px;
+}
+
+.movie-name, .movie-info li{
+  color: #DE2A60;
+}
+
+#title-info {
+  font-size: 22px;
+  display: flex;
+  flex-direction: row;
+  padding: 10px 0;
+}
+
+#title-info li:after {
+  content: "ㅣ";
+}
+
+.movie-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.movie-info ul {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  font-size: 2.5rem;
+}
+
+/* 리뷰본문 */
+.poster-picture {
+  width: 300px;
+  height: 400px;
+}
+
+.contents {
+  margin: auto 50px;
+  padding: 50px 0 ;
+  line-height: 40px;
+  font-size: 2.3rem;
+}
+
+.like {
+  margin: auto;
+  text-align: center;
+}
+
+.like img {
+  width: 50px;
+  height: 50px;
+}
+
+/* 댓글 입력 */
+#reply-input {
+  width: 100%;
+  font-size: 20px;
+  font-family: 'SBAggroB';
+  background: white;
+  color: black;
+  padding:15px;
+  border-radius: 10px;
+  line-height: 45px;
+}
+
+/* 버튼 */
+#modify, #delete, #reply {
+  min-width: 50px;
+  height: 15px;
+  margin-bottom: 50px;
+}
+
+#delete:hover, #modify:hover, #reply:hover {
+  background: #DE2A60;
+  color: white;
+}
