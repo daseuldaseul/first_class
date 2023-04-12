@@ -80,4 +80,12 @@ public class BoardController {
         model.addAttribute("boardDto", new BoardFormDto());
         return "board/boardWrite";
     }
+
+    @GetMapping(value = "/search")
+    public String search(String title, Model model){
+        List<Board> searchList = boardService.search(title);
+        model.addAttribute("searchList", searchList);
+
+        return "board/boardSearch";
+    }
 }

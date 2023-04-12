@@ -12,4 +12,6 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
 
     List<Board> findAll();
 
+    List<Board> findByBoardTitleContaining(String title);
+
 }
