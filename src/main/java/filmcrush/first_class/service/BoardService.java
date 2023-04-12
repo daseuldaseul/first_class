@@ -25,8 +25,8 @@ public class BoardService {
     }
 
     @Transactional
-    public List<Board> search(String title){
-        List<Board> boardList = boardRepository.findByBoardTitleContaining(title);
+    public Page<Board> search(String title, Pageable pageable){
+        Page<Board> boardList = boardRepository.findByBoardTitleContaining(title, pageable);
         return boardList;
     }
 }

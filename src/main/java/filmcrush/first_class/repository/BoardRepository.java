@@ -2,6 +2,8 @@ package filmcrush.first_class.repository;
 
 import filmcrush.first_class.dto.BoardDto;
 import filmcrush.first_class.entity.Board;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
@@ -12,6 +14,6 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
 
     List<Board> findAll();
 
-    List<Board> findByBoardTitleContaining(String title);
+    Page<Board> findByBoardTitleContaining(String title, Pageable pageable);
 
 }
