@@ -43,14 +43,18 @@ public class BoardController {
        // getPageable() : Page 객체를 생성할 때 사용된 Pageable 객체(페이지 번호, 사이즈, 정렬 방법등의 정보를 담고 있음) 반환
        // getPageNumber() : Pageable 객체에서 현재 페이지의 번호를 반환함.
        int nowPage = list.getPageable().getPageNumber() + 1;
+       int pageSize = 10;
 
        // 현재 페이지에서 가장 앞 페이지 번호를 보여줄 변수.
        // max 함수 : 현재 페이지에서 -4를 해줬을 때 1보다 작은 수가 나오면 안됨
         // 보통 UI에서 페이징 좌우로 4페이지 정도씩(총 9~10개정도) 보여주는게 일반적이므로 4로 지정.
-       int startPage = Math.max(nowPage - 4, 1);
-       int endPage = Math.min(nowPage + 9, list.getTotalPages());
+//       int startPage = Math.max(nowPage - 4, 1);
+        int startPage = ((nowPage - 1) / pageSize) * pageSize + 1;
+        int endPage = Math.min(startPage + pageSize - 1, list.getTotalPages());
+
+        //int endPage = Math.min(nowPage + 4, list.getTotalPages() -1);
        int prevPage = nowPage - 1;
-       int nextPage = nowPage + 1;
+       int nextPage = nowPage < list.getTotalPages() ? nowPage + 2 : list.getTotalPages() -1;
 
 
        model.addAttribute("boardList", list);
@@ -59,6 +63,7 @@ public class BoardController {
        model.addAttribute("endPage", endPage);
        model.addAttribute("prevPage", prevPage);
        model.addAttribute("nextPage", nextPage);
+       model.addAttribute("totalPages", list.getTotalPages());
        return "board/boardForm";
    }
 
@@ -91,10 +96,9 @@ public class BoardController {
         // List<Board> boardList = boardRepository.findAll();
 
         Page<Board> searchList = boardService.search(title, pageable);
-        //
-        //        //페이지 블럭 처리
-        //        //1을 더해주는 이유 : pageable은 0부터 처리됨
-        //        // getPageable() : Page 객체를 생성할 때 사용된 Pageable 객체(페이지 번호, 사이즈, 정렬 방법등의 정보를 담고 있음) 반환
+       //페이지 블럭 처리
+        //1을 더해주는 이유 : pageable은 0부터 처리됨
+        // getPageable() : Page 객체를 생성할 때 사용된 Pageable 객체(페이지 번호, 사이즈, 정렬 방법등의 정보를 담고 있음) 반환
         // getPageNumber() : Pageable 객체에서 현재 페이지의 번호를 반환함.
         int nowPage = searchList.getPageable().getPageNumber() + 1;
 
