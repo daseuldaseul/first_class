@@ -58,7 +58,7 @@ public class BoardController {
        model.addAttribute("startPage", startPage);
        model.addAttribute("endPage", endPage);
        model.addAttribute("prevPage", prevPage);
-       model.addAttribute("nextPage")
+       model.addAttribute("nextPage", nextPage);
        return "board/boardForm";
    }
 
