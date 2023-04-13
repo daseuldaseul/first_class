@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1>글쓰기</h1>
+    <div>
+        <form action="/board/write" method="post" th:object="${boardFormDto}">
+            <h2>제목입력하쇼</h2>
+            <input name="boardTitle" type="text" placeholder="제목 입력" th:field="*{boardTitle}">
+            <h2>영화 입력</h2>
+            <input name="movieTitle" type="text" placeholder="영화 제목" th:field="*{movie.movieTitle}">
+
+            <textarea name="boardContent" placeholder="본문 내용 입력하쇼" th:field="*{boardContent}"></textarea>
+            <button type="submit">작성</button>
+        </form>
+
+    </div>
+</body>
+</html>

@@ -1,15 +1,13 @@
 package filmcrush.first_class.dto;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 
 @Getter
 @Setter
-@NoArgsConstructor
-public class MovieRequestDto1 {
+public class MovieDto {
+
     private Long movieIndex; // 영화 고유번호
 
     private String movieTitle; // 영화 제목
@@ -21,4 +19,5 @@ public class MovieRequestDto1 {
     private Long movieReviewNum; // 영화의 리뷰 개수
 
     private String movieDetail; // 영화 상세 정보
+
 }

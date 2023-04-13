@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "board")
 public class Board {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardIndex;    // 게시판 고유번호
@@ -21,13 +20,13 @@ public class Board {
     @Column(nullable = false)
     private String boardTitle; // 게시글 제목
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user; // 게시글 작성자
 
     private Long boardScore; // 유저 개인의 별점
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "movie_index")
     private Movie movie;
 
@@ -39,6 +38,5 @@ public class Board {
 
     private Long viewNum; // 조회수
 
-    @Column(nullable = false)
     private LocalDateTime boardDate; // 작성일자
 }

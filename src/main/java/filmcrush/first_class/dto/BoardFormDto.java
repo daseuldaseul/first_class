@@ -1,21 +1,17 @@
 package filmcrush.first_class.dto;
 
+import filmcrush.first_class.entity.Board;
 import filmcrush.first_class.entity.Movie;
 import filmcrush.first_class.entity.User;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@NoArgsConstructor
-public class BoardRequestDto1 {
+public class BoardFormDto {
 
     private Long boardIndex;    // 게시판 고유번호
 
@@ -25,7 +21,7 @@ public class BoardRequestDto1 {
 
     private Long boardScore; // 유저 개인의 별점
 
-    private Movie movie;
+    private Movie movie = new Movie();
 
     private String boardContent; // 리뷰 본문 내용
 
@@ -37,6 +33,13 @@ public class BoardRequestDto1 {
 
     private LocalDateTime boardDate; // 작성일자
 
+    private static ModelMapper modelMapper = new ModelMapper();
 
+    public Board createBoard() {
+        return modelMapper.map(this, Board.class);
+    }
 
+    public static BoardFormDto of(Board board) {
+        return modelMapper.map(board, BoardFormDto.class);
+    }
 }
