@@ -49,12 +49,16 @@ public class BoardController {
         // 보통 UI에서 페이징 좌우로 4페이지 정도씩(총 9~10개정도) 보여주는게 일반적이므로 4로 지정.
        int startPage = Math.max(nowPage - 4, 1);
        int endPage = Math.min(nowPage + 9, list.getTotalPages());
+       int prevPage = nowPage - 1;
+       int nextPage = nowPage + 1;
+
 
        model.addAttribute("boardList", list);
        model.addAttribute("nowPage", nowPage);
        model.addAttribute("startPage", startPage);
        model.addAttribute("endPage", endPage);
-
+       model.addAttribute("prevPage", prevPage);
+       model.addAttribute("nextPage")
        return "board/boardForm";
    }
 
@@ -87,10 +91,10 @@ public class BoardController {
         // List<Board> boardList = boardRepository.findAll();
 
         Page<Board> searchList = boardService.search(title, pageable);
-
-        //페이지 블럭 처리
-        //1을 더해주는 이유 : pageable은 0부터 처리됨
-        // getPageable() : Page 객체를 생성할 때 사용된 Pageable 객체(페이지 번호, 사이즈, 정렬 방법등의 정보를 담고 있음) 반환
+        //
+        //        //페이지 블럭 처리
+        //        //1을 더해주는 이유 : pageable은 0부터 처리됨
+        //        // getPageable() : Page 객체를 생성할 때 사용된 Pageable 객체(페이지 번호, 사이즈, 정렬 방법등의 정보를 담고 있음) 반환
         // getPageNumber() : Pageable 객체에서 현재 페이지의 번호를 반환함.
         int nowPage = searchList.getPageable().getPageNumber() + 1;
 
