@@ -50,8 +50,8 @@
                     <tr th:each="boardDto, status: ${boardList}">
                         <td th:text="${boardDto.boardIndex}"></td>
                         <td th:text="${boardDto.boardTitle}"></td>
-                        <td th:text="${boardDto.movie.movieTitle}"></td>
-                        <td th:text="${boardDto.boardTitle}"></td>
+                        <td th:text="${boardDto.movie != null} ? ${boardDto.movie.movieTitle} : 'No Movie'"></td>
+                        <td th:text="${boardDto.boardDate}"></td>
                         <td th:text="${boardDto.boardTitle}"></td>
                         <td th:text="${boardDto.boardTitle}"></td>
                     </tr>
@@ -66,19 +66,13 @@
             </button>
         </form>
     </div>
-    <a th:if="${startPage > 1}" th:href="@{/(page=${startPage - pageSize - 1})}" class="btn btn-default">이전</a>
+
+        <a th:href="@{/(page=${startPage-2})}" class="btn btn-default">이전</a>
     <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
         <a th:if="${page != nowPage}" th:href="@{/(page=${page-1})}" th:text ="${page}"></a>
         <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
     </th:block>
     <a th:if="${endPage < totalPages}" th:href="@{/(page=${endPage})}" class="btn btn-default">다음</a>
-
-    <!--    <a th:href="@{/(page=${startPage-2})}" class="btn btn-default">이전</a>-->
-<!--    <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">-->
-<!--        <a th:if="${page != nowPage}" th:href="@{/(page=${page-1})}" th:text ="${page}"></a>-->
-<!--        <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>-->
-<!--    </th:block>-->
-<!--    <a th:if="${endPage < totalPages}" th:href="@{/(page=${endPage})}" class="btn btn-default">다음</a>-->
     <!--
         block : 블록 역할
         page:numbers.sequence : startPage부터 endPage까지의 숫자 시퀀스 생성. 각각의 숫자를 page 변수에 할당

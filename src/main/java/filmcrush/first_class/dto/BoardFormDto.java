@@ -21,7 +21,7 @@ public class BoardFormDto {
 
     private Long boardScore; // 유저 개인의 별점
 
-    private Movie movie;
+    private Movie movie = new Movie();
 
     private String boardContent; // 리뷰 본문 내용
 

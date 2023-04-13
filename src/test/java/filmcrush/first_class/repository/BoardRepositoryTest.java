@@ -1,7 +1,10 @@
 package filmcrush.first_class.repository;
 
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import filmcrush.first_class.entity.Board;
 import filmcrush.first_class.entity.Movie;
+import filmcrush.first_class.entity.QBoard;
 import filmcrush.first_class.entity.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -44,7 +49,7 @@ class BoardRepositoryTest {
         //    board.setUser(new User());
             board.setBoardTitle("테스트 리뷰 제목" + i);
             board.setBoardScore(4L);
-            board.setBoardContent("테스트 리뷰 내용");
+            board.setBoardContent("테스트 리뷰 내용" + i);
             board.setReplyNum(10L + i);
             board.setLikeNum(0L + i);
             board.setViewNum(10L);
@@ -64,5 +69,26 @@ class BoardRepositoryTest {
 
             System.out.println(board.toString() + "테스트결과아아아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
         }
+    }
+
+    @PersistenceContext
+    EntityManager em;
+
+    @Test
+    @DisplayName("Querydsl 조회 테스트")
+    public void queryDslTest() {
+        this.createBoardList();
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        QBoard qBoard = QBoard.board;
+        JPAQuery<Board> query = queryFactory.selectFrom(qBoard)
+                .where(qBoard.boardTitle.eq("테스트 리뷰 제목1"))
+                .where(qBoard.boardContent.eq("%" + "내용" + "%"))
+                .orderBy(qBoard.boardTitle.desc());
+        List<Board> boardList = query.fetch();
+
+        for(Board board : boardList) {
+            System.out.println(board.toString());
+        }
+
     }
 }

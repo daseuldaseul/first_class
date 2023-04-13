@@ -1,5 +1,6 @@
 package filmcrush.first_class.service;
 
+import filmcrush.first_class.dto.BoardFormDto;
 import filmcrush.first_class.entity.Board;
 import filmcrush.first_class.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,11 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    public void write(Board board) {
-        boardRepository.save(board);
-    }
+//    public Long write(BoardFormDto boardFormDto) {
+//        Board board = boardFormDto.createBoard();
+//        boardRepository.save(board);
+//        return board.getBoardIndex();
+//    }
 
     public Page<Board> boardList(Pageable pageable) {
         return boardRepository.findAll(pageable);
