@@ -5,33 +5,19 @@
   <title>Title</title>
 </head>
 <body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-        $(function() {
-            $("form").on("submit", function() {
-                const searchType = $("#searchType").val();
-                const input = $("input[name='keyword']");
-                const originalName = input.attr("name");
 
-                input.attr("name", searchType);
-
-                // 다음 이벤트에서 원래대로 되돌려놓기 위해 setTimeout을 사용합니다.
-                setTimeout(function() {
-                    input.attr("name", originalName);
-                }, 0);
-            });
-        });
-</script>
 <form action="/search" method="GET" role="search">
-  <select id="searchType" onchange="search(this.value)">
-    <option value="title">제목</option>
-    <option value="user_id">글쓴이</option>
+  <select name="searchType" id="searchType">
+    <option name="title" value="title">제목</option>
+    <option name="userId" value="userId">글쓴이</option>
+    <option name="movieTitle" value="movieTitle">영화제목</option>
   </select>
 
   <input type="text" name="keyword" class="form-control" id="search" placeholder="검색">
   <button class="btn btn-success bi bi-search">검색</button>
 
 </form>
+
 <table>
 
   <thead>
@@ -53,9 +39,9 @@
 
 </table>
 <!-- 페이징 수정해야 함~~ -->
-<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-  <a th:if="${page != nowPage}" th:href="@{/search(page=${page-1}, searchType=${searchType})}" th:text="${page}"></a>
-  <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
-</th:block>
+<!--<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">-->
+<!--  <a th:if="${page != nowPage}" th:href="@{/search(page=${page-1}, searchType=${searchType})}" th:text="${page}"></a>-->
+<!--  <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>-->
+<!--</th:block>-->
 </body>
 </html>

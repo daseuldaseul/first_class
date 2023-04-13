@@ -86,30 +86,47 @@ public class BoardController {
     }
 
     @GetMapping(value = "/search")
-    public String search(String title, Model model, @PageableDefault(page=0, size=3, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String searchKeyword(String searchType, String keyword, Model model, @PageableDefault(page=0, size=3, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable){
+        String result = "";
+        if(searchType.equals("title")){
+            result = searchTitle(keyword, model, pageable);
+        }else if(searchType.equals("movieTitle")){
+            result = searchMovieTitle(keyword, model, pageable);
+        }
 
-        // List<Board> boardList = boardRepository.findAll();
 
-        Page<Board> searchList = boardService.search(title, pageable);
-        //
-        //        //페이지 블럭 처리
-        //        //1을 더해주는 이유 : pageable은 0부터 처리됨
-        //        // getPageable() : Page 객체를 생성할 때 사용된 Pageable 객체(페이지 번호, 사이즈, 정렬 방법등의 정보를 담고 있음) 반환
-        // getPageNumber() : Pageable 객체에서 현재 페이지의 번호를 반환함.
+
+
+        return result;
+    }
+
+    public String searchTitle(String keyword, Model model, @PageableDefault(page=0, size=3, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable){
+        Page<Board> searchList = boardService.searchTitle(keyword, pageable);
         int nowPage = searchList.getPageable().getPageNumber() + 1;
-
-        // 현재 페이지에서 가장 앞 페이지 번호를 보여줄 변수.
-        // max 함수 : 현재 페이지에서 -4를 해줬을 때 1보다 작은 수가 나오면 안됨
-        // 보통 UI에서 페이징 좌우로 4페이지 정도씩(총 9~10개정도) 보여주는게 일반적이므로 4로 지정.
         int startPage = Math.max(nowPage - 4, 1);
         int endPage = Math.min(nowPage + 9, searchList.getTotalPages());
-
         model.addAttribute("searchList", searchList);
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
+        return "board/boardSearch";
+    }
+
+    public String searchMovieTitle(String keyword, Model model, @PageableDefault(page=0, size=3, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable){
+        Movie movie = movieRepository.findByMovieTitle(keyword);
+        Page<Board> searchList = boardService.searchMovie(movie, pageable);
+
+        int nowPage = searchList.getPageable().getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 9, searchList.getTotalPages());
+        model.addAttribute("searchList", searchList);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         return "board/boardSearch";
     }
+
+
 }
