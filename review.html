@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>FilmCrush</title>
+  <title>리뷰 게시글 페이지</title>
   <link rel="stylesheet" href="css/review.css">
 </head>
 <body>
@@ -50,20 +50,15 @@
           <img id="like-icon" src="img/like.png">
           <p>233</p>
         </div>
-      <div class="bt-wrap">
-        <a href="#" id="modify">수정</a>
-        <a href="#" id="delete">삭제</a>
+        <!-- 수정 / 삭제버튼 작성자한테만 보이기 -->
+      <div>
+        <button class="btn">수정</button>
+        <button class="btn">삭제</button>
       </div>
       </div>
       <div class="reply-container">
-        <div class="reply-write">
-          <form>
-            <p><textarea id="reply-input" cols="50" rows="1"></textarea></p>
-            <div class="bt-wrap">
-              <a href="#" id="reply">댓글등록</a>
-            </div>
-          </form>
-        </div>
+            <textarea id="reply-input" cols="50" rows="1"></textarea>
+            <button class="btn">댓글등록</button>
       </div>
     </div>
   </div>

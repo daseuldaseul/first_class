@@ -60,8 +60,18 @@
 }
 
 /* 댓글 입력 */
+.reply-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.reply-container .btn {
+  margin-left: 20px;
+}
+
 #reply-input {
-  width: 100%;
   font-size: 20px;
   font-family: 'SBAggroB';
   background: white;
@@ -71,14 +81,4 @@
   line-height: 45px;
 }
 
-/* 버튼 */
-#modify, #delete, #reply {
-  min-width: 50px;
-  height: 15px;
-  margin-bottom: 50px;
-}
 
-#delete:hover, #modify:hover, #reply:hover {
-  background: #DE2A60;
-  color: white;
-}

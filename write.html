@@ -2,41 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FilmCrush</title>
+    <title>리뷰작성 페이지</title>
     <link rel="stylesheet" href="css/write.css">
 </head>
 <body>
 <div class="wrapper">
-    <div class="write-container">
-        <h2>리뷰작성</h2>
-        <div class="title">
-            <input id="title-input" type="text" placeholder="제목">
-        </div>
-        <div class="movie">
-          <!--  영화 검색하면 정보 불러오기  -->
-            영화검색 <input class="movie-search" type="text" placeholder="영화제목을 입력하세요">
-          <!--  별점주기  -->
-            <form id="score" method="post" action="#">
-                <fieldset>
-                    <legend>점수주기</legend>
-                    <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
-                    <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
-                    <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
-                    <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
-                    <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
-                </fieldset>
-            </form>
-        </div>
-        <div class="contents">
-     <!--  본문작성  -->
-            <form>
-                <p><textarea id="content-input" cols="50" rows="10"></textarea></p>
-                <div class="bt-wrap">
-                    <a href="#" id="write">등록하기</a>
-                </div>
-            </form>
-        </div>
+  <div class="write-container">
+    <h2 class="m-a">리뷰작성</h2>
+    <div class="title m-a">
+        <input id="title-input" type="text" placeholder="제목">
     </div>
+    <div class="movie">
+    <!--  영화 검색하면 정보 불러오기  -->
+      영화검색 <input class="movie-search" type="text" placeholder="영화제목을 입력하세요">
+      <button class="btn">Search</button>
+    <!--  별점주기  -->
+      <form id="score" method="post" action="#">
+        <fieldset>
+          <legend>점수주기</legend>
+          <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
+          <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
+          <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
+          <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
+          <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
+        </fieldset>
+      </form>
+    </div>
+ <!--  본문작성  -->
+    <div class="contents m-a">
+      <p><textarea id="content-input" cols="50" rows="10"></textarea></p>
+      <button class="btn">등록하기</button>
+    </div>
+  </div>
 </div>
 </body>
 </html>
