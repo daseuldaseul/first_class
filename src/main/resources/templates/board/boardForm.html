@@ -8,22 +8,6 @@
 </head>
 <th:block layout:fragment="script">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script th:inline="javascript">
-        $(function() {
-            $("form").on("submit", function() {
-                const searchType = $("#searchType").val();
-                const input = $("input[name='keyword']");
-                const originalName = input.attr("name");
-
-                input.attr("name", searchType);
-
-                // 다음 이벤트에서 원래대로 되돌려놓기 위해 setTimeout을 사용합니다.
-                setTimeout(function() {
-                    input.attr("name", originalName);
-                }, 0);
-            });
-        });
-    </script>
 
 </th:block>
 <th:block layout:fragment="css">
@@ -59,7 +43,7 @@
                 <strong>리뷰 게시판</strong>
                 <p>영화에 대한 감상을 자유롭게 남겨보세요.</p>
                 <form action="/search" method="GET" role="search">
-                    <select name="searchType" id="searchType" onchange="search(this.value)">
+                    <select name="searchType" id="searchType">
                         <option name="title" value="title">제목</option>
                         <option name="userId" value="userId">글쓴이</option>
                         <option name="movieTitle" value="movieTitle">영화제목</option>

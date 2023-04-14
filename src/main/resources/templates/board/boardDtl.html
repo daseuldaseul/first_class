@@ -26,8 +26,8 @@
     <div class="container">
       <div class="review-container">
         <div class="title-area">
-          <strong class="movie-name" >[기생충]</strong>
-          <strong class="contents-title">올해 최고의영화!</strong>
+          <strong class="movie-name" th:text="${'['+boardDto.movie.movieTitle+']'}" >[머릿말]</strong>
+          <strong class="contents-title" th:text="${boardDto.boardTitle}">올해 최고의영화!</strong>
           <ul id="title-info">
             <li class="nickname">귀염둥이</li>
             <li class="view">조회수</li>
