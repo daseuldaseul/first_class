@@ -1,5 +1,6 @@
 package filmcrush.first_class.service;
 
+import filmcrush.first_class.dto.BoardDto;
 import filmcrush.first_class.dto.BoardFormDto;
 import filmcrush.first_class.entity.Board;
 import filmcrush.first_class.entity.Movie;
@@ -54,5 +55,12 @@ public class BoardService {
     public Page<Board> searchUser(List<Users> user, Pageable pageable){
         Page<Board> boardList = boardRepository.findByUserIn(user, pageable);
         return boardList;
+    }
+
+    @Transactional
+    public BoardDto getBoardView(Long boardIndex){
+        Board board = boardRepository.findByBoardIndex(boardIndex);
+        BoardDto boardDto = BoardDto.of(board);
+        return boardDto;
     }
 }

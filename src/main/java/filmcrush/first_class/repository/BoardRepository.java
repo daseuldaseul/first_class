@@ -17,7 +17,6 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
 
     List<Board> findAll();
 
-    List<BoardFormDto> findByBoardIndex(Long boardIndex);
 
     Page<Board> findByBoardTitleContaining(String keyword, Pageable pageable);
 
@@ -31,5 +30,7 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
     Page<Board> findAllByOrderByViewNumDesc(Pageable pageable);
 
     Page<Board> findAllByOrderByLikeNumDesc(Pageable pageable);
+
+    Board findByBoardIndex(Long boardIndex);
 
 }
