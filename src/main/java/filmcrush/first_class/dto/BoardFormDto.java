@@ -2,7 +2,7 @@ package filmcrush.first_class.dto;
 
 import filmcrush.first_class.entity.Board;
 import filmcrush.first_class.entity.Movie;
-import filmcrush.first_class.entity.User;
+import filmcrush.first_class.entity.Users;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
@@ -17,11 +17,11 @@ public class BoardFormDto {
 
     private String boardTitle; // 게시글 제목
 
-    private User user; // 게시글 작성자
+    private Users user; // 게시글 작성자
 
     private Long boardScore; // 유저 개인의 별점
 
-    private Movie movie = new Movie();
+    private String movie;
 
     private String boardContent; // 리뷰 본문 내용
 
