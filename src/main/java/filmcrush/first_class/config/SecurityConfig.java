@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 ;
         http.authorizeRequests()
-                .antMatchers("/board/write").hasRole("USER")
+                .antMatchers("/board/write").hasAnyRole("USER", "ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin();

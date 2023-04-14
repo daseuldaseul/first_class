@@ -29,11 +29,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="boardDto, status: ${boardList}">
+                    <tr th:each="boardDto, status: ${boardList.getContent()}">
                         <td th:text="${boardDto.boardIndex}"></td>
                         <td th:text="${boardDto.movie != null} ? ${boardDto.movie.movieTitle} : 'No Movie'"></td>
                         <td th:text="${boardDto.boardTitle}"></td>
-                        <td th:text="${boardDto.boardTitle}"></td>
+                        <td th:text="${boardDto.user != null} ? ${boardDto.user.userNickname} : 'No User'"></td>
                         <td th:text="${boardDto.viewNum}"></td>
                         <td th:text="${boardDto.boardDate}"></td>
                     </tr>

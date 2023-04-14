@@ -14,6 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -104,14 +107,20 @@ public class BoardController {
     /**
      * 글쓰기 페이지(입력)
      * **/
+//    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping(value = "/board/write")
     public String boardWrite(@ModelAttribute("boardFormDto") BoardFormDto boardFormDto, Model model) {
         Board board = new Board();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String author = authentication.getName();
+
         board.setBoardTitle(boardFormDto.getBoardTitle());
         board.setBoardContent(boardFormDto.getBoardContent());
         board.setBoardDate(LocalDateTime.now());
-
+        board.setUser(userRepository.findByUserId(author));
         board.setMovie(movieRepository.findByMovieTitle(boardFormDto.getMovie()));
+
+
         boardRepository.save(board);
         model.addAttribute("boardFormDto", new BoardFormDto());
         return "redirect:/";
