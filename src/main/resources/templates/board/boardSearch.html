@@ -16,6 +16,7 @@
   <input type="text" name="keyword" class="form-control" id="search" placeholder="검색">
   <button class="btn btn-success bi bi-search">검색</button>
 
+
 </form>
 <table>
 
@@ -39,19 +40,13 @@
 
 </table>
 
-<a th:href="@{|${#httpServletRequest.requestURI}?${#httpServletRequest.queryString}&searchType=${param.searchType}&keyword=${param.keyword}&page=${startPage-2}|}" class="btn btn-default">이전</a>
-<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-  <a th:if="${page != nowPage}" th:href="@{|${#httpServletRequest.requestURI}?${#httpServletRequest.queryString}&searchType=${param.searchType}&keyword=${param.keyword}&page=${page-1}|}" th:text ="${page}"></a>
-  <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
-</th:block>
-<a th:if="${endPage < totalPages}" th:href="@{|${#httpServletRequest.requestURI}?${#httpServletRequest.queryString}&searchType=${param.searchType}&keyword=${param.keyword}&page=${endPage}|}" class="btn btn-default">다음</a>
 
-<!--    <a th:href="@{/search(page=${startPage-2})}" class="btn btn-default">이전</a>-->
-<!--    <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">-->
-<!--      <a th:if="${page != nowPage}" th:href="@{/search(page=${page-1})}" th:text ="${page}"></a>-->
-<!--      <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>-->
-<!--    </th:block>-->
-<!--    <a th:if="${endPage < totalPages}" th:href="@{/search(page=${endPage})}" class="btn btn-default">다음</a>-->
+    <a th:href="@{/search(page=${startPage-2}, searchType=${param.searchType}, keyword=${param.keyword})}" class="btn btn-default">이전</a>
+    <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+      <a th:if="${page != nowPage}" th:href="@{/search(page=${page-1}, searchType=${param.searchType}, keyword=${param.keyword})}" th:text ="${page}"></a>
+      <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+    </th:block>
+    <a th:if="${endPage < totalPages}" th:href="@{/search(page=${endPage}, searchType=${param.searchType}, keyword=${param.keyword})}" class="btn btn-default">다음</a>
 
 </body>
 </html>

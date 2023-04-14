@@ -23,7 +23,6 @@ public class BoardService {
         return boardRepository.findAll(pageable);
     }
 
-
     @Transactional
     public Page<Board> searchTitle(String title, Pageable pageable){
         Page<Board> boardList = boardRepository.findByBoardTitleContaining(title, pageable);

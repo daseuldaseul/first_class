@@ -138,17 +138,19 @@ public class BoardController {
 
 
     @GetMapping(value = "/search")
-    public String searchKeyword(String searchType, String keyword, Model model, @PageableDefault(page=0, size=10, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable){
+    public String searchKeyword(@RequestParam String keyword, @RequestParam String searchType, Model model, @PageableDefault(page=0, size=10, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable){
         String result = "";
         if(searchType.equals("title")){
             result = searchTitle(keyword, model, pageable);
         }else if(searchType.equals("movieTitle")){
             result = searchMovieTitle(keyword, model, pageable);
+        }else if(searchType.equals("userId")){
+            result = searchUserNickname(keyword, model, pageable);
         }
         return result;
     }
 
-    public String searchTitle(String keyword, Model model, @PageableDefault(page=0, size=3, sort="boardIndex",
+    public String searchTitle(@RequestParam String keyword, Model model, @PageableDefault(page=0, size=3, sort="boardIndex",
             direction = Sort.Direction.DESC) Pageable pageable){
         Page<Board> searchList = boardService.searchTitle(keyword, pageable);
 //        int nowPage = searchList.getPageable().getPageNumber() + 1;
@@ -194,11 +196,12 @@ public class BoardController {
         model.addAttribute("prevPage", prevPage);
         model.addAttribute("nextPage", nextPage);
         model.addAttribute("totalPages", searchList.getTotalPages());
+        model.addAttribute("keyword", keyword);
 
         return "board/boardSearch";
     }
 
-    public String searchMovieTitle(String keyword, Model model, @PageableDefault(page=0, size=3, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable){
+    public String searchMovieTitle(@RequestParam String keyword, Model model, @PageableDefault(page=0, size=3, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable){
         List<Movie> movieList = movieRepository.findByMovieTitleContaining(keyword);
         // keyword를 가진 Movie 객체 리스트를 movieList 담음
 
@@ -248,7 +251,7 @@ public class BoardController {
         return "board/boardSearch";
     }
 
-    public String searchUserNickname(String keyword, Model model, @PageableDefault(page=0, size=3, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable){
+    public String searchUserNickname(@RequestParam String keyword, Model model, @PageableDefault(page=0, size=3, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable){
 
         List<Users> userList = userRepository.findByUserNicknameContaining(keyword);
         Page<Board> searchList = boardService.searchUser(userList, pageable);
