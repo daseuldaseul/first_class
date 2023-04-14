@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>메인 페이지</title>
 </head>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
+<th:block layout:fragment="script">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script th:inline="javascript">
         $(function() {
             $("form").on("submit", function() {
                 const searchType = $("#searchType").val();
@@ -21,60 +23,94 @@
                 }, 0);
             });
         });
-</script>
+    </script>
 
-<body>
-    <h1>메인 게시글 페이지 ~</h1>
-    <div>
-        <div>
+</th:block>
+<th:block layout:fragment="css">
+</th:block>
 
-            <form action="/search" method="GET" role="search">
-                <select id="searchType" onchange="search(this.value)">
-                    <option value="title">제목</option>
-                    <option value="user_id">글쓴이</option>
-                </select>
+<div layout:fragment="content">
 
-                <input type="text" name="keyword" class="form-control" id="search" placeholder="검색">
-                <button class="btn btn-success bi bi-search">검색</button>
+    <div class="wrapper">
+        <div class="container">
+            <strong class="poster-title"> 4월 개봉영화 </strong>
+            <div class="poster-container">
+                <ul class="poster">
+                    <li><img class="poster-img" src="/img/1.jpg"></li>
+                    <li>리바운드</li>
+                </ul>
+                <ul class="poster">
+                    <li><img class="poster-img" src="/img/2.jpg"></li>
+                    <li>패왕별희</li>
+                </ul>
+                <ul class="poster">
+                    <li><img class="poster-img" src="/img/3.jpg"></li>
+                    <li>마리아 칼라스: 세기의 디바</li>
+                </ul>
+                <ul class="poster">
+                    <li><img class="poster-img" src="/img/4.jpg"></li>
+                    <li>에어</li>
+                </ul>
+            </div>
+        </div>
 
-            </form>
+        <div class="board-wrap">
+            <div class="board-title">
+                <strong>리뷰 게시판</strong>
+                <p>영화에 대한 감상을 자유롭게 남겨보세요.</p>
+                <form action="/search" method="GET" role="search">
+                    <select id="searchType" onchange="search(this.value)">
+                        <option value="title">제목</option>
+                        <option value="user_id">글쓴이</option>
+                        <option value="movie_name">영화명</option>
+                    </select>
 
-            <table>
-                <thead>
-                <tr>
-                    <th>글번호</th>
-                    <th>제목</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="boardDto, status: ${boardList}">
-                        <td th:text="${boardDto.boardIndex}"></td>
-                        <td>
-                            <a th:href="'/board/'+${boardDto.boardIndex}" th:text="${boardDto.boardTitle}"></a>
-                        </td>
-                        <td th:text="${boardDto.movie != null} ? ${boardDto.movie.movieTitle} : 'No Movie'"></td>
-                        <td th:text="${boardDto.boardDate}"></td>
-                        <td th:text="${boardDto.boardTitle}"></td>
-                        <td th:text="${boardDto.boardTitle}"></td>
-                    </tr>
-                </tbody>
-            </table>
+                    <input type="text" name="keyword" class="search-text" id="search" placeholder="검색">
+                    <button>검색</button>
+                </form>
+            </div>
+            <div class="board-list-wrap">
+                <div class="board-list">
+                    <div class="top">
+                        <div class="num">NO.</div>
+                        <div class="title">TITLE</div>
+                        <div class="writer">WRITER</div>
+                        <div class="date">DATE</div>
+                        <div class="count">VIEW</div>
+                    </div>
+
+                <div th:each="boardDto, status: ${boardList}" >
+                    <div class="num" th:text="${boardDto.boardIndex}"></div>
+                    <div class="title">
+                        <a th:href="'/board/'+${boardDto.boardIndex}" th:text="${boardDto.boardTitle}"></a>
+                    </div>
+                    <div class="writer" th:text="${boardDto.movie != null} ? ${boardDto.movie.movieTitle} : 'No Movie'"></div>
+                    <div class="date" th:text="${boardDto.boardDate}"></div>
+                    <div class="count" th:text="${boardDto.boardTitle}"></div>
+                </div>
+                </div>
+                <div class="board-page">
+                    <a th:href="@{/(page=${0})}" class="bt first"><<</a>
+                    <a th:href="@{/(page=${startPage-2})}" class="bt prev"><</a>
+                    <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+                        <a th:if="${page != nowPage}" th:href="@{/(page=${page-1})}" th:text ="${page}" class="num"></a>
+                        <a th:if="${page==nowPage}" th:text ="${page}" class="num on"></a>
+                    </th:block>
+                    <a th:if="${endPage < totalPages}" th:href="@{/(page=${endPage})}" class="bt next">></a>
+                    <a th:href="@{/(page=${totalPages-1})}" class="bt last">>></a>
+                </div>
+                <div class="bt-wrap" id="main-button">
+                    <form action="/board/write" method="GET">
+                        <button class="btn" type="submit">
+                            리뷰작성
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-    <div>
-        <form action="/board/write" method="GET">
-            <button type="submit">
-                글쓰기
-            </button>
-        </form>
-    </div>
+</div>
 
-        <a th:href="@{/(page=${startPage-2})}" class="btn btn-default">이전</a>
-    <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-        <a th:if="${page != nowPage}" th:href="@{/(page=${page-1})}" th:text ="${page}"></a>
-        <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
-    </th:block>
-    <a th:if="${endPage < totalPages}" th:href="@{/(page=${endPage})}" class="btn btn-default">다음</a>
     <!--
         block : 블록 역할
         page:numbers.sequence : startPage부터 endPage까지의 숫자 시퀀스 생성. 각각의 숫자를 page 변수에 할당

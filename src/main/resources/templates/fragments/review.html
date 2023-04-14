@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>리뷰 게시글 페이지</title>
+  <link rel="stylesheet" href="css/review.css"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layouts/layout1}">>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <div class="review-container">
+        <div class="title-area">
+        <strong class="movie-name" >[기생충]</strong>
+        <strong class="contents-title">올해 최고의영화!</strong>
+        <ul id="title-info">
+          <li class="nickname">귀염둥이</li>
+          <li class="view">조회수</li>
+          <li class="date">2023.04.10</li>
+        </ul>
+      </div>
+        <!-- DB에서 자료 받아오기 -->
+      <div class="movie-info">
+        <img class="poster-picture" src="./img/1.jpg">
+        <ul>
+          <li class="movie-title">제목:</li>기생충
+          <li class="movie-director">감독:</li>봉준호
+          <li class="movie-actor">출연:</li>송강호, 이선균, 조여정, 최우식
+          <li class="movie-score">별점:</li>
+        </ul>
+        <!-- 해시태그 기능 추가해야됨-->
+      </div>
+      <div class="contents">
+        틴탑위고잉락킷드랍핏탑빗헤이돈스탑잇팝잇
+        틴탑위고잉락킷드랍핏탑빗헤이돈스탑잇팝잇
+        틴탑위고잉락킷드랍핏탑빗헤이돈스탑잇팝잇
+        틴탑위고잉락킷드랍핏탑빗헤이돈스탑잇팝
+        쟌나나니에요쟌나나니에요우리분위기정말쟌나나니에요
+        쟌나나니에요쟌나나니에요쟌나나니에요우리분위기정말쟌나나니에요
+        쟌나나니에요쟌나나니에요쟌나나니에요우리분위기정말쟌나나니에요
+        틴탑위고잉락킷드랍핏탑빗헤이돈스탑잇팝잇
+        틴탑위고잉락킷드랍핏탑빗헤이돈스탑잇팝잇
+        틴탑위고잉락킷드랍핏탑빗헤이돈스탑잇팝잇
+        틴탑위고잉락킷드랍핏탑빗헤이돈스탑잇팝
+        쟌나나니에요쟌나나니에요우리분위기정말쟌나나니에요
+        쟌나나니에요쟌나나니에요쟌나나니에요우리분위기정말쟌나나니에요
+        쟌나나니에요쟌나나니에요쟌나나니에요우리분위기정말쟌나나니에요
+      </div>
+        <!-- 하트누르면 색깔바뀌면서 숫자 증가 기능넣기 -->
+        <div class="like">
+          <img id="like-icon" src="img/like.png">
+          <p>233</p>
+        </div>
+        <!-- 수정 / 삭제버튼 작성자한테만 보이기 -->
+      <div>
+        <button class="btn">수정</button>
+        <button class="btn">삭제</button>
+      </div>
+      </div>
+      <div class="reply-container">
+            <textarea id="reply-input" cols="50" rows="1"></textarea>
+            <button class="btn">댓글등록</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

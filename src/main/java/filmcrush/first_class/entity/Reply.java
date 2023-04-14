@@ -24,7 +24,7 @@ public class Reply {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Users user;
 
     private String replyContent; // 댓글 내용
 

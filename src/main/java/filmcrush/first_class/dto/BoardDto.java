@@ -2,7 +2,7 @@ package filmcrush.first_class.dto;
 
 import filmcrush.first_class.entity.Board;
 import filmcrush.first_class.entity.Movie;
-import filmcrush.first_class.entity.User;
+import filmcrush.first_class.entity.Users;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;

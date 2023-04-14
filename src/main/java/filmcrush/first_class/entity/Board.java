@@ -22,7 +22,7 @@ public class Board {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user; // 게시글 작성자
+    private Users user; // 게시글 작성자
 
     private Long boardScore; // 유저 개인의 별점
 
