@@ -1,13 +1,12 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>리뷰작성 페이지</title>
     <link rel="stylesheet" href="css/write.css">
-    <script src="include.js" defer></script>
 </head>
 <body>
 <div class="wrapper">
-  <header data-include="./header.html"></header>
   <div class="write-container">
     <h2 class="m-a">리뷰작성</h2>
     <div class="title m-a">
@@ -15,7 +14,7 @@
     </div>
     <div id="search">
     <!--  영화 검색하면 정보 불러오기  -->
-      영화검색 <input class="movie-search" type="text">
+      영화검색 <input class="movie-search" type="text" placeholder="영화제목을 입력하세요">
       <button class="btn">찾기</button>
     <!--  별점주기  -->
     </div>
@@ -34,8 +33,6 @@
  <!--  본문작성  -->
     <div class="contents m-a">
       <p><textarea id="content-input" cols="50" rows="10"></textarea></p>
-    </div>
-    <div class="bt-wrap">
       <button class="btn">등록하기</button>
     </div>
   </div>

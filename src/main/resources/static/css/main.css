@@ -40,8 +40,8 @@ ul, li {
 /* 헤더 */
 .header {
   max-width: 1200px;
-  height: 90px;
-  margin: auto;
+  height: 100px;
+  padding: 25px auto;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -49,26 +49,23 @@ ul, li {
   align-items: center
 }
 
-.header-logo {
-  display: flex;
-  margin: auto;
-}
+.header a{
+ font-family: 'SBAggroB';
 
-#logo {
-  width: 320px;
-  height: 100px;
 }
 
 .join {
   float: right;
-  margin-right: 30px;
-/* 스타일 제거 */
-  background-color: transparent;
-  border:none; box-shadow:none;
-  border-radius:0; padding:0;
-  overflow:visible; cursor:pointer
 }
 
+#logo {
+  width: 300px;
+  height: 100px;
+}
+
+.join:hover{
+  color: #DE2A60;
+}
 
 /* 개봉영화 구역 */
 .poster-container {

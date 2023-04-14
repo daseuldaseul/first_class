@@ -1,15 +1,35 @@
+<!-- boardForm.html이랑 합침 -->
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+        a:hover{
+            text-decoration:none;
+        }
+        .center{
+            text-align:center;
+        }
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+
+
+</div>
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/main.css">
-    <script src="include.js" defer></script>
     <title>메인 페이지</title>
 </head>
 <body>
     <div class="wrapper">
-        <header data-include="./header.html"></header>
         <div class="container">
-            <strong class="poster-title"> 4월 개봉영화 </strong>
+                <strong class="poster-title"> 4월 개봉영화 </strong>
             <div class="poster-container">
                  <ul class="poster">
                     <li><img class="poster-img" src="./img/1.jpg"></li>
@@ -28,8 +48,8 @@
                     <li>에어</li>
                 </ul>
             </div>
+
         </div>
-        <!-- 게시판영역 -->
         <div class="board-wrap">
             <div class="board-title">
                 <strong>리뷰 게시판</strong>
@@ -87,7 +107,6 @@
                         <div class="count">27</div>
                     </div>
                 </div>
-                <!-- 페이징 번호 -->
                 <div class="board-page">
                     <a href="#" class="bt first"><<</a>
                     <a href="#" class="bt prev"><</a>
@@ -100,7 +119,7 @@
                     <a href="#" class="bt last">>></a>
                 </div>
                 <div class="bt-wrap" id="main-button">
-                    <a href="write.html" class="on">리뷰작성</a>
+                    <a href="fragments/write.html" class="on">리뷰작성</a>
                 </div>
             </div>
         </div>
