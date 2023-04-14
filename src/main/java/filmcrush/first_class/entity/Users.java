@@ -18,7 +18,7 @@ public class Users {
 
     @Id
     @Column(name = "user_id")
-    private String id; // 회원 아이디
+    private String userId; // 회원 아이디
 
     @Column(nullable = false)
     private String userPassword; // 비밀번호
@@ -37,7 +37,7 @@ public class Users {
 
     public static Users createUser(UserFormDto userFormDto, PasswordEncoder passwordEncoder){
         Users user = new Users();
-        user.setId(userFormDto.getId());
+        user.setUserId(userFormDto.getId());
         user.setUserName(userFormDto.getName());
         user.setUserEmail(userFormDto.getEmail());
         user.setUserNickname(userFormDto.getNickname());

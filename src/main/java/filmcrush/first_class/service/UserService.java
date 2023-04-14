@@ -28,7 +28,7 @@ public class UserService implements UserDetailsService{
     }
 
     private void validateDuplicateUser(Users user){
-        Users findUser = userRepository.findByUserName(user.getUserName());
+        Users findUser = userRepository.findByUserEmail(user.getUserEmail());
         if(findUser != null){
             throw new IllegalStateException("이미 가입된 회원입니다");
         }
@@ -36,14 +36,14 @@ public class UserService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException{
-        Users user = userRepository.findByUserName(id);
+        Users user = userRepository.findByUserId(id);
 
         if(user == null){
             throw new UsernameNotFoundException(id);
         }
 
         return User.builder()
-                .username(user.getUserName())
+                .username(user.getUserId())
                 .password(user.getUserPassword())
                 .roles(user.getRole().toString())
                 .build();

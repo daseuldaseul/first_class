@@ -111,7 +111,7 @@ public class BoardController {
         board.setBoardContent(boardFormDto.getBoardContent());
         board.setBoardDate(LocalDateTime.now());
 
-//        board.setMovie(movieRepository.findByMovieTitle(boardFormDto.getMovie()));
+        board.setMovie(movieRepository.findByMovieTitle(boardFormDto.getMovie()));
         boardRepository.save(board);
         model.addAttribute("boardFormDto", new BoardFormDto());
         return "redirect:/";
@@ -122,6 +122,7 @@ public class BoardController {
      * **/
     @GetMapping(value = "/board/write")
     public String boardWrite(Model model) {
+
         model.addAttribute("boardFormDto", new BoardFormDto());
         return "board/boardWrite";
     }

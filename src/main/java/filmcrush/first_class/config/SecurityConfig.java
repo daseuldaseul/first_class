@@ -23,15 +23,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .loginPage("/members/login")
+                .loginPage("/user/login")
                 .defaultSuccessUrl("/")
                 .usernameParameter("id")
-                .failureUrl("/members/login/error")
+                .failureUrl("/user/login/error")
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                 .logoutSuccessUrl("/")
                 ;
+        http.authorizeRequests()
+                .antMatchers("/board/write").hasRole("USER")
+                .anyRequest().permitAll()
+                .and()
+                .formLogin();
     }
     @Bean
     public PasswordEncoder passwordEncoder(){
