@@ -303,9 +303,9 @@ public class BoardController {
      * **/
     @GetMapping(value = "board/{boardIndex}")
     public String boardDtl(Model model, @PathVariable("boardIndex") Long boardIndex){
-        BoardDto boardDto = boardService.getBoardView(boardIndex);
+        BoardDto board = boardService.getBoardView(boardIndex);
 
-        model.addAttribute("boardDto", boardDto);
+        model.addAttribute("boardDto", board);
         return "board/boardDtl";
     }
 

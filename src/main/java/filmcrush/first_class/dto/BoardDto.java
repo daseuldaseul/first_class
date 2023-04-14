@@ -20,6 +20,8 @@ public class BoardDto {
 
     private String boardContent;
 
+    private Movie movie;
+
     private Long replyNum;
 
     private Long likeNum;

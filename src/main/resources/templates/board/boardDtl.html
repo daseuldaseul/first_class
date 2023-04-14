@@ -20,18 +20,18 @@
 
 </th:block>
 <body>
-<div layout:fragment="content">
+<div layout:fragment="content" >
 
   <div class="wrapper">
     <div class="container">
       <div class="review-container">
         <div class="title-area">
-          <strong class="movie-name" th:text="${'['+boardDto.movie.movieTitle+']'}" >[머릿말]</strong>
+          <strong class="movie-name" th:text="${boardDto.movie.movieTitle}" >[머릿말]</strong>
           <strong class="contents-title" th:text="${boardDto.boardTitle}">올해 최고의영화!</strong>
           <ul id="title-info">
-            <li class="nickname">귀염둥이</li>
-            <li class="view">조회수</li>
-            <li class="date">2023.04.10</li>
+            <li class="nickname" >글쓴이</li>
+            <li class="view" th:text="${boardDto.viewNum != null} ? ${boardDto.viewNum} : '0'">조회수</li>
+            <li class="date" >2023.04.10</li>
           </ul>
         </div>
       </div>
