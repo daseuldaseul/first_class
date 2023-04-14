@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>리뷰 게시글 페이지</title>
   <link rel="stylesheet" href="css/review.css">
+  <script type="text/javascript" src="write.js"></script>
 </head>
 <body>
   <div class="wrapper">
@@ -45,20 +46,25 @@
         쟌나나니에요쟌나나니에요쟌나나니에요우리분위기정말쟌나나니에요
         쟌나나니에요쟌나나니에요쟌나나니에요우리분위기정말쟌나나니에요
       </div>
-        <!-- 하트누르면 색깔바뀌면서 숫자 증가 기능넣기 -->
-        <div class="like">
-          <img id="like-icon" src="img/like.png">
-          <p>233</p>
-        </div>
+      <!-- 하트누르면 숫자 증가 -->
+      <div id="like">
+        <button onclick='onClickLike()'><img id="like-btn" src="img/like.png"></button>
+        <p id="like-num">0</p>
+      </div>
         <!-- 수정 / 삭제버튼 작성자한테만 보이기 -->
-      <div>
+      <div id="modify-btn">
         <button class="btn">수정</button>
         <button class="btn">삭제</button>
       </div>
       </div>
       <div class="reply-container">
-            <textarea id="reply-input" cols="50" rows="1"></textarea>
-            <button class="btn">댓글등록</button>
+        <div class="reply-list">
+
+        </div>
+        <div class="reply-write">
+          <textarea id="reply-input" cols="50" rows="1"></textarea>
+          <button class="btn">댓글등록</button>
+        </div>
       </div>
     </div>
   </div>
