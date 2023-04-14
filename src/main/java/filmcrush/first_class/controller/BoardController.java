@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
@@ -121,4 +122,13 @@ public class BoardController {
 
         return "board/boardSearch";
     }
+
+    @GetMapping(value = "board/{boardIndex}")
+    public String boardDtl(Model model, @PathVariable("boardIndex") Long boardIndex){
+        BoardFormDto boardFormDto = boardService.getBoardView(boardIndex);
+
+        model.addAttribute("boardDto", boardFormDto);
+        return "board/BoardDtl";
+    }
+
 }

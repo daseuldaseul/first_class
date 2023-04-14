@@ -32,4 +32,11 @@ public class BoardService {
         Page<Board> boardList = boardRepository.findByBoardTitleContaining(title, pageable);
         return boardList;
     }
+
+    @Transactional
+    public BoardFormDto getBoardView(Long boardIndex){
+        Board board = boardRepository.findByBoardIndex(boardIndex);
+        BoardFormDto boardFormDto = BoardFormDto.of(board);
+        return boardFormDto;
+    }
 }

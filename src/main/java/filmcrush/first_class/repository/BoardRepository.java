@@ -15,9 +15,9 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
 
     List<Board> findAll();
 
-    List<BoardFormDto> findByBoardIndex(Long boardIndex);
+
 
     Page<Board> findByBoardTitleContaining(String title, Pageable pageable);
 
-
+    Board findByBoardIndex(Long boardIndex);
 }

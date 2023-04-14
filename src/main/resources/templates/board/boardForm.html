@@ -49,7 +49,9 @@
                 <tbody>
                     <tr th:each="boardDto, status: ${boardList}">
                         <td th:text="${boardDto.boardIndex}"></td>
-                        <td th:text="${boardDto.boardTitle}"></td>
+                        <td>
+                            <a th:href="'/board/'+${boardDto.boardIndex}" th:text="${boardDto.boardTitle}"></a>
+                        </td>
                         <td th:text="${boardDto.movie != null} ? ${boardDto.movie.movieTitle} : 'No Movie'"></td>
                         <td th:text="${boardDto.boardDate}"></td>
                         <td th:text="${boardDto.boardTitle}"></td>
