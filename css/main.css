@@ -70,7 +70,7 @@ ul, li {
 }
 
 
-/* 개봉영화 구역 */
+/* 4월 개봉영화 포스터 구역 */
 .poster-container {
   display: flex;
   flex-direction: row;
@@ -99,7 +99,7 @@ ul, li {
 }
 
 /* <a> 버튼 */
-.bt-wrap {
+.bt-wrap #main-button{
   margin-top: 30px;
   text-align: center;
   font-size: 0;
@@ -114,11 +114,6 @@ ul, li {
   font-size: 1.5rem;
   color : #DE2A60;
   font-weight: bold;
-}
-
-.bt-wrap #write {
-  background: #DE2A60;
-  color: white;
 }
 
 #main-button {
