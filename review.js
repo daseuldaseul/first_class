@@ -10,7 +10,7 @@ function onClickLike() {
         likeBtn.classList.remove('active');
         likeNum.innerText = parseInt(number) - 1;
         // 이미지 변경
-        likeBtn.src = 'img/like.png';
+        likeBtn.src = '../img/like.png';
         return;
     }
     // likeNum 증가
@@ -18,7 +18,7 @@ function onClickLike() {
     // likeNum에 결과값 출력
     likeNum.innerText = number;
     // 이미지 변경
-    likeBtn.src = 'img/like-on.png';
+    likeBtn.src = '../img/like-on.png';
     likeBtn.classList.add('active');
 }
 

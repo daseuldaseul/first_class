@@ -1,8 +1,8 @@
 @import "board.css";
 
 @font-face {
-  font-family: 'SBAggroB';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+  font-family: 'Happiness-Sans-Title';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,19 +15,23 @@
 }
 
 html {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 ul, li {
   list-style: none;
 }
 
+a {
+  color: white !important;
+}
+
 .wrapper {
   width: 100vw;
   height: 100vh;
   margin: auto;
-  font-family: 'SBAggroB';
-  color:white;
+  font-family: 'Happiness-Sans-Title';
+  color: white;
 }
 
 .container {
@@ -80,7 +84,7 @@ ul, li {
 .poster-title {
   font-size: 40px;
   display: flex;
-  padding: 100px 30px 50px;
+  padding: 100px 10px 40px;
 }
 
 .poster {
@@ -98,8 +102,8 @@ ul, li {
   margin-bottom: 10px;
 }
 
-/* <a> 버튼 */
-.bt-wrap #main-button{
+/* 버튼 */
+.bt-wrap {
   margin-top: 30px;
   text-align: center;
   font-size: 0;
@@ -120,8 +124,6 @@ ul, li {
   margin-bottom: 300px;
 }
 
-/* <button> 버튼 */
-
 .btn {
   display: inline-block;
   min-width: 50px;
@@ -130,11 +132,10 @@ ul, li {
   border: 2px solid #DE2A60;
   border-radius: 2px;
   font-size: 1.5rem;
-  font-family: 'SBAggroB';
   color : #DE2A60;
 }
 
-.btn:hover {
+.btn:hover, #main-button button:hover {
   background: #DE2A60;
-  color: white;
+  color: white !important;
 }

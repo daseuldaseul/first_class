@@ -1,3 +1,5 @@
+/* header 다른 페이지에 추가 */
+
 function includeHTML(){
     let z, elmnt, file, xhttp;
 

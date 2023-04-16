@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
-  <title>리뷰 게시글 페이지</title>
-  <link rel="stylesheet" href="css/review.css"
+  <title>FilmCrush</title>
+  <link rel="stylesheet" href="../css/review.css"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layouts/layout1}">
-  <script type="text/javascript" src="review.js"></script>
-  <script src="include.js" defer></script>
+  <link rel="icon" href="../img/favicon.png">
+  <script type="text/javascript" src="../review.js"></script>
+  <script src="../include.js" defer></script>
 </head>
 <body>
   <div class="wrapper">
@@ -22,9 +23,9 @@
           <li class="date">2023.04.10</li>
         </ul>
       </div>
-        <!-- DB에서 자료 받아오기 -->
+        <!-- 영화 정보 DB에서 받아오기 -->
       <div class="movie-info">
-        <img class="poster-picture" src="./img/parasite.png">
+        <img class="poster-picture" src="../img/parasite.png">
         <ul>
           <li class="movie-title">제목:</li>기생충
           <li class="movie-director">감독:</li>봉준호
@@ -44,7 +45,7 @@
       </div>
       <!-- 하트누르면 숫자 증가 -->
       <div id="like">
-        <button onclick='onClickLike()'><img id="like-btn" src="img/like.png"></button>
+        <button onclick='onClickLike()'><img id="like-btn" src="../img/like.png"></button>
         <p id="like-num">0</p>
       </div>
         <!-- 수정 / 삭제버튼 작성자한테만 보이기 -->
@@ -57,6 +58,7 @@
         </div>
       </div>
       </div>
+      <!-- 댓글 관련 영역 -->
       <div class="reply-container">
         <div class="reply-list">
 

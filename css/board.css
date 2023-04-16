@@ -1,12 +1,37 @@
 
 a {
   text-decoration: none;
-  color: inherit;
+  color: white;
 }
 
 .board-wrap {
   width: 1200px;
   margin: 100px auto;
+}
+ /* 게시판 검색 */
+#board-search {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+}
+
+#board-search select {
+  font-size: 1.3rem;
+  width: 100px;
+  height: 50px;
+  padding: 10px;
+}
+
+#board-search input{
+  font-size: 1.3rem;
+  width: 250px;
+  height: 50px;
+  padding: 10px;
+}
+
+#board-search-btn {
+  margin-top: 0;
+  height: 50px;
 }
 
 /* 게시판 헤더 */
@@ -22,34 +47,6 @@ a {
 .board-title p {
   margin-top: 5px;
   font-size: 1.4rem;
-}
-
-/* 버튼 */
-.bt-wrap {
-  margin-top: 30px;
-  text-align: center;
-  font-size: 0;
-}
-
-.bt-wrap a {
-  display: inline-block;
-  min-width: 80px;
-  margin-left: 10px;
-  padding: 10px;
-  border: 2px solid #DE2A60;
-  border-radius: 2px;
-  font-size: 1.5rem;
-  color : #DE2A60;
-  font-weight: bold;
-}
-
-.bt-wrap a:first-child {
-  margin-left: 0;
-}
-
-.bt-wrap a.on {
-  background: #DE2A60;
-  color: white;
 }
 
 /* 글목록 영역 */
@@ -89,6 +86,8 @@ a {
 .board-list .title {
   width: 60%;
   text-align: left;
+  /*margin-left: 20px;*/
+  padding-left: 80px;
 }
 
 .board-list .top .title {
@@ -128,13 +127,13 @@ a {
 
 .board-page a.bt {
   font-size: 1.5rem;
-  padding-top: 10px;
+  padding-top: 8px;
   letter-spacing: -1px
 }
 
 .board-page a.num {
   font-size: 1.5rem;
-  padding-top: 10px;
+  padding-top: 8px;
 }
 
 .board-page a.num.on {
@@ -142,8 +141,7 @@ a {
   background: #DE2A60;
 }
 
-/* 아니 이거 왜 안되는데  */
-.border-page a:first-child {
+.first:first-child {
   border-left: 1px solid white;
 }
 
