@@ -45,7 +45,6 @@ class MovieServiceTest {
         }
         return multipartFileList;
     }
-
     @Test
     @DisplayName("상품 등록 테스트")
     @WithMockUser(username = "admin", roles = "ADMIN")
@@ -59,7 +58,7 @@ class MovieServiceTest {
         List<MultipartFile> multipartFileList = createMultipartFiles();
         Long movieIndex = movieService.saveMovie(movieFormDto, multipartFileList);
 
-        List<MovieImg> movieImgList = movieImgRepository.findByMovieIndex(movieIndex);
+        List<MovieImg> movieImgList = movieImgRepository.findByMovie(movieIndex);
         Movie movie = movieRepository.findById(movieIndex).orElseThrow(EntityNotFoundException::new);
 
         assertEquals(movieFormDto.getMovieTitle(), movie.getMovieTitle());
@@ -69,4 +68,6 @@ class MovieServiceTest {
         assertEquals(multipartFileList.get(0).getOriginalFilename(), movieImgList.get(0).getOriImgName());
     }
 
+
 }
+

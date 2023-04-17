@@ -22,7 +22,7 @@ import java.util.List;
 public class MovieService {
     private final MovieRepository movieRepository;
     private final MovieImgService movieImgService;
-    private final MovieImgRepository movieImgRepository;
+  //  private final MovieImgRepository movieImgRepository;
 
     public Long saveMovie(MovieFormDto movieFormDto, List<MultipartFile> movieImgFileList) throws Exception {
         //상품 등록
