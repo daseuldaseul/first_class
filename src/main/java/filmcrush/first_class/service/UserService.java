@@ -28,10 +28,21 @@ public class UserService implements UserDetailsService{
     }
 
     private void validateDuplicateUser(Users user){
-        Users findUser = userRepository.findByUserEmail(user.getUserEmail());
-        if(findUser != null){
-            throw new IllegalStateException("이미 가입된 회원입니다");
+        Users findUserEmail = userRepository.findByUserEmail(user.getUserEmail());
+        if(findUserEmail != null){
+            throw new IllegalStateException("이미 가입된 이메일입니다");
         }
+
+        Users findUserId = userRepository.findByUserEmail(user.getUserId());
+        if(findUserId != null){
+            throw new IllegalStateException("이미 사용중인 아이디 입니다");
+        }
+
+        Users findUserNickname = userRepository.findByUserNickname(user.getUserNickname());
+        if(findUserNickname != null){
+            throw new IllegalStateException("이미 사용중인 닉네임 입니다");
+        }
+
     }
 
     @Override
@@ -48,6 +59,4 @@ public class UserService implements UserDetailsService{
                 .roles(user.getRole().toString())
                 .build();
     }
-
-
 }

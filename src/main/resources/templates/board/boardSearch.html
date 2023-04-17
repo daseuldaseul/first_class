@@ -1,44 +1,87 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>메인 페이지</title>
 </head>
-<body>
+<th:block layout:fragment="script">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script th:inline="javascript">
 
-<form action="/search" method="GET" role="search">
-  <select name="searchType" id="searchType">
-    <option name="title" value="title">제목</option>
-    <option name="userId" value="userId">글쓴이</option>
-    <option name="movieTitle" value="movieTitle">영화제목</option>
-  </select>
+  </script>
 
-  <input type="text" name="keyword" class="form-control" id="search" placeholder="검색">
-  <button class="btn btn-success bi bi-search">검색</button>
+</th:block>
+<th:block layout:fragment="css">
+</th:block>
 
+<div layout:fragment="content">
 
-</form>
-<table>
+  <div class="wrapper">
+    <div class="container">
+      <strong class="poster-title"> 4월 개봉영화 </strong>
+      <div class="poster-container">
+        <ul class="poster">
+          <li><img class="poster-img" src="/img/1.jpg"></li>
+          <li>리바운드</li>
+        </ul>
+        <ul class="poster">
+          <li><img class="poster-img" src="/img/2.jpg"></li>
+          <li>패왕별희</li>
+        </ul>
+        <ul class="poster">
+          <li><img class="poster-img" src="/img/3.jpg"></li>
+          <li>마리아 칼라스: 세기의 디바</li>
+        </ul>
+        <ul class="poster">
+          <li><img class="poster-img" src="/img/4.jpg"></li>
+          <li>에어</li>
+        </ul>
+      </div>
+    </div>
 
-  <thead>
-  <tr>
-    <th>글번호</th>
-    <th>제목</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="boardDto, status: ${searchList}">
-    <td th:text="${status.index +1}"></td>
-    <td th:text="${boardDto.boardTitle}"></td>
-    <td th:text="${boardDto.movie != null} ? ${boardDto.movie.movieTitle} : 'No Movie'"></td>
-    <td th:text="${boardDto.boardTitle}"></td>
-    <td th:text="${boardDto.boardTitle}"></td>
-    <td th:text="${boardDto.boardTitle}"></td>
-    <td th:text="${boardDto.boardTitle}"></td>
-  </tr>
-  </tbody>
+    <div class="board-wrap">
+      <div class="board-title">
+        <strong>리뷰 게시판</strong>
+        <p>영화에 대한 감상을 자유롭게 남겨보세요.</p>
+        <form action="/search" method="GET" role="search">
+          <select name="searchType" id="searchType">
+            <option name="title" value="title">제목</option>
+            <option name="userId" value="userId">글쓴이</option>
+            <option name="movieTitle" value="movieTitle">영화제목</option>
+          </select>
 
-</table>
+          <input type="text" name="keyword" class="search-text" id="search" placeholder="검색">
+          <button>검색</button>
+        </form>
+      </div>
+      <div class="board-list-wrap">
+        <div class="board-list">
+          <div class="top">
+            <div class="num">NO.</div>
+            <div class="title">
+              <p>TITLE</p>
+            </div>
+            <div class="writer">WRITER</div>
+            <div class="date">DATE</div>
+            <div class="count">VIEW</div>
+          </div>
+
+          <div th:each="boardDto, status: ${searchList}" >
+            <div class="num" th:text="${boardDto.boardIndex}"></div>
+
+            <div class="title">
+              <a th:text="${boardDto.movie != null} ? ${'['+boardDto.movie.movieTitle+']'} : '[No Movie]'"></a>
+              <a th:href="'/board/'+${boardDto.boardIndex}" th:text="${boardDto.boardTitle}"></a>
+            </div>
+            <div class="writer" th:text="${boardDto.user != null} ? ${boardDto.user.userNickname} : 'No User'"></div>
+            <div class="date" th:text="${boardDto.boardDate}"></div>
+            <div class="count" th:text="${boardDto.viewNum}"></div>
+
+          </div>
+        </div>
+      </div>
+
 
 
     <a th:href="@{/search(page=${startPage-2}, searchType=${param.searchType}, keyword=${param.keyword})}" class="btn btn-default">이전</a>
@@ -47,6 +90,9 @@
       <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
     </th:block>
     <a th:if="${endPage < totalPages}" th:href="@{/search(page=${endPage}, searchType=${param.searchType}, keyword=${param.keyword})}" class="btn btn-default">다음</a>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

@@ -2,7 +2,10 @@ package filmcrush.first_class.controller;
 
 import filmcrush.first_class.dto.BoardDto;
 import filmcrush.first_class.dto.BoardFormDto;
+import filmcrush.first_class.dto.ReplyDto;
+import filmcrush.first_class.dto.ReplyFormDto;
 import filmcrush.first_class.entity.Movie;
+import filmcrush.first_class.entity.Reply;
 import filmcrush.first_class.entity.Users;
 import filmcrush.first_class.repository.BoardRepository;
 import filmcrush.first_class.repository.MovieRepository;
@@ -24,6 +27,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static filmcrush.first_class.entity.QReply.reply;
 
 
 @Controller
@@ -301,12 +306,79 @@ public class BoardController {
     /**
      * 상세 페이지
      * **/
-    @GetMapping(value = "board/{boardIndex}")
+    @GetMapping(value = "/board/{boardIndex}")
     public String boardDtl(Model model, @PathVariable("boardIndex") Long boardIndex){
         BoardDto boardDto = boardService.getBoardView(boardIndex);
 
         model.addAttribute("boardDto", boardDto);
         return "board/boardDtl";
+    }
+
+    @PostMapping(value= "/board/{boardIndex}")
+    public String replyWrite(Model model, @PathVariable("boardIndex") Long boardIndex){
+
+        if(boardIndex == null) {
+            return "redirect:/";
+        }
+        BoardDto boardDto = boardService.getBoardView(boardIndex);
+
+        model.addAttribute("boardDto", boardDto);
+        model.addAttribute("replyFormDto", new ReplyFormDto());
+        return "board/boardDtl";
+    }
+
+    @GetMapping(value="/board/movieSearch")
+    public String movieSearch(){
+        return "board/movieSearch";
+    }
+
+    @PostMapping(value="/board/movieSearch")
+    public void movieSearch(String keyword, Model model, @PageableDefault(page=0, size=3, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
+
+        List<Movie> movieList = movieRepository.findByMovieTitleContaining(keyword);
+
+        Page<Board> searchList = boardService.searchMovie(movieList, pageable);
+
+        int nowPage = searchList.getPageable().getPageNumber() + 1;
+
+
+        int startPage = Math.max(nowPage - 2, 1);
+
+        int endPage = Math.min(nowPage + 2, searchList.getTotalPages());
+
+        // 현재 페이지 1번일 때 1 뒤에 2, 3, 4, 5p까지 출력되도록함.
+        if(nowPage == 1){
+            endPage = Math.min(nowPage + 4, searchList.getTotalPages());
+
+        }else if(nowPage == 2){
+            // 현재 페이지 2번일 때 뒤에 3, 4, 5p까지 출력되도록 함.
+            endPage  = Math.min(nowPage + 3, searchList.getTotalPages());
+        }
+
+        // 현재 페이지가 마지막 페이지일 때
+        // 현재 페이지 앞에 페이지를 뜨게 만듦
+        if(nowPage == (searchList.getTotalPages()-1)){
+            startPage = Math.min(nowPage - 3, searchList.getTotalPages());
+        }else if(nowPage == (searchList.getTotalPages())){
+            startPage = Math.min(nowPage - 4, searchList.getTotalPages());
+        }
+
+        if(startPage < 1){
+            startPage = 1;
+        }
+
+        int prevPage = nowPage - 1;
+        int nextPage = nowPage + 1;
+
+        model.addAttribute("searchList", searchList);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("totalPages", searchList.getTotalPages());
+
+
     }
 
 }

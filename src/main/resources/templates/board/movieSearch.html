@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>영화 검색 페이지</title>
+</head>
+<body>
+
+<form action="/board/movieSearch" method="post" role="search">
+  <input type="text" name="keyword" class="form-control" id="search" placeholder="검색">
+  <button class="btn btn-success bi bi-search">영화검색</button>
+  <input type="hidden" th:name="${_csrf.parameterName}"
+         th:value="${_csrf.token}">
+</form>
+<table>
+  <thead>
+  <tr>
+    <th>글번호</th>
+    <th>영화 제목</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="boardDto, status: ${searchList}">
+    <td th:text="${status.Index+1}"></td>
+    <td th:text=" ${boardDto.movie.movieTitle}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

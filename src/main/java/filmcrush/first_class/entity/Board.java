@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,7 +33,8 @@ public class Board {
 
     private String boardContent; // 리뷰 본문 내용
 
-    private Long replyNum; // 댓글 수
+    @OneToMany
+    private List<Reply> replyNum; // 댓글 수, 댓글
 
     private Long likeNum; // 좋아요 수
 
