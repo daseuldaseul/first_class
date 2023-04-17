@@ -1,0 +1,109 @@
+@import "main.css";
+
+.title-area {
+  font-size: 40px;
+}
+
+.movie-name, .movie-info li{
+  color: #DE2A60;
+}
+
+#title-info {
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  padding: 10px 0;
+}
+
+#title-info li:after {
+  content: "ㅣ";
+}
+
+.review-container {
+  margin-top: 150px;
+}
+
+.movie-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.movie-info ul {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  font-size: 2.5rem;
+}
+
+/* 리뷰본문 */
+.poster-picture {
+  width: 300px;
+  height: 400px;
+}
+
+.contents {
+  margin: auto 50px;
+  padding: 50px 0 ;
+  line-height: 40px;
+  font-size: 2.3rem;
+}
+
+#like {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  text-align: center;
+  font-size: 20px;
+}
+
+#like img {
+  width: 50px;
+  height: 50px;
+}
+
+/* 하트 버튼스타일 초기화 */
+#like button  {
+  background: inherit ; border:none; box-shadow:none; border-radius:0;
+  padding:0; overflow:visible; cursor:pointer
+}
+
+#modify-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 60px;
+}
+
+#modify-btn button{
+  margin-right: 10px;
+}
+
+/* 댓글 입력 */
+.reply-write {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.reply-write .btn {
+  margin-left: 20px;
+}
+
+#reply-input {
+  font-size: 20px;
+  font-family: 'Happiness-Sans-Title';
+  background: white;
+  color: black;
+  padding:10px;
+  border-radius: 10px;
+  line-height: 45px;
+}
+
+#reply-write {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+

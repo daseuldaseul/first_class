@@ -1,0 +1,141 @@
+@import "board.css";
+
+@font-face {
+  font-family: 'Happiness-Sans-Title';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  background: black;
+  color: white;
+}
+
+html {
+  font-size: 12px;
+}
+
+ul, li {
+  list-style: none;
+}
+
+a {
+  color: white !important;
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  margin: auto;
+  font-family: 'Happiness-Sans-Title';
+  color: white;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 헤더 */
+.header {
+  max-width: 1200px;
+  height: 90px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 30px;
+  align-items: center
+}
+
+.header-logo {
+  display: flex;
+  margin: auto;
+}
+
+#logo {
+  width: 320px;
+  height: 100px;
+}
+
+.join {
+  float: right;
+  margin-right: 30px;
+/* 스타일 제거 */
+  background-color: transparent;
+  border:none; box-shadow:none;
+  border-radius:0; padding:0;
+  overflow:visible; cursor:pointer
+}
+
+
+/* 4월 개봉영화 포스터 구역 */
+.poster-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.poster-title {
+  font-size: 40px;
+  display: flex;
+  padding: 100px 10px 40px;
+}
+
+.poster {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 20px;
+  padding: 0 10px;
+  justify-content: space-between;
+}
+
+.poster-img {
+  width: 270px;
+  height: 350px;
+  margin-bottom: 10px;
+}
+
+/* 버튼 */
+.bt-wrap {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0;
+}
+
+.bt-wrap button {
+  display: inline-block;
+  min-width: 80px;
+  padding: 10px;
+  border: 2px solid #DE2A60;
+  border-radius: 2px;
+  font-size: 1.5rem;
+  color : #DE2A60;
+  font-weight: bold;
+}
+
+#main-button {
+  margin-bottom: 300px;
+}
+
+.btn {
+  display: inline-block;
+  min-width: 50px;
+  padding: 10px;
+  margin-bottom: 50px;
+  border: 2px solid #DE2A60;
+  border-radius: 2px;
+  font-size: 1.5rem;
+  color : #DE2A60;
+}
+
+.btn:hover, #main-button button:hover {
+  background: #DE2A60;
+  color: white !important;
+}
