@@ -74,7 +74,7 @@ a {
 }
 
 
-/* 4월 개봉영화 포스터 구역 */
+ /* 개봉영화 포스터 구역*/
 .poster-container {
   display: flex;
   flex-direction: row;
@@ -84,7 +84,7 @@ a {
 .poster-title {
   font-size: 40px;
   display: flex;
-  padding: 100px 10px 40px;
+  padding: 60px 10px 30px;
 }
 
 .poster {
@@ -101,6 +101,7 @@ a {
   height: 350px;
   margin-bottom: 10px;
 }
+
 
 /* 버튼 */
 .bt-wrap {
@@ -135,7 +136,7 @@ a {
   color : #DE2A60;
 }
 
-.btn:hover, #main-button button:hover {
+.btn:hover, #main-button:hover {
   background: #DE2A60;
   color: white !important;
 }
