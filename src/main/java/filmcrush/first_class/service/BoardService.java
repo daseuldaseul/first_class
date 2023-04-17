@@ -2,6 +2,7 @@ package filmcrush.first_class.service;
 
 import filmcrush.first_class.dto.BoardDto;
 import filmcrush.first_class.dto.BoardFormDto;
+import filmcrush.first_class.dto.ReplyDto;
 import filmcrush.first_class.entity.Board;
 import filmcrush.first_class.entity.Movie;
 import filmcrush.first_class.entity.Users;
@@ -63,4 +64,7 @@ public class BoardService {
         BoardDto boardDto = BoardDto.of(board);
         return boardDto;
     }
+
+
+
 }

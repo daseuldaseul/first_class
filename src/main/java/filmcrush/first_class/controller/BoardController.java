@@ -9,32 +9,33 @@ import filmcrush.first_class.entity.Reply;
 import filmcrush.first_class.entity.Users;
 import filmcrush.first_class.repository.BoardRepository;
 import filmcrush.first_class.repository.MovieRepository;
+import filmcrush.first_class.repository.ReplyRepository;
 import filmcrush.first_class.repository.UserRepository;
 import filmcrush.first_class.service.BoardService;
 import filmcrush.first_class.entity.Board;
+import filmcrush.first_class.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static filmcrush.first_class.entity.QReply.reply;
 
 
 @Controller
 public class BoardController {
     @Autowired
     private BoardService boardService;
+
+    @Autowired
+    private ReplyService replyService;
 
     @Autowired
     BoardRepository boardRepository;
@@ -45,17 +46,20 @@ public class BoardController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ReplyRepository replyRepository;
+
     @GetMapping(value = "/")
-    public String boardForm(@RequestParam(required=false)String type, Model model, @PageableDefault(page=0, size=3, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String boardForm(@RequestParam(required = false) String type, Model model, @PageableDefault(page = 0, size = 3, sort = "boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Board> list = boardService.boardList(pageable);
 
-        if(type == null){
+        if (type == null) {
             list = boardService.boardList(pageable);
-        }else if(type.equals("view")){
+        } else if (type.equals("view")) {
             list = boardService.viewBoardList(pageable);
-        }else if(type.equals("date")){
+        } else if (type.equals("date")) {
             list = boardService.dateBoardList(pageable);
-        }else if(type.equals("like")){
+        } else if (type.equals("like")) {
             list = boardService.likeBoardList(pageable);
         }
 
@@ -74,22 +78,22 @@ public class BoardController {
         int endPage = Math.min(nowPage + 2, list.getTotalPages());
 
         // 현재 페이지 1번일 때 1 뒤에 2, 3, 4, 5p까지 출력되도록함.
-        if(nowPage == 1){
-            endPage  = Math.min(nowPage + 4, list.getTotalPages());
-        }else if(nowPage == 2){
+        if (nowPage == 1) {
+            endPage = Math.min(nowPage + 4, list.getTotalPages());
+        } else if (nowPage == 2) {
             // 현재 페이지 2번일 때 뒤에 3, 4, 5p까지 출력되도록 함.
-            endPage  = Math.min(nowPage + 3, list.getTotalPages());
+            endPage = Math.min(nowPage + 3, list.getTotalPages());
         }
 
         // 현재 페이지가 마지막 페이지일 때
         // 현재 페이지 앞에 페이지를 뜨게 만듦
-        if(nowPage == (list.getTotalPages()-1)){
+        if (nowPage == (list.getTotalPages() - 1)) {
             startPage = Math.min(nowPage - 3, list.getTotalPages());
-        }else if(nowPage == (list.getTotalPages())){
+        } else if (nowPage == (list.getTotalPages())) {
             startPage = Math.min(nowPage - 4, list.getTotalPages());
         }
 
-        if(startPage < 1){
+        if (startPage < 1) {
             startPage = 1;
         }
 
@@ -108,7 +112,7 @@ public class BoardController {
 
     /**
      * 글쓰기 페이지(입력)
-     * **/
+     **/
 //    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping(value = "/board/write")
     public String boardWrite(@ModelAttribute("boardFormDto") BoardFormDto boardFormDto, Model model) {
@@ -122,6 +126,8 @@ public class BoardController {
         board.setUser(userRepository.findByUserId(author));
         board.setMovie(movieRepository.findByMovieTitle(boardFormDto.getMovie()));
 
+        board.setViewNum(0L);
+        board.setReplyNum(0L);
 
         boardRepository.save(board);
         model.addAttribute("boardFormDto", new BoardFormDto());
@@ -130,7 +136,7 @@ public class BoardController {
 
     /**
      * 글쓰기 페이지(조회)
-     * **/
+     **/
     @GetMapping(value = "/board/write")
     public String boardWrite(Model model) {
 
@@ -140,20 +146,20 @@ public class BoardController {
 
 
     @GetMapping(value = "/search")
-    public String searchKeyword(@RequestParam String keyword, @RequestParam String searchType, Model model, @PageableDefault(page=0, size=10, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable){
+    public String searchKeyword(@RequestParam String keyword, @RequestParam String searchType, Model model, @PageableDefault(page = 0, size = 10, sort = "boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
         String result = "";
-        if(searchType.equals("title")){
+        if (searchType.equals("title")) {
             result = searchTitle(keyword, model, pageable);
-        }else if(searchType.equals("movieTitle")){
+        } else if (searchType.equals("movieTitle")) {
             result = searchMovieTitle(keyword, model, pageable);
-        }else if(searchType.equals("userId")){
+        } else if (searchType.equals("userId")) {
             result = searchUserNickname(keyword, model, pageable);
         }
         return result;
     }
 
-    public String searchTitle(@RequestParam String keyword, Model model, @PageableDefault(page=0, size=3, sort="boardIndex",
-            direction = Sort.Direction.DESC) Pageable pageable){
+    public String searchTitle(@RequestParam String keyword, Model model, @PageableDefault(page = 0, size = 3, sort = "boardIndex",
+            direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Board> searchList = boardService.searchTitle(keyword, pageable);
 //        int nowPage = searchList.getPageable().getPageNumber() + 1;
 //        int startPage = Math.max(nowPage - 4, 1);
@@ -168,23 +174,23 @@ public class BoardController {
         int endPage = Math.min(nowPage + 2, searchList.getTotalPages());
 
         // 현재 페이지 1번일 때 1 뒤에 2, 3, 4, 5p까지 출력되도록함.
-        if(nowPage == 1){
-                endPage = Math.min(nowPage + 4, searchList.getTotalPages());
+        if (nowPage == 1) {
+            endPage = Math.min(nowPage + 4, searchList.getTotalPages());
 
-        }else if(nowPage == 2){
+        } else if (nowPage == 2) {
             // 현재 페이지 2번일 때 뒤에 3, 4, 5p까지 출력되도록 함.
-            endPage  = Math.min(nowPage + 3, searchList.getTotalPages());
+            endPage = Math.min(nowPage + 3, searchList.getTotalPages());
         }
 
         // 현재 페이지가 마지막 페이지일 때
         // 현재 페이지 앞에 페이지를 뜨게 만듦
-        if(nowPage == (searchList.getTotalPages()-1)){
+        if (nowPage == (searchList.getTotalPages() - 1)) {
             startPage = Math.min(nowPage - 3, searchList.getTotalPages());
-        }else if(nowPage == (searchList.getTotalPages())){
+        } else if (nowPage == (searchList.getTotalPages())) {
             startPage = Math.min(nowPage - 4, searchList.getTotalPages());
         }
 
-        if(startPage < 1){
+        if (startPage < 1) {
             startPage = 1;
         }
 
@@ -203,7 +209,7 @@ public class BoardController {
         return "board/boardSearch";
     }
 
-    public String searchMovieTitle(@RequestParam String keyword, Model model, @PageableDefault(page=0, size=3, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable){
+    public String searchMovieTitle(@RequestParam String keyword, Model model, @PageableDefault(page = 0, size = 3, sort = "boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
         List<Movie> movieList = movieRepository.findByMovieTitleContaining(keyword);
         // keyword를 가진 Movie 객체 리스트를 movieList 담음
 
@@ -218,23 +224,23 @@ public class BoardController {
         int endPage = Math.min(nowPage + 2, searchList.getTotalPages());
 
         // 현재 페이지 1번일 때 1 뒤에 2, 3, 4, 5p까지 출력되도록함.
-        if(nowPage == 1){
+        if (nowPage == 1) {
             endPage = Math.min(nowPage + 4, searchList.getTotalPages());
 
-        }else if(nowPage == 2){
+        } else if (nowPage == 2) {
             // 현재 페이지 2번일 때 뒤에 3, 4, 5p까지 출력되도록 함.
-            endPage  = Math.min(nowPage + 3, searchList.getTotalPages());
+            endPage = Math.min(nowPage + 3, searchList.getTotalPages());
         }
 
         // 현재 페이지가 마지막 페이지일 때
         // 현재 페이지 앞에 페이지를 뜨게 만듦
-        if(nowPage == (searchList.getTotalPages()-1)){
+        if (nowPage == (searchList.getTotalPages() - 1)) {
             startPage = Math.min(nowPage - 3, searchList.getTotalPages());
-        }else if(nowPage == (searchList.getTotalPages())){
+        } else if (nowPage == (searchList.getTotalPages())) {
             startPage = Math.min(nowPage - 4, searchList.getTotalPages());
         }
 
-        if(startPage < 1){
+        if (startPage < 1) {
             startPage = 1;
         }
 
@@ -253,7 +259,7 @@ public class BoardController {
         return "board/boardSearch";
     }
 
-    public String searchUserNickname(@RequestParam String keyword, Model model, @PageableDefault(page=0, size=3, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable){
+    public String searchUserNickname(@RequestParam String keyword, Model model, @PageableDefault(page = 0, size = 3, sort = "boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
 
         List<Users> userList = userRepository.findByUserNicknameContaining(keyword);
         Page<Board> searchList = boardService.searchUser(userList, pageable);
@@ -267,23 +273,23 @@ public class BoardController {
         int endPage = Math.min(nowPage + 2, searchList.getTotalPages());
 
         // 현재 페이지 1번일 때 1 뒤에 2, 3, 4, 5p까지 출력되도록함.
-        if(nowPage == 1){
+        if (nowPage == 1) {
             endPage = Math.min(nowPage + 4, searchList.getTotalPages());
 
-        }else if(nowPage == 2){
+        } else if (nowPage == 2) {
             // 현재 페이지 2번일 때 뒤에 3, 4, 5p까지 출력되도록 함.
-            endPage  = Math.min(nowPage + 3, searchList.getTotalPages());
+            endPage = Math.min(nowPage + 3, searchList.getTotalPages());
         }
 
         // 현재 페이지가 마지막 페이지일 때
         // 현재 페이지 앞에 페이지를 뜨게 만듦
-        if(nowPage == (searchList.getTotalPages()-1)){
+        if (nowPage == (searchList.getTotalPages() - 1)) {
             startPage = Math.min(nowPage - 3, searchList.getTotalPages());
-        }else if(nowPage == (searchList.getTotalPages())){
+        } else if (nowPage == (searchList.getTotalPages())) {
             startPage = Math.min(nowPage - 4, searchList.getTotalPages());
         }
 
-        if(startPage < 1){
+        if (startPage < 1) {
             startPage = 1;
         }
 
@@ -305,62 +311,107 @@ public class BoardController {
 
     /**
      * 상세 페이지
-     * **/
+     **/
     @GetMapping(value = "/board/{boardIndex}")
-    public String boardDtl(Model model, @PathVariable("boardIndex") Long boardIndex){
+    public String boardDtl(Model model, @PathVariable("boardIndex") Long boardIndex) {
         BoardDto boardDto = boardService.getBoardView(boardIndex);
-
-        model.addAttribute("boardDto", boardDto);
-        return "board/boardDtl";
-    }
-
-    @PostMapping(value= "/board/{boardIndex}")
-    public String replyWrite(Model model, @PathVariable("boardIndex") Long boardIndex){
-
-        if(boardIndex == null) {
-            return "redirect:/";
-        }
-        BoardDto boardDto = boardService.getBoardView(boardIndex);
-
+        Board board = boardRepository.findByBoardIndex(boardIndex);
+        board.setViewNum(board.getViewNum() +1);
+        List<Reply> replyList = replyService.getBoardView(board);
+        model.addAttribute("replyList", replyList);
         model.addAttribute("boardDto", boardDto);
         model.addAttribute("replyFormDto", new ReplyFormDto());
+
+
         return "board/boardDtl";
     }
+
+    @PostMapping(value = "/board/{boardIndex}")
+    public String replyWrite(@ModelAttribute("ReplyFormDto") ReplyFormDto replyFormDto, @PathVariable("boardIndex") Long boardIndex, Model model) {
+        Reply reply = new Reply();
+        BoardDto boardDto = boardService.getBoardView(boardIndex);
+
+        model.addAttribute("boardDto", boardDto);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String author = authentication.getName();
+
+        reply.setReplyContent(replyFormDto.getReplyContent());
+        reply.setReply_date(LocalDateTime.now());
+        reply.setBoard(boardRepository.findByBoardIndex(boardIndex));
+        reply.setUser(userRepository.findByUserId(author));
+
+        replyRepository.save(reply);
+
+
+        model.addAttribute("replyFormDto", new ReplyFormDto());
+        Board board = boardRepository.findByBoardIndex(boardIndex);
+
+        List<Reply> replyList = replyService.getBoardView(board);
+        board.setReplyNum((long)replyList.size());
+        boardRepository.save(board);
+        model.addAttribute("boardDto", boardDto);
+        model.addAttribute("replyList", replyList);
+
+        return "board/boardDtl";
+    }
+
+//    @GetMapping(value= "/board/reply")
+//    public String replyWrite(Model model) {
+//        model.addAttribute("replyFormDto", new ReplyFormDto());
+//        return "board/boardDtl";
+//    }
+
+//    @PostMapping(value= "/board/reply")
+//    public String replyWrite(@ModelAttribute("boardFormDto") ReplyFormDto replyFormDto, @RequestParam("boardIndex") Long boardIndex, Model model){
+//        Reply reply = new Reply();
+//        BoardDto boardDto = boardService.getBoardView(boardIndex);
+//
+//        model.addAttribute("boardDto", boardDto);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String author = authentication.getName();
+//
+//        reply.setReplyContent(replyFormDto.getReplyContent());
+//        reply.setReply_date(replyFormDto.getReply_date());
+//        reply.setBoard(boardRepository.findByBoardIndex(boardIndex));
+//        reply.setUser(userRepository.findByUserId(author));
+//
+//        replyRepository.save(reply);
+//        model.addAttribute("replyFormDto", new ReplyFormDto());
+//        return "board/boardDtl";
+//    }
 
     @GetMapping(value="/board/movieSearch")
     public String movieSearch(){
         return "board/movieSearch";
     }
-
     @PostMapping(value="/board/movieSearch")
-    public void movieSearch(String keyword, Model model, @PageableDefault(page=0, size=3, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
+    public void movieSearch(String keyword, Model model, @PageableDefault(page=0, size=10, direction = Sort.Direction.DESC) Pageable pageable) {
 
-        List<Movie> movieList = movieRepository.findByMovieTitleContaining(keyword);
+        Page<Movie> movieList = movieRepository.findByMovieTitleContaining(keyword, pageable);
 
-        Page<Board> searchList = boardService.searchMovie(movieList, pageable);
 
-        int nowPage = searchList.getPageable().getPageNumber() + 1;
+        int nowPage = movieList.getPageable().getPageNumber() + 1;
 
 
         int startPage = Math.max(nowPage - 2, 1);
 
-        int endPage = Math.min(nowPage + 2, searchList.getTotalPages());
+        int endPage = Math.min(nowPage + 2, movieList.getTotalPages());
 
         // 현재 페이지 1번일 때 1 뒤에 2, 3, 4, 5p까지 출력되도록함.
         if(nowPage == 1){
-            endPage = Math.min(nowPage + 4, searchList.getTotalPages());
+            endPage = Math.min(nowPage + 4, movieList.getTotalPages());
 
         }else if(nowPage == 2){
             // 현재 페이지 2번일 때 뒤에 3, 4, 5p까지 출력되도록 함.
-            endPage  = Math.min(nowPage + 3, searchList.getTotalPages());
+            endPage  = Math.min(nowPage + 3, movieList.getTotalPages());
         }
 
         // 현재 페이지가 마지막 페이지일 때
         // 현재 페이지 앞에 페이지를 뜨게 만듦
-        if(nowPage == (searchList.getTotalPages()-1)){
-            startPage = Math.min(nowPage - 3, searchList.getTotalPages());
-        }else if(nowPage == (searchList.getTotalPages())){
-            startPage = Math.min(nowPage - 4, searchList.getTotalPages());
+        if(nowPage == (movieList.getTotalPages()-1)){
+            startPage = Math.min(nowPage - 3, movieList.getTotalPages());
+        }else if(nowPage == (movieList.getTotalPages())){
+            startPage = Math.min(nowPage - 4, movieList.getTotalPages());
         }
 
         if(startPage < 1){
@@ -370,15 +421,14 @@ public class BoardController {
         int prevPage = nowPage - 1;
         int nextPage = nowPage + 1;
 
-        model.addAttribute("searchList", searchList);
+        model.addAttribute("movieList", movieList);
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
         model.addAttribute("prevPage", prevPage);
         model.addAttribute("nextPage", nextPage);
-        model.addAttribute("totalPages", searchList.getTotalPages());
+        model.addAttribute("totalPages", movieList.getTotalPages());
 
 
     }
-
 }

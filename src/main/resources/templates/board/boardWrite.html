@@ -4,24 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script>
+    function openMovieSearch() {
+
+  var searchUrl = 'http://localhost:8080/board/movieSearch';
+  var searchWindowFeatures = 'width=500,height=300,left=50%,top=50%,margin-left=-250px,margin-top=-150px';
+
+  var searchWindow = window.open(searchUrl, '_blank', searchWindowFeatures);
+
+  window.addEventListener('message', function(event) {
+    if (event.source === searchWindow) {
+      if (event.data.type === 'movieTitle') {
+        var selectedMovieTitle = event.data.payload;
+        document.getElementById('searchMovieTitle').value = selectedMovieTitle;
+      }
+    }
+  });
+
+    }
+</script>
 </head>
 <body>
-  <h1>글쓰기</h1>
-    <div>
-        <form action="/board/write" method="post" th:object="${boardFormDto}">
-            <h2>제목입력하쇼</h2>
-            <input name="boardTitle" type="text" placeholder="제목 입력" th:field="*{boardTitle}">
-            <h2>영화 입력</h2>
-            <input name="movieTitle" type="text" placeholder="영화 제목" th:field="*{movie}">
-            <button type="button" onclick="window.open('http://localhost:8080/board/movieSearch', '_blank', 'width=500,height=300,left=50%,top=50%,margin-left=-250px,margin-top=-150px')">영화 검색</button>
-            <textarea name="boardContent" placeholder="본문 내용 입력하쇼" th:field="*{boardContent}"></textarea>
-            <button type="submit">작성</button>
-            <input type="hidden" th:name="${_csrf.parameterName}"
-                   th:value="${_csrf.token}">
-            <input type="hidden" name="author" value="${authentication.name}">
+<h1>글쓰기</h1>
+<div>
+    <form action="/board/write" method="post" th:object="${boardFormDto}">
+        <h2>제목입력하쇼</h2>
+        <input name="boardTitle" type="text" placeholder="제목 입력" th:field="*{boardTitle}">
+        <h2>영화 입력</h2>
+        <input readonly="true" name="movieTitle" id="searchMovieTitle" type="text" placeholder="영화 제목" th:field="*{movie}">
 
-        </form>
+        <button type="button" onclick="openMovieSearch()">영화 검색</button>
 
-    </div>
+        <textarea name="boardContent" placeholder="본문 내용 입력하쇼" th:field="*{boardContent}"></textarea>
+        <button type="submit">작성</button>
+        <input type="hidden" th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}">
+        <input type="hidden" name="author" value="${authentication.name}">
+
+    </form>
+
+</div>
 </body>
 </html>

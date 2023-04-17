@@ -22,7 +22,7 @@ public class BoardDto {
 
     private String boardContent;
 
-    private List<Reply> replyNum;
+    private Long replyNum; // 댓글 수, 댓글
 
     private Long likeNum;
 

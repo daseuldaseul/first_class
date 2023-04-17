@@ -1,11 +1,13 @@
 package filmcrush.first_class.dto;
 
 
+import filmcrush.first_class.contant.Role;
 import filmcrush.first_class.entity.Board;
 import filmcrush.first_class.entity.Reply;
 import filmcrush.first_class.entity.Users;
 import lombok.*;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -27,5 +29,6 @@ public class ReplyDto {
     public static ReplyDto of(Reply reply) {
         return modelMapper.map(reply, ReplyDto.class);
     }
+
 
 }

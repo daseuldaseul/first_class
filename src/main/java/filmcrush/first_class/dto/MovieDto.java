@@ -18,6 +18,8 @@ public class MovieDto {
 
     private Long movieReviewNum; // 영화의 리뷰 개수
 
-    private String movieDetail; // 영화 상세 정보
+    private String movieDirector; // 영화 감독
+
+    private String movieActor; // 영화 배우
 
 }
