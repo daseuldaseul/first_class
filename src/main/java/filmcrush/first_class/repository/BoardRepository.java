@@ -25,6 +25,8 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
 
     Page<Board> findByUserIn(List<Users> user, Pageable pageable);
 
+    Page<Board> findByBoardIndexIn(List<Long> list, Pageable pageable);
+
     Page<Board> findAllByOrderByBoardDateDesc(Pageable pageable);
 
     Page<Board> findAllByOrderByViewNumDesc(Pageable pageable);
