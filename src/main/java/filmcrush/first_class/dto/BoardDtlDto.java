@@ -2,12 +2,14 @@ package filmcrush.first_class.dto;
 
 import filmcrush.first_class.entity.Board;
 import filmcrush.first_class.entity.Movie;
+import filmcrush.first_class.entity.Reply;
 import filmcrush.first_class.entity.Users;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,7 +27,7 @@ public class BoardDtlDto{
 
     private String boardContent; // 리뷰 본문 내용
 
-    private Long replyNum; // 댓글 수
+    private List<Reply> replyNum; // 댓글 수
 
     private Long likeNum; // 좋아요 수
 

@@ -3,9 +3,11 @@ package filmcrush.first_class.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,11 +34,11 @@ public class Board {
 
     private String boardContent; // 리뷰 본문 내용
 
-    private Long replyNum; // 댓글 수
-
     private Long likeNum; // 좋아요 수
 
     private Long viewNum; // 조회수
 
     private LocalDateTime boardDate; // 작성일자
+
+    private Long replyNum;
 }

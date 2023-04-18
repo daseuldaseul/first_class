@@ -2,13 +2,17 @@ package filmcrush.first_class.controller;
 
 import filmcrush.first_class.dto.BoardDto;
 import filmcrush.first_class.dto.BoardFormDto;
+import filmcrush.first_class.dto.ReplyFormDto;
 import filmcrush.first_class.entity.Movie;
+import filmcrush.first_class.entity.Reply;
 import filmcrush.first_class.entity.Users;
 import filmcrush.first_class.repository.BoardRepository;
 import filmcrush.first_class.repository.MovieRepository;
+import filmcrush.first_class.repository.ReplyRepository;
 import filmcrush.first_class.repository.UserRepository;
 import filmcrush.first_class.service.BoardService;
 import filmcrush.first_class.entity.Board;
+import filmcrush.first_class.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +36,13 @@ public class BoardController {
     private BoardService boardService;
 
     @Autowired
+    private ReplyService replyService;
+
+    @Autowired
     BoardRepository boardRepository;
+
+    @Autowired
+    ReplyRepository replyRepository;
 
     @Autowired
     MovieRepository movieRepository;
@@ -301,12 +311,54 @@ public class BoardController {
     /**
      * 상세 페이지
      * **/
-    @GetMapping(value = "board/{boardIndex}")
-    public String boardDtl(Model model, @PathVariable("boardIndex") Long boardIndex){
-        BoardDto board = boardService.getBoardView(boardIndex);
+//    @GetMapping(value = "board/{boardIndex}")
+//    public String boardDtl(Model model, @PathVariable("boardIndex") Long boardIndex){
+//        BoardDto board = boardService.getBoardView(boardIndex);
+//
+//        model.addAttribute("boardDto", board);
+//        return "board/boardDtl";
+//    }
 
-        model.addAttribute("boardDto", board);
+    @GetMapping(value = "/board/{boardIndex}")
+    public String boardDtl(Model model, @PathVariable("boardIndex") Long boardIndex) {
+        BoardDto boardDto = boardService.getBoardView(boardIndex);
+        Board board = boardRepository.findByBoardIndex(boardIndex);
+        board.setViewNum(board.getViewNum() +1);
+        List<Reply> replyList = replyService.getBoardView(board);
+        model.addAttribute("replyList", replyList);
+        model.addAttribute("boardDto", boardDto);
+        model.addAttribute("replyFormDto", new ReplyFormDto());
+
+
         return "board/boardDtl";
     }
+
+    @PostMapping(value = "/board/{boardIndex}")
+    public String replyWrite(@ModelAttribute("ReplyFormDto") ReplyFormDto replyFormDto, @PathVariable("boardIndex") Long boardIndex, Model model) {
+        Reply reply = new Reply();
+        BoardDto boardDto = boardService.getBoardView(boardIndex);
+
+        model.addAttribute("boardDto", boardDto);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String author = authentication.getName();
+
+        reply.setReplyContent(replyFormDto.getReplyContent());
+        reply.setReply_date(LocalDateTime.now());
+        reply.setBoard(boardRepository.findByBoardIndex(boardIndex));
+        reply.setUser(userRepository.findByUserId(author));
+
+        replyRepository.save(reply);
+
+
+        Board board = boardRepository.findByBoardIndex(boardIndex);
+
+        List<Reply> replyList = replyService.getBoardView(board);
+        board.setReplyNum((long)replyList.size());
+        boardRepository.save(board);
+
+
+        return "redirect:/board/" + boardIndex;
+    }
+
 
 }

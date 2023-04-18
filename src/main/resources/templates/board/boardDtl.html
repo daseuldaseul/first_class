@@ -26,21 +26,59 @@
     <div class="container">
       <div class="review-container">
         <div class="title-area">
-          <strong class="movie-name" th:text="${boardDto.movie.movieTitle}" >[머릿말]</strong>
+          <strong class="movie-name" th:text="${boardDto.movie != null}? ${'['+boardDto.movie.movieTitle+']'} : '[No Movie]' " >[머릿말]</strong>
           <strong class="contents-title" th:text="${boardDto.boardTitle}">올해 최고의영화!</strong>
           <ul id="title-info">
-            <li class="nickname" >글쓴이</li>
-            <li class="view" th:text="${boardDto.viewNum != null} ? ${boardDto.viewNum} : '0'">조회수</li>
-            <li class="date" >2023.04.10</li>
+            <li class="nickname" th:text="${boardDto.user != null }? ${boardDto.user.userNickname} : 'No User'" >글쓴이</li>
+            <li class="view" th:text="${boardDto.viewNum}">조회수</li>
+            <li class="date" th:text="${boardDto.boardDate}">2023.04.10</li>
           </ul>
         </div>
+
+        <div class="movie-info">
+
+          <img class="poster-picture" src="/img/1.jpg">
+
+          <ul>
+            <li class="movie-title">제목:</li> <span th:text="${boardDto.movie != null}? ${boardDto.movie.movieTitle} : 'No Movie' ">기생충</span>
+            <li class="movie-director">감독:</li><span th:text="${boardDto.movie != null}? ${boardDto.movie.movieDirector} : 'No Director' " >봉준호</span>
+            <li class="movie-actor">출연:</li><span th:text="${boardDto.movie != null}? ${boardDto.movie.movieActor} : 'No Actor' " > 송강호, 이선균, 조여정, 최우식 </span>
+            <li class="movie-score">별점:</li>
+            <div id="star">
+              <div id="score" method="post" action="#">
+                <span class="checked" th:if="${boardDto.boardScore >= 1}" name="rating">⭐</span>
+                <span class="unchecked"th:if="${boardDto.boardScore < 1}" name="rating">⭐</span>
+                <span class="checked" th:if="${boardDto.boardScore >= 2}" name="rating">⭐</span>
+                <span class="unchecked" th:if="${boardDto.boardScore < 2}" name="rating">⭐</span>
+                <span class="checked" th:if="${boardDto.boardScore >= 3}" name="rating">⭐</span>
+                <span class="unchecked" th:if="${boardDto.boardScore < 3}" name="rating">⭐</span>
+                <span class="checked" th:if="${boardDto.boardScore >= 4}" name="rating">⭐</span>
+                <span class="unchecked" th:if="${boardDto.boardScore < 4}" name="rating">⭐</span>
+                <span class="checked" th:if="${boardDto.boardScore == 5}" name="rating">⭐</span>
+                <span class="unchecked" th:if="${boardDto.boardScore < 5}" name="rating">⭐</span>
+              </div>
+            </div>
+          </ul>
+          <!-- 해시태그 기능 추가해야됨-->
+        </div>
+        <div class="contents" th:utext="${boardDto.boardContent}">
+          <!-- 본문내용 -->
+        </div>
+        <!-- 하트누르면 색깔바뀌면서 숫자 증가 기능넣기 -->
+        <div class="like">
+          <img id="like-icon" src="/img/like.png">
+          <p>233</p>
+        </div>
+
       </div>
+      <div>
+        <button class="btn">수정</button>
+        <button class="btn">삭제</button>
+      </div>
+
+      <div class="reply-container" th:replace="board/reply::boardReply"></div>
     </div>
   </div>
-
-
-  <h1 th:text="${boardDto.boardTitle}">제목자리~</h1>
-  <p th:text="${boardDto.boardContent}">내용자리~</p>
 
 
 </div>
