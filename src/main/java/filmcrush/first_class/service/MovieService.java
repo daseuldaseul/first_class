@@ -41,16 +41,15 @@ public class MovieService {
     }
 
     @Transactional(readOnly = true)
-    public MovieFormDto getMovieDtl(Long movieIndex) {
-        List<MovieImg> movieImgList = movieImgRepository.findByMovie(movieIndex);
+    public MovieFormDto getMovieDtl(Movie movie) {
+
+        List<MovieImg> movieImgList = movieImgRepository.findByMovie(movie.getMovieIndex());
         List<MovieImgDto> movieImgDtoList = new ArrayList<>();
         for (MovieImg movieImg : movieImgList) {
             MovieImgDto movieImgDto = MovieImgDto.of(movieImg);
             movieImgDtoList.add(movieImgDto);
         }
 
-        Movie movie = movieRepository.findById(movieIndex)
-                .orElseThrow(EntityNotFoundException::new);
         MovieFormDto movieFormDto = MovieFormDto.of(movie);
         movieFormDto.setMovieImgDtoList(movieImgDtoList);
         return movieFormDto;

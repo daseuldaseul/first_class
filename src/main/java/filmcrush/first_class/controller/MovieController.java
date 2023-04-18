@@ -1,6 +1,8 @@
 package filmcrush.first_class.controller;
 
 import filmcrush.first_class.dto.MovieFormDto;
+import filmcrush.first_class.entity.Movie;
+import filmcrush.first_class.repository.MovieRepository;
 import filmcrush.first_class.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MovieController {
     private final MovieService movieService;
+
+    private final MovieRepository movieRepository;
 
     @GetMapping(value = "/add/movie")
     public String movieForm(Model model) {
@@ -52,7 +56,9 @@ public class MovieController {
     @GetMapping(value = "/add/movie/{movieIndex}")
     public String movieDtl(@PathVariable("movieIndex") Long movieIndex, Model model) {
         try {
-            MovieFormDto movieFormDto = movieService.getMovieDtl(movieIndex);
+            Movie movie = movieRepository.findById(movieIndex)
+                    .orElseThrow(EntityNotFoundException::new);
+            MovieFormDto movieFormDto = movieService.getMovieDtl(movie);
             model.addAttribute("movieFormDto", movieFormDto);
         } catch(EntityNotFoundException e) {
             model.addAttribute("errorMessage", "존재하지 않는 영화입니다.");
