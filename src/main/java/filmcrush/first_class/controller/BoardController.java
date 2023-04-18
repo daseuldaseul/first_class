@@ -50,7 +50,7 @@ public class BoardController {
     ReplyRepository replyRepository;
 
     @GetMapping(value = "/")
-    public String boardForm(@RequestParam(required = false) String type, Model model, @PageableDefault(page = 0, size = 3, sort = "boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String boardForm(@RequestParam(required = false) String type, Model model, @PageableDefault(page = 0, size = 10, sort = "boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Board> list = boardService.boardList(pageable);
 
         if (type == null) {
@@ -343,16 +343,14 @@ public class BoardController {
         replyRepository.save(reply);
 
 
-        model.addAttribute("replyFormDto", new ReplyFormDto());
         Board board = boardRepository.findByBoardIndex(boardIndex);
 
         List<Reply> replyList = replyService.getBoardView(board);
         board.setReplyNum((long)replyList.size());
         boardRepository.save(board);
-        model.addAttribute("boardDto", boardDto);
-        model.addAttribute("replyList", replyList);
 
-        return "board/boardDtl";
+
+        return "redirect:/board/" + boardIndex;
     }
 
 //    @GetMapping(value= "/board/reply")

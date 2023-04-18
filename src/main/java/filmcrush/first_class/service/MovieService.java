@@ -1,6 +1,7 @@
 package filmcrush.first_class.service;
 
 import filmcrush.first_class.dto.MovieFormDto;
+import filmcrush.first_class.dto.MovieImgDto;
 import filmcrush.first_class.entity.Movie;
 import filmcrush.first_class.entity.MovieImg;
 import filmcrush.first_class.repository.MovieImgRepository;
@@ -22,7 +23,7 @@ import java.util.List;
 public class MovieService {
     private final MovieRepository movieRepository;
     private final MovieImgService movieImgService;
-  //  private final MovieImgRepository movieImgRepository;
+    private final MovieImgRepository movieImgRepository;
 
     public Long saveMovie(MovieFormDto movieFormDto, List<MultipartFile> movieImgFileList) throws Exception {
         //상품 등록
@@ -30,31 +31,31 @@ public class MovieService {
         movieRepository.save(movie);
 
         //이미지 등록
-        for(int i=0; i<movieImgFileList.size(); i++) {
+
             MovieImg movieImg = new MovieImg();
             movieImg.setMovie(movie);
 
-            movieImgService.saveMovieImg(movieImg, movieImgFileList.get(i));
-        }
+            movieImgService.saveMovieImg(movieImg, movieImgFileList.get(0));
+
         return movie.getMovieIndex();
     }
 
-//    @Transactional(readOnly = true)
-//    public ItemFormDto getItemDtl(Long itemId) {
-//        List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
-//        List<ItemImgDto> itemImgDtoList = new ArrayList<>();
-//        for (ItemImg itemImg : itemImgList) {
-//            ItemImgDto itemImgDto = ItemImgDto.of(itemImg);
-//            itemImgDtoList.add(itemImgDto);
-//        }
-//
-//        Item item = itemRepository.findById(itemId)
-//                .orElseThrow(EntityNotFoundException::new);
-//        ItemFormDto itemFormDto = ItemFormDto.of(item);
-//        itemFormDto.setItemImgDtoList(itemImgDtoList);
-//        return itemFormDto;
-//
-//    }
+    @Transactional(readOnly = true)
+    public MovieFormDto getMovieDtl(Long movieIndex) {
+        List<MovieImg> movieImgList = movieImgRepository.findByMovie(movieIndex);
+        List<MovieImgDto> movieImgDtoList = new ArrayList<>();
+        for (MovieImg movieImg : movieImgList) {
+            MovieImgDto movieImgDto = MovieImgDto.of(movieImg);
+            movieImgDtoList.add(movieImgDto);
+        }
+
+        Movie movie = movieRepository.findById(movieIndex)
+                .orElseThrow(EntityNotFoundException::new);
+        MovieFormDto movieFormDto = MovieFormDto.of(movie);
+        movieFormDto.setMovieImgDtoList(movieImgDtoList);
+        return movieFormDto;
+
+    }
 //
 //    public Long updateItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception {
 //        //상품 수정

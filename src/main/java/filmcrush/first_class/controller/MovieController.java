@@ -7,10 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -46,6 +48,19 @@ public class MovieController {
         return "redirect:/";
     }
 
+
+    @GetMapping(value = "/add/movie/{movieIndex}")
+    public String movieDtl(@PathVariable("movieIndex") Long movieIndex, Model model) {
+        try {
+            MovieFormDto movieFormDto = movieService.getMovieDtl(movieIndex);
+            model.addAttribute("movieFormDto", movieFormDto);
+        } catch(EntityNotFoundException e) {
+            model.addAttribute("errorMessage", "존재하지 않는 영화입니다.");
+            model.addAttribute("movieFormDto", new MovieFormDto());
+            return "movie/movieForm";
+        }
+        return "movie/movieForm";
+    }
 
 
 }

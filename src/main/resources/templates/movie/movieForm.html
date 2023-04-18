@@ -95,10 +95,10 @@
 
 
     <div th:if="${#lists.isEmpty(movieFormDto.movieImgDtoList)}">
-      <div class="form-group" th:each="num: ${#numbers.sequence(1,2)}">
+      <div class="form-group">
         <div class="custom-file img-div">
           <input type="file" class="custom-file-input" name="movieImgFile">
-          <label class="custom-file-label" th:text="영화포스터 + ${num}"></label>
+          <label class="custom-file-label" th:text="영화포스터"></label>
         </div>
       </div>
     </div>
