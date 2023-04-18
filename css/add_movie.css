@@ -5,64 +5,6 @@
     font-style: normal;
 }
 
-/*body{*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*    background-color: #1b1b1b;*/
-/*}*/
-
-/*a{*/
-/*    text-decoration: none;*/
-/*    color: white;*/
-/*}*/
-
-/*h1{*/
-/*    color: white;*/
-/*    text-align: center;*/
-/*    margin-top: 30px;*/
-/*}*/
-
-/*input{*/
-/*    width: 300px;*/
-/*    padding: 13px;*/
-/*    margin: 12px;*/
-/*    border-radius: 5px;*/
-/*    border: none;*/
-/*    background-color: #2f2f2f;*/
-/*    color: #DE2A60;*/
-/*}*/
-
-/*button{*/
-/*    width: 300px;*/
-/*    height: 40px;*/
-/*    border-radius: 20px;*/
-/*    color: white;*/
-/*    background-color: #2f2f2f;  !*#ce95a6*!*/
-/*    border: none;*/
-/*    margin: 10px;*/
-/*}*/
-
-/*button.active{*/
-/*    background-color: #DE2A60;*/
-/*    transform: scale(0.95);*/
-/*}*/
-
-
-/*.container{*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    max-width: 1200px;*/
-/*    height: 100vh;*/
-/*    margin: 0 auto;*/
-/*}*/
-
-/*.main{*/
-/*    display: flex;*/
-/*    margin: 0 auto;*/
-/*    align-items: center;*/
-/*    justify-content: center;*/
-/*}*/
-
 
 /* ---------------------------------------------- */
 /* -------   Required CSS (customizable)  ------- */
@@ -101,6 +43,7 @@
     transition: border-color 0.2s ease;
     caret-color: var(--color__accent);
     background-color: #2f2f2f;
+    color: white;
 }
 
 .floating:hover .floating__input {
@@ -232,15 +175,56 @@ html {
     font-size: 1.25rem;
     text-transform: uppercase;
     letter-spacing: 1px;
+    cursor:pointer;
 }
 
 .form {
     background-color: #252525;
     padding: 2rem 3rem 4rem;
     box-shadow: 2px 2px 16px 3px rgba(0, 0, 0, 0.4);
-    width: 400px;
+    width: 450px;
 }
 
 .form h1 {
     color: #DE2A60;
+}
+
+/* 파일 업로드 */
+
+.input-file {
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+.input-file [type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0 none;
+}
+.input-file .file-label {
+    display: flex;
+    align-items: center;
+    width: 70px;
+    height: 58px;
+    line-height: 24px;
+    padding: 0 10px;
+    font-size: 16px;
+    background-color: #DE2A60;
+    color: white;
+    text-align: center;
+    cursor:pointer;
+    justify-content: center;
+}
+.input-file .file-name {
+    width: 280px;
+    height: 58px;
+    background: #2f2f2f;
+    line-height: 26px;
+    text-indent: 5px;
+    border: 1px solid #DE2A60;
 }

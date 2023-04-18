@@ -4,38 +4,47 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FilmCrush!</title>
+  <title>FilmCrush</title>
   <link rel="stylesheet" href="../css/add_movie.css">
+  <link rel="icon" href="../img/favicon.png">
 </head>
 
 <body>
 <div class="form">
-  <h1>영화 등록하기</h1>
+  <h1>영화 등록</h1>
   <br />
+  <!-- input type -->
   <div class="floating">
-    <input id="input__username" class="floating__input" name="username" type="text" placeholder="제목" />
-    <label for="input__username" class="floating__label" data-content="제목">
-    <span class="hidden--visually">
-      Username</span></label>
+    <input id="input__title" type="text" class="floating__input" name="username" placeholder="제목" />
+    <label for="input__title" class="floating__label" data-content="제목">
+    <span class="hidden--visually"></span></label>
   </div>
 
   <div class="floating">
-    <input id="input__password" type="password" class="floating__input" name="password" type="text" placeholder="감독" />
-    <label for="input__password" class="floating__label" data-content="감독"><span class="hidden--visually">Password</span></label>
+    <input id="input__director" type="text" class="floating__input" name="password" placeholder="감독" />
+    <label for="input__director" class="floating__label" data-content="감독"><span class="hidden--visually"></span></label>
   </div>
 
   <div class="floating">
-    <input id="input__password" type="password" class="floating__input" name="password" type="text" placeholder="장르" />
-    <label for="input__password" class="floating__label" data-content="장르"><span class="hidden--visually">Password</span></label>
+    <input id="input__genre" type="text" class="floating__input" name="password" placeholder="장르" />
+    <label for="input__genre" class="floating__label" data-content="장르"><span class="hidden--visually"></span></label>
   </div>
 
   <div class="floating">
-    <input id="input__password" type="password" class="floating__input" name="password" type="text" placeholder="출연" />
-    <label for="input__password" class="floating__label" data-content="출연"><span class="hidden--visually">Password</span></label>
+    <input id="input__actor"  type="text" class="floating__input" name="password" placeholder="출연" />
+    <label for="input__actor" class="floating__label" data-content="출연"><span class="hidden--visually"></span></label>
+  </div>
+
+  <!-- 포스터 업로드 -->
+  <div class="input-file">
+    <label for="upload01" class="file-label">포스터</label>
+    <input type="file" name="" id="upload01" class="file-upload" />
+    <input type="text" readonly="readonly" class="file-name" />
   </div>
 
   <button class="button">REGISTER</button>
+
 </div>
-<script src="./mainJoin.js"></script>
+
 </body>
 </html>
