@@ -28,6 +28,11 @@ public class MovieService {
     private final MovieImgService movieImgService;
     private final MovieImgRepository movieImgRepository;
 
+    public Page<Movie> movieList(Pageable pageable) {
+        return movieRepository.findAll(pageable);
+    }
+
+
     public Long saveMovie(MovieFormDto movieFormDto, List<MultipartFile> movieImgFileList) throws Exception {
         //상품 등록
         Movie movie = movieFormDto.createMovie();
@@ -69,10 +74,12 @@ public class MovieService {
                 .orElseThrow(EntityNotFoundException::new);
         movie.updateMovie(movieFormDto);
 
-        List<Long> movieImgIds = movieFormDto.getMovieImgIds();
+        Long movieImgIndex = movieFormDto.getMovieImgIndex();
 
         //이미지 등록
-        movieImgService.updateMovieImg(movieImgIds.get(0), movieImgFileList.get(0));
+        if(movieImgIndex != null) {
+            movieImgService.updateMovieImg(movieImgIndex, movieImgFileList.get(0));
+        }
         return movie.getMovieIndex();
     }
 
@@ -85,4 +92,7 @@ public class MovieService {
 //    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
 //        return itemRepository.getMainItemPage(itemSearchDto, pageable);
 //    }
+
+
+
 }

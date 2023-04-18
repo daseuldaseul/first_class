@@ -26,7 +26,7 @@ public class MovieFormDto {
 
     private List<MovieImgDto> movieImgDtoList = new ArrayList<>();
 
-    private List<Long> movieImgIds = new ArrayList<>();
+    private Long movieImgIndex;
 
     private static ModelMapper modelMapper = new ModelMapper();
 
