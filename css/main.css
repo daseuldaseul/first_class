@@ -81,11 +81,52 @@ a {
   padding: 60px 10px 30px;
 }
 
+
+/*------주현 슬라이더------*/
+
 .poster-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  position: relative;
 }
+
+.poster-container > .poster_slider{
+  overflow: hidden;
+}
+
+.poster-container > .poster_slider .slider { 
+  position: relative; 
+  transition: 0.5s;
+}
+
+.poster-container > .poster_slider .slider figure{ 
+  float:left;
+}
+
+.poster-container > .poster_slider img {
+  vertical-align: top;
+}
+
+.poster-container .arrow > a.prev {
+  position: absolute; 
+  left:-50px; 
+  top:100px;
+}
+.poster-container .arrow > a.next {
+  position: absolute; 
+  right:-50px; 
+  top:100px;
+}
+
+.slider{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+}
+
+/*----------------------------*/
 
 
 .poster {
@@ -268,3 +309,4 @@ a {
 .snip1273.hover figcaption:after {
   opacity: 0.1;
 }
+

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../css/main.css">
@@ -6,108 +7,126 @@
     <script src="../include.js" defer></script>
     <title>FilmCrush</title>
 </head>
+
 <body>
     <div class="wrapper">
         <header data-include="./header.html"></header>
+
         <div class="container">
             <!-- 영화 포스터 영역 -->
             <strong class="poster-title">✨ 4월 개봉영화 </strong>
+
+
             <div class="poster-container">
+                <div class="poster_slider">
+                    <div class="slider">
 
-                <figure class="snip1273">
-                    <img src="../img/2.jpg"/>
-                    <figcaption>
-                        <h3>【패왕별희】</h3>
-                        <p>감독 : 천카이거</p>
-                        <p>주연  : 장국영, 공리, 장풍의</p>
-                    </figcaption>
-                    <a href="#"></a>
-                </figure>
+                        <figure class="snip1273">
+                            <img src="../img/2.jpg" />
+                            <figcaption>
+                                <h3>【패왕별희】</h3>
+                                <p>감독 : 천카이거</p>
+                                <p>주연 : 장국영, 공리, 장풍의</p>
+                            </figcaption>
+                            <a href="#"></a>
+                        </figure>
 
-                <figure class="snip1273">
-                    <img src="../img/1.jpg"/>
-                    <figcaption>
-                        <h3>【마리아 칼라스】</h3>
-                        <p>감독 : 톰 볼프</p>
-                        <p>주연  : 마리아 칼라스</p>
-                    </figcaption>
-                    <a href="#"></a>
-                </figure>
+                        <figure class="snip1273">
+                            <img src="../img/1.jpg" />
+                            <figcaption>
+                                <h3>【마리아 칼라스】</h3>
+                                <p>감독 : 톰 볼프</p>
+                                <p>주연 : 마리아 칼라스</p>
+                            </figcaption>
+                            <a href="#"></a>
+                        </figure>
 
-                <figure class="snip1273">
-                    <img src="../img/3.jpg"/>
-                    <figcaption>
-                        <h3>【존윅4】</h3>
-                        <p>감독 : 채드 스타헬스키</p>
-                        <p>주연  : 키아누 리스브, 견자단, 빌 스카스가드</p>
-                    </figcaption>
-                    <a href="#"></a>
-                </figure>
+                        <figure class="snip1273">
+                            <img src="../img/3.jpg" />
+                            <figcaption>
+                                <h3>【존윅4】</h3>
+                                <p>감독 : 채드 스타헬스키</p>
+                                <p>주연 : 키아누 리스브, 견자단, 빌 스카스가드</p>
+                            </figcaption>
+                            <a href="#"></a>
+                        </figure>
 
-                <figure class="snip1273">
-                    <img src="../img/4.jpg"/>
-                    <figcaption>
-                        <h3>【에어】</h3>
-                        <p>감독 : 벤 애플렉</p>
-                        <p>주연  : 멧 데이먼, 벤 애플렉, 제이슨 베이트먼</p>
-                    </figcaption>
-                    <a href="#"></a>
-                </figure>
+                        <figure class="snip1273">
+                            <img src="../img/4.jpg" />
+                            <figcaption>
+                                <h3>【에어】</h3>
+                                <p>감독 : 벤 애플렉</p>
+                                <p>주연 : 멧 데이먼, 벤 애플렉, 제이슨 베이트먼</p>
+                            </figcaption>
+                            <a href="#"></a>
+                        </figure>
+
+
+                    </div>
+                </div>
+                <!-- 화살표 -->
+                <div class="arrow">
+                    <a href="" class="prev">이전</span>
+                    <a href="" class="next">다음</span>
+                </div>
             </div>
-        </div>
 
-        <!-- 게시판영역 -->
-        <div class="board-wrap">
-            <div class="board-title">
-                <strong>리뷰 게시판</strong>
-                <p>영화에 대한 감상을 자유롭게 남겨보세요.</p>
-                <div id="board-search">
-                    <select>
-                        <option value="id">제목</option>
-                        <option value="name">글쓴이</option>
-                        <option value="favorites">영화명</option>
-                    </select>
-                    <input type="text" class="search-text" />
-                    <div class="bt-wrap" id="board-search-btn">
-                        <button class="btn">검색</button>
+
+                <!-- 게시판영역 -->
+                <div class="board-wrap">
+                    <div class="board-title">
+                        <strong>리뷰 게시판</strong>
+                        <p>영화에 대한 감상을 자유롭게 남겨보세요.</p>
+                        <div id="board-search">
+                            <select>
+                                <option value="id">제목</option>
+                                <option value="name">글쓴이</option>
+                                <option value="favorites">영화명</option>
+                            </select>
+                            <input type="text" class="search-text" />
+                            <div class="bt-wrap" id="board-search-btn">
+                                <button class="btn">검색</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="board-list-wrap">
+                        <div class="board-list">
+                            <div class="top">
+                                <div class="num">NO.</div>
+                                <div class="title">TITLE</div>
+                                <div class="writer">WRITER</div>
+                                <div class="date">DATE</div>
+                                <div class="count">VIEW</div>
+                            </div>
+                            <div>
+                                <div class="num">1</div>
+                                <div class="title"><a href="#">글 제목이 들어감</a></div>
+                                <div class="writer">구은서</div>
+                                <div class="date">2023.04.11</div>
+                                <div class="count">27</div>
+                            </div>
+                        </div>
+                        <!-- 페이징 번호 -->
+                        <div class="board-page">
+                            <a href="#" class="bt first">
+                                <<< /a>
+                                    <a href="#" class="bt prev">
+                                        << /a>
+                                            <a href="#" class="num on">1</a>
+                                            <a href="#" class="num">2</a>
+                                            <a href="#" class="num">3</a>
+                                            <a href="#" class="num">4</a>
+                                            <a href="#" class="num">5</a>
+                                            <a href="#" class="bt next">></a>
+                                            <a href="#" class="bt last">>></a>
+                        </div>
+                        <div class="bt-wrap">
+                            <button class="btn" id="main-button"><a href="write.html">리뷰작성</a></button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="board-list-wrap">
-                <div class="board-list">
-                    <div class="top">
-                        <div class="num">NO.</div>
-                        <div class="title">TITLE</div>
-                        <div class="writer">WRITER</div>
-                        <div class="date">DATE</div>
-                        <div class="count">VIEW</div>
-                    </div>
-                    <div>
-                        <div class="num">1</div>
-                        <div class="title"><a href="#">글 제목이 들어감</a></div>
-                        <div class="writer">구은서</div>
-                        <div class="date">2023.04.11</div>
-                        <div class="count">27</div>
-                    </div>
-                </div>
-                <!-- 페이징 번호 -->
-                <div class="board-page">
-                    <a href="#" class="bt first"><<</a>
-                    <a href="#" class="bt prev"><</a>
-                    <a href="#" class="num on">1</a>
-                    <a href="#" class="num">2</a>
-                    <a href="#" class="num">3</a>
-                    <a href="#" class="num">4</a>
-                    <a href="#" class="num">5</a>
-                    <a href="#" class="bt next">></a>
-                    <a href="#" class="bt last">>></a>
-                </div>
-                <div class="bt-wrap" >
-                    <button class="btn" id="main-button"><a href="write.html">리뷰작성</a></button>
-                </div>
-            </div>
-        </div>
-        </div>
-        <script src="../main.js"></script>
+            <script src="../main.js"></script>
 </body>
+
 </html>
