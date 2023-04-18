@@ -38,20 +38,20 @@ public class MovieImgService {
         movieImgRepository.save(movieImg);
     }
 
-//    public void updateMovieImg(Long itemImgId, MultipartFile itemImgFile) throws Exception {
-//        if(!itemImgFile.isEmpty()) {
-//            MovieImg savedItemImg = itemImgRepository.findById(itemImgId).orElseThrow(EntityNotFoundException::new);
-//
-//            //기존 이미지 파일 삭제
-//            if(!StringUtils.isEmpty(savedItemImg.getImgName())) {
-//                fileService.deleteFile(itemImgLocation + "/" + savedItemImg.getImgName());
-//
-//                String oriImgName = itemImgFile.getOriginalFilename();
-//                String imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
-//                String imgUrl = "/images/item/" + imgName;
-//                savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
-//
-//            }
-//        }
-//    }
+    public void updateMovieImg(Long movieImgIndex, MultipartFile movieImgFile) throws Exception {
+        if(!movieImgFile.isEmpty()) {
+            MovieImg savedMovieImg = movieImgRepository.findById(movieImgIndex).orElseThrow(EntityNotFoundException::new);
+
+            //기존 이미지 파일 삭제
+            if(!StringUtils.isEmpty(savedMovieImg.getImgName())) {
+                fileService.deleteFile(movieImgLocation + "/" + savedMovieImg.getImgName());
+
+                String oriImgName = movieImgFile.getOriginalFilename();
+                String imgName = fileService.uploadFile(movieImgLocation, oriImgName, movieImgFile.getBytes());
+                String imgUrl = "/images/movie/" + imgName;
+                savedMovieImg.updateMovieImg(oriImgName, imgName, imgUrl);
+
+            }
+        }
+    }
 }

@@ -57,9 +57,9 @@ class MovieServiceTest {
 
         List<MultipartFile> multipartFileList = createMultipartFiles();
         Long movieIndex = movieService.saveMovie(movieFormDto, multipartFileList);
-
-        List<MovieImg> movieImgList = movieImgRepository.findByMovie(movieIndex);
-        Movie movie = movieRepository.findById(movieIndex).orElseThrow(EntityNotFoundException::new);
+        Movie movie = movieRepository.findByMovieIndex(movieIndex);
+        List<MovieImg> movieImgList = movieImgRepository.findByMovie(movie);
+        movie = movieRepository.findById(movieIndex).orElseThrow(EntityNotFoundException::new);
 
         assertEquals(movieFormDto.getMovieTitle(), movie.getMovieTitle());
         assertEquals(movieFormDto.getMovieGenre(), movie.getMovieGenre());

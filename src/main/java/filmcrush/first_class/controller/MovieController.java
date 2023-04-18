@@ -1,7 +1,11 @@
 package filmcrush.first_class.controller;
 
+import filmcrush.first_class.dto.MovieDto;
 import filmcrush.first_class.dto.MovieFormDto;
+import filmcrush.first_class.dto.MovieImgDto;
 import filmcrush.first_class.entity.Movie;
+import filmcrush.first_class.entity.MovieImg;
+import filmcrush.first_class.repository.MovieImgRepository;
 import filmcrush.first_class.repository.MovieRepository;
 import filmcrush.first_class.service.MovieService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +28,9 @@ public class MovieController {
     private final MovieService movieService;
 
     private final MovieRepository movieRepository;
+    private final MovieImgRepository movieImgRepository;
+
+
 
     @GetMapping(value = "/add/movie")
     public String movieForm(Model model) {
@@ -55,18 +62,33 @@ public class MovieController {
 
     @GetMapping(value = "/add/movie/{movieIndex}")
     public String movieDtl(@PathVariable("movieIndex") Long movieIndex, Model model) {
-        try {
-            Movie movie = movieRepository.findById(movieIndex)
-                    .orElseThrow(EntityNotFoundException::new);
-            MovieFormDto movieFormDto = movieService.getMovieDtl(movie);
+
+            MovieFormDto movieFormDto = movieService.getMovieDtl(movieIndex);
+
             model.addAttribute("movieFormDto", movieFormDto);
-        } catch(EntityNotFoundException e) {
-            model.addAttribute("errorMessage", "존재하지 않는 영화입니다.");
-            model.addAttribute("movieFormDto", new MovieFormDto());
-            return "movie/movieForm";
-        }
+
         return "movie/movieForm";
     }
 
 
+    @PostMapping(value = "/add/movie/{movieIndex}")
+    public String movieUpdate(@Valid MovieFormDto movieFormDto, BindingResult bindingResult,
+                             @RequestParam("movieImgFile") List<MultipartFile> movieImgFileList, Model model) throws Exception {
+        if(bindingResult.hasErrors()) {
+            return "movie/movieForm";
+        }
+
+        if(movieImgFileList.get(0).isEmpty() && movieFormDto.getMovieIndex() == null) {
+            model.addAttribute("errorMessage", "영화 포스터는 반드시 등록해야합니다.");
+            return "movie/movieForm";
+        }
+
+//        try {
+            movieService.updateMovie(movieFormDto, movieImgFileList);
+//        } catch(Exception e) {
+//            model.addAttribute("errorMessage", "영화 정보 수정 중 에러가 발생하였습니다.");
+//            return "movie/movieForm";
+//        }
+        return "redirect:/";
+    }
 }

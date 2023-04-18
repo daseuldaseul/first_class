@@ -1,7 +1,10 @@
 package filmcrush.first_class.dto;
 
+import filmcrush.first_class.entity.Board;
+import filmcrush.first_class.entity.Movie;
 import lombok.Getter;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 
 @Getter
@@ -22,4 +25,10 @@ public class MovieDto {
 
     private String movieActor; // 영화 배우
 
+    private static ModelMapper modelMapper = new ModelMapper();
+    // 소스 객체와 대상 객체 간의 값을 자동으로 매핑.
+
+    public static MovieDto of(Movie movie) {
+        return modelMapper.map(movie, MovieDto.class);
+    }
 }

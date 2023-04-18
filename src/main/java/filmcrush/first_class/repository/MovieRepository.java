@@ -1,5 +1,6 @@
 package filmcrush.first_class.repository;
 
+import filmcrush.first_class.entity.Board;
 import filmcrush.first_class.entity.Movie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     List<Movie> findByMovieTitleContaining(String keyword);
     Page<Movie> findByMovieTitleContaining(String keyword, Pageable pageable);
+
+    Movie findByMovieIndex(Long movieIndex);
 
 
 }

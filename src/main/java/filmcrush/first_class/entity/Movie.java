@@ -1,5 +1,6 @@
 package filmcrush.first_class.entity;
 
+import filmcrush.first_class.dto.MovieFormDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -30,5 +31,11 @@ public class Movie {
     
     private String movieActor; // 영화 배우
 
+    public void updateMovie(MovieFormDto movieFormDto) {
+        this.movieTitle = movieFormDto.getMovieTitle();
+        this.movieGenre = movieFormDto.getMovieGenre();
+        this.movieDirector = movieFormDto.getMovieDirector();
+        this.movieActor = movieFormDto.getMovieActor();
+    }
 
 }
