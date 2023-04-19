@@ -5,7 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import filmcrush.first_class.entity.Board;
 import filmcrush.first_class.entity.Movie;
 import filmcrush.first_class.entity.QBoard;
-import filmcrush.first_class.entity.User;
+import filmcrush.first_class.entity.Users;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

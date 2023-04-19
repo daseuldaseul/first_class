@@ -3,21 +3,20 @@ package filmcrush.first_class.controller;
 import filmcrush.first_class.dto.BoardDto;
 import filmcrush.first_class.dto.BoardFormDto;
 import filmcrush.first_class.dto.ReplyFormDto;
-import filmcrush.first_class.entity.Movie;
-import filmcrush.first_class.entity.Reply;
-import filmcrush.first_class.entity.Users;
+import filmcrush.first_class.entity.*;
 import filmcrush.first_class.repository.BoardRepository;
 import filmcrush.first_class.repository.MovieRepository;
 import filmcrush.first_class.repository.ReplyRepository;
 import filmcrush.first_class.repository.UserRepository;
 import filmcrush.first_class.service.BoardService;
-import filmcrush.first_class.entity.Board;
 import filmcrush.first_class.service.ReplyService;
+import filmcrush.first_class.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,12 +27,21 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
 public class BoardController {
+
+
+
+
     @Autowired
     private BoardService boardService;
+
+    @Autowired
+    private UserService userService;
+
 
     @Autowired
     private ReplyService replyService;
@@ -174,7 +182,7 @@ public class BoardController {
 
         // 현재 페이지 1번일 때 1 뒤에 2, 3, 4, 5p까지 출력되도록함.
         if(nowPage == 1){
-                endPage = Math.min(nowPage + 4, searchList.getTotalPages());
+            endPage = Math.min(nowPage + 4, searchList.getTotalPages());
 
         }else if(nowPage == 2){
             // 현재 페이지 2번일 때 뒤에 3, 4, 5p까지 출력되도록 함.
@@ -323,15 +331,62 @@ public class BoardController {
     public String boardDtl(Model model, @PathVariable("boardIndex") Long boardIndex) {
         BoardDto boardDto = boardService.getBoardView(boardIndex);
         Board board = boardRepository.findByBoardIndex(boardIndex);
-        board.setViewNum(board.getViewNum() +1);
+//        board.setViewNum(board.getViewNum() +1);
+
+        //좋아요
+//        int like = 0; // 비로그인 유저라면 무조건 like = false;
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String author = authentication.getName();
+        Users user = userService.findUser(author);
+//        if(author != null){
+//            // 로그인한 사용자라면
+//
+//            /* member_id 반환 */
+//            ;
+//            /* 현재 로그인한 유저가 이 게시물을 좋아요 했는지 안 했는지 여부 확인 */
+//
+//
+//        }
+        //로그인한 유저가 좋아요 했는지 여부 확인
+        Optional<UserLike> like = boardService.findLike(board, user);
+        int heart = 0;
+        if(like.isEmpty()) {
+            heart = 0;
+        }else {
+            heart = 1;
+        }
+
         List<Reply> replyList = replyService.getBoardView(board);
+
+
+
+        model.addAttribute("user",user);
         model.addAttribute("replyList", replyList);
         model.addAttribute("boardDto", boardDto);
         model.addAttribute("replyFormDto", new ReplyFormDto());
+        model.addAttribute("heart", heart);
 
 
         return "board/boardDtl";
     }
+    @PostMapping(value = "/board/like/{boardIndex}")
+    public @ResponseBody int likeBoard(@PathVariable Long boardIndex, @RequestParam(name = "userId") String userId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String author = authentication.getName();
+
+        Users user = userService.findUser(author);
+
+
+        Board board = boardService.findBoard(boardIndex);
+        System.out.println(boardIndex);
+
+        // 저장 true, 삭제 false
+        int result = boardService.saveLike(board, user);
+
+        return result;
+    }
+
 
     @PostMapping(value = "/board/{boardIndex}")
     public String replyWrite(@ModelAttribute("ReplyFormDto") ReplyFormDto replyFormDto, @PathVariable("boardIndex") Long boardIndex, Model model) {
@@ -361,4 +416,13 @@ public class BoardController {
     }
 
 
+
+    private String getCurrentUserEmail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = "";
+
+        Object principal = authentication.getPrincipal();
+
+        return email;
+    }
 }

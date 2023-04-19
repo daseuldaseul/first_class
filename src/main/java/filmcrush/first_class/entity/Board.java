@@ -7,6 +7,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -41,4 +42,7 @@ public class Board {
     private LocalDateTime boardDate; // 작성일자
 
     private Long replyNum;
+
+    @OneToMany(mappedBy = "board")
+    private List<UserLike> likes = new ArrayList<>();
 }
