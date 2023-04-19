@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="icon" href="../img/icon/favicon.png">
+    <script src="../include.js" defer></script>
+    <title>FilmCrush</title>
+</head>
+
+<body>
+<div class="wrapper">
+    <header data-include="./header.html"></header>
+
+    <div class="container">
+
+        <!-- 게시판영역 -->
+        <div class="board-wrap">
+            <div class="board-title">
+                <strong>영화 관리 페이지</strong>
+                <p>영화 등록 및 수정/삭제</p>
+                <div id="board-search">
+                    <select>
+                        <option value="id">제목</option>
+                        <option value="name">글쓴이</option>
+                        <option value="favorites">영화명</option>
+                    </select>
+                    <input type="text" class="search-text" />
+                    <div class="bt-wrap" id="board-search-btn">
+                        <button class="btn">검색</button>
+                    </div>
+                </div>
+            </div>
+            <div class="board-list-wrap">
+                <div class="board-list">
+                    <div class="top">
+                        <div class="num">NO.</div>
+                        <div class="title">TITLE</div>
+                        <div class="writer">WRITER</div>
+                        <div class="date">DATE</div>
+                        <div class="count">VIEW</div>
+                    </div>
+                    <div>
+                        <div class="num">1</div>
+                        <div class="title"><a href="#">글 제목이 들어감</a></div>
+                        <div class="writer">구은서</div>
+                        <div class="date">2023.04.11</div>
+                        <div class="count">27</div>
+                    </div>
+                </div>
+                <!-- 페이징 번호 -->
+                <div class="board-page">
+                    <a href="#" class="bt first"><<</a>
+                    <a href="#" class="bt prev"><</a>
+                    <a href="#" class="num on">1</a>
+                    <a href="#" class="num">2</a>
+                    <a href="#" class="num">3</a>
+                    <a href="#" class="num">4</a>
+                    <a href="#" class="num">5</a>
+                    <a href="#" class="bt next">></a>
+                    <a href="#" class="bt last">>></a>
+                </div>
+                <div class="bt-wrap">
+                    <button class="btn" id="main-button"><a href="write.html">리뷰작성</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../main.js"></script>
+</body>
+
+</html>

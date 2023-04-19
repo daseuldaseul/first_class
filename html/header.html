@@ -15,15 +15,25 @@
 </head>
 <div th:fragment="header" >
   <nav class="header">
-    <div class="header-logo">
-      <a th:href="@{/}">
-        <img id="logo" src="/img/logo.png" method="get" style="border: 0px">
+    <!-- 관리자 페이지 로고 -->
+    <div>
+      <a th:href="@{}">
+        <button class="manager" onfocus="this.blur()">
+          <img src="../img/icon/manager.png" onmouseover="this.src='../img/icon/manager-2.png'" onmouseout="this.src='../img/icon/manager.png'">
+        </button>
       </a>
     </div>
+    <!-- 메인 페이지 로고 -->
+    <div class="header-logo">
+      <a th:href="@{/}">
+        <img id="logo" src="../img/icon/logo.png" method="get" style="border: 0px">
+      </a>
+    </div>
+    <!-- 로그인 페이지 로고 -->
     <div>
       <a th:href="@{/members/login}">
         <button class="join" onfocus="this.blur()">
-          <img src="../img/user.png" onmouseover="this.src='../img/user-2.png'" onmouseout="this.src='../img/user.png'">
+          <img src="../img/icon/user.png" onmouseover="this.src='../img/icon/user-2.png'" onmouseout="this.src='../img/icon/user.png'">
         </button>
       </a>
     </div>

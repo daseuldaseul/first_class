@@ -1,14 +1,3 @@
-@font-face {
-    font-family: 'Happiness-Sans-Title';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
-/* ---------------------------------------------- */
-/* -------   Required CSS (customizable)  ------- */
-/* ---------------------------------------------- */
 
 :root {
     --color__accent: #DE2A60;
@@ -227,4 +216,14 @@ html {
     line-height: 26px;
     text-indent: 5px;
     border: 1px solid #DE2A60;
+}
+
+#btn-area {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+}
+
+#btn-area button:first-child {
+    margin-right: 20px;
 }
