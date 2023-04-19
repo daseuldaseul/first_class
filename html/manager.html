@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/manager.css">
     <link rel="icon" href="../img/icon/favicon.png">
     <script src="../include.js" defer></script>
     <title>FilmCrush</title>
@@ -20,6 +21,7 @@
                 <strong>영화 관리 페이지</strong>
                 <p>영화 등록 및 수정/삭제</p>
                 <div id="board-search">
+                    <!-- valueName 필요한대로 수정 -->
                     <select>
                         <option value="id">제목</option>
                         <option value="name">글쓴이</option>
@@ -31,21 +33,27 @@
                     </div>
                 </div>
             </div>
+
+            <!-- className 필요한대로 수정 -->
             <div class="board-list-wrap">
                 <div class="board-list">
                     <div class="top">
                         <div class="num">NO.</div>
-                        <div class="title">TITLE</div>
-                        <div class="writer">WRITER</div>
-                        <div class="date">DATE</div>
-                        <div class="count">VIEW</div>
+                        <div class="title">MOVIE TITLE</div>
+                        <div class="director">DIRECTOR</div>
+                        <div class="actor">ACTOR</div>
+                        <div class="modify">MODIFY</div>
                     </div>
                     <div>
                         <div class="num">1</div>
-                        <div class="title"><a href="#">글 제목이 들어감</a></div>
-                        <div class="writer">구은서</div>
-                        <div class="date">2023.04.11</div>
-                        <div class="count">27</div>
+                        <div class="title"><a href="#">매드 맥스: 분노의 도로</a></div>
+                        <div class="director">조지 밀러</div>
+                        <div class="actor">톰 하디, 샤를리즈 테론</div>
+                        <div class="modify">
+                            <a href="modify_movie.html">
+                                <img src="../img/icon/modify.png">
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <!-- 페이징 번호 -->
@@ -61,7 +69,11 @@
                     <a href="#" class="bt last">>></a>
                 </div>
                 <div class="bt-wrap">
-                    <button class="btn" id="main-button"><a href="write.html">리뷰작성</a></button>
+                    <a href="add_movie.html">
+                        <button class="btn" id="main-button">
+                            영화등록
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>

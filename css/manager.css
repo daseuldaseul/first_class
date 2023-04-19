@@ -1,0 +1,147 @@
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.board-wrap {
+  width: 1200px;
+  margin: 100px auto;
+}
+ /* 게시판 검색 */
+#board-search {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+}
+
+#board-search select {
+  font-size: 1.3rem;
+  width: 100px;
+  height: 50px;
+  padding: 10px;
+}
+
+#board-search input{
+  font-size: 1.3rem;
+  width: 250px;
+  height: 50px;
+  padding: 10px;
+}
+
+#board-search-btn {
+  margin-top: 0;
+  height: 50px;
+}
+
+/* 게시판 헤더 */
+.board-title {
+  margin-bottom: 30px;
+}
+
+.board-title strong {
+  font-size: 3rem;
+  color : #DE2A60;
+}
+
+.board-title p {
+  margin-top: 5px;
+  font-size: 1.4rem;
+}
+
+/* 글목록 영역 */
+.board-list {
+  width: 100%;
+  border-top: 2px solid white;
+}
+
+.board-list >div {
+  border-bottom: 1px solid #ddd;
+  font-size: 0;
+}
+
+.board-list >div.top {
+  border-bottom: 1px solid #999;
+}
+
+.board-list >div:last-child {
+  border-bottom: 2px solid white;
+}
+
+.board-list > div > div {
+  display: inline-block;
+  padding: 15px 0;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.board-list > div.top > div {
+  font-weight: 600;
+}
+
+.board-list .num {
+  width: 10%;
+}
+
+.board-list .title {
+  width: 45%;
+  /*text-align: left;*/
+  text-align: center;
+  /*margin-left: 20px;*/
+  padding-left: 80px;
+}
+
+.board-list .top .title {
+  text-align: center;
+}
+
+.board-list .director {
+  width: 15%;
+}
+
+.board-list .actor {
+  width: 15%;
+}
+
+.board-list .modify {
+  width: 10%;
+}
+
+/* 게시판 하단 페이징 */
+.board-page {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0;
+}
+
+.board-page a {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  box-sizing: border-box;
+  color: white;
+  vertical-align: middle;
+  border: 1px solid white;
+  line-height: 100%;
+  border-left: 0;
+}
+
+.board-page a.bt {
+  font-size: 1.5rem;
+  padding-top: 8px;
+  letter-spacing: -1px
+}
+
+.board-page a.num {
+  font-size: 1.5rem;
+  padding-top: 8px;
+}
+
+.board-page a.num.on {
+  border-color: white;
+  background: #DE2A60;
+}
+
+.first:first-child {
+  border-left: 1px solid white;
+}

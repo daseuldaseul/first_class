@@ -63,7 +63,7 @@ a {
   height: 100px;
 }
 
-.join {
+.join, .manager {
   float: right;
   margin-right: 30px;
   /* 스타일 제거 */
@@ -74,6 +74,7 @@ a {
 }
 
 
+
 /* 개봉영화 포스터 구역*/
 .poster-title {
   font-size: 40px;
@@ -82,14 +83,15 @@ a {
 }
 
 
-/*------주현 슬라이더------*/
-
 .poster-container {
+  max-width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   position: relative;
 }
+
+/*------ 이미지 슬라이드 효과 ------*/
 
 .poster-container > .poster_slider{
   overflow: hidden;
@@ -108,15 +110,17 @@ a {
   vertical-align: top;
 }
 
-.poster-container .arrow > a.prev {
+.before {
   position: absolute;
   left:-50px;
   top:100px;
+  margin-top: 55px;
 }
-.poster-container .arrow > a.next {
+.after {
   position: absolute;
   right:-50px;
   top:100px;
+  margin-top: 55px;
 }
 
 .slider{
@@ -186,10 +190,9 @@ a {
 /* 포스터 마우스오버시 효과 */
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,700);
 .snip1273 {
-  font-family: 'Raleway', Arial, sans-serif;
   position: relative;
   margin: 10px;
-  min-width: 310px -60px;
+  /*min-width: 310px -60px;*/
   max-width: 310px;
   width: 100%;
   color: #ffffff;
@@ -207,6 +210,7 @@ a {
 .snip1273 img {
   position: relative;
   max-width: 100%;
+  max-height: 100%;
   vertical-align: top;
 }
 .snip1273 figcaption {
