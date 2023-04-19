@@ -34,8 +34,7 @@
             <li class="date" th:text="${boardDto.boardDate}">2023.04.10</li>
           </ul>
         </div>
-        <div th:each="hashList, status: ${hashList}" >
-
+        <div th:each="hashList, status: ${hashList}">
           <a th:href="'/hashtag?hashtag='+ ${hashList.hashName}" th:text="'#' + ${hashList.hashName}"></a>
         </div>
 
@@ -78,7 +77,10 @@
       </div>
       <div>
         <button class="btn">수정</button>
-        <button class="btn">삭제</button>
+        <form th:action="'/board/delete/' + ${boardDto.boardIndex}" method="get">
+          <button class="btn">삭제</button>
+        </form>
+
       </div>
 
       <div class="reply-container" th:replace="board/reply::boardReply"></div>

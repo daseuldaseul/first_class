@@ -13,5 +13,6 @@ public interface BoardHashtagsRepository extends JpaRepository<BoardHashtags, Lo
 
     List<BoardHashtags> findByHashtags(Hashtags hashtags);
 
-
+    void deleteByBoard(Board board);
+    //Board에 맞는 BoardHashtags 삭제 모두
 }

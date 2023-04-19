@@ -34,5 +34,11 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
     Page<Board> findAllByOrderByLikeNumDesc(Pageable pageable);
 
     Board findByBoardIndex(Long boardIndex);
+    // BoardIndex에 맞는 Board 조회
+
+    //삭제
+    void deleteByBoardIndex(Long boardIndex);
+    // BoardIndex에 맞는 Board 삭제
+
 
 }

@@ -136,6 +136,8 @@ public class BoardController {
         board.setBoardDate(LocalDateTime.now());
         board.setUser(userRepository.findByUserId(author));
         board.setMovie(movieRepository.findByMovieTitle(boardFormDto.getMovie()));
+        board.setViewNum(0L);
+        board.setLikeNum(0L);
 
 
 
@@ -447,4 +449,11 @@ public class BoardController {
 
 
     }
+
+    @GetMapping(value="board/delete/{boardIndex}")
+    public String deleteBoard(@PathVariable("boardIndex") Long boardIndex){
+        boardService.deleteBoard(boardIndex);
+        return "redirect:/";
+    }
+
 }

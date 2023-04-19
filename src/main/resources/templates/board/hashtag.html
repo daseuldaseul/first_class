@@ -24,7 +24,7 @@
     <div class="board-wrap">
       <div class="board-title">
         <strong>리뷰 게시판</strong>
-        <p>#hashtag</p>
+        <p th:text="'#' + ${param.hashtag}"></p>
         <form action="/search" method="GET" role="search">
           <select name="searchType" id="searchType">
             <option name="title" value="title">제목</option>
@@ -37,7 +37,7 @@
         </form>
 
         <form action="/hashtag" method="GET">
-          <input type="text" name="hashtag" class="search-text" id="hashtag" placeholder="검색">
+          <input type="text" name="hashtag" class="search-text" id="hashtag" placeholder="해시태그">
           <button>검색</button>
         </form>
 
