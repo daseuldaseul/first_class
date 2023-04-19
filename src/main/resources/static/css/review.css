@@ -44,6 +44,7 @@
 .contents {
   margin: auto 50px;
   padding: 50px 0 ;
+  min-height : 300px;
   line-height: 40px;
   font-size: 2.3rem;
 }
@@ -69,6 +70,18 @@
 
 .reply-container .btn {
   margin-left: 20px;
+
+}
+#reply-user {
+  font-size: 12px;
+  font-family: 'SBAggroB';
+  color: white;
+}
+
+#reply-content {
+  font-size: 20px;
+  font-family: 'SBAggroB';
+  color: white;
 }
 
 #reply-input {
@@ -81,4 +94,16 @@
   line-height: 45px;
 }
 
+/*----- 별점주기 -----*/
 
+#score .unchecked{
+    font-size: 1.5em; /* 이모지 크기 */
+    color: transparent; /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
+}
+
+#score .checked{
+    font-size: 1.5em; /* 이모지 크기 */
+    color: transparent; /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #ffcf20;;
+}

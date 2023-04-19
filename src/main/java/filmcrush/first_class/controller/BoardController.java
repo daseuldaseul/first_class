@@ -4,15 +4,11 @@ import filmcrush.first_class.dto.BoardDto;
 import filmcrush.first_class.dto.BoardFormDto;
 import filmcrush.first_class.dto.ReplyDto;
 import filmcrush.first_class.dto.ReplyFormDto;
-import filmcrush.first_class.entity.Movie;
-import filmcrush.first_class.entity.Reply;
-import filmcrush.first_class.entity.Users;
-import filmcrush.first_class.repository.BoardRepository;
-import filmcrush.first_class.repository.MovieRepository;
-import filmcrush.first_class.repository.ReplyRepository;
-import filmcrush.first_class.repository.UserRepository;
+import filmcrush.first_class.entity.*;
+import filmcrush.first_class.repository.*;
+import filmcrush.first_class.service.BoardHashtagsService;
 import filmcrush.first_class.service.BoardService;
-import filmcrush.first_class.entity.Board;
+import filmcrush.first_class.service.HashtagsService;
 import filmcrush.first_class.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,7 +34,13 @@ public class BoardController {
     private ReplyService replyService;
 
     @Autowired
+    private HashtagsService hashtagsService;
+
+    @Autowired
     BoardRepository boardRepository;
+
+    @Autowired
+    ReplyRepository replyRepository;
 
     @Autowired
     MovieRepository movieRepository;
@@ -47,7 +49,10 @@ public class BoardController {
     UserRepository userRepository;
 
     @Autowired
-    ReplyRepository replyRepository;
+    BoardHashtagsRepository boardHashtagsRepository;
+
+    @Autowired
+    BoardHashtagsService boardHashtagsService;
 
     @GetMapping(value = "/")
     public String boardForm(@RequestParam(required = false) String type, Model model, @PageableDefault(page = 0, size = 10, sort = "boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
@@ -316,8 +321,11 @@ public class BoardController {
     public String boardDtl(Model model, @PathVariable("boardIndex") Long boardIndex) {
         BoardDto boardDto = boardService.getBoardView(boardIndex);
         Board board = boardRepository.findByBoardIndex(boardIndex);
+        List<Hashtags> hashList = hashtagsService.hashtagsList(board);
+
         board.setViewNum(board.getViewNum() +1);
         List<Reply> replyList = replyService.getBoardView(board);
+        model.addAttribute("hashList", hashList);
         model.addAttribute("replyList", replyList);
         model.addAttribute("boardDto", boardDto);
         model.addAttribute("replyFormDto", new ReplyFormDto());
@@ -351,6 +359,7 @@ public class BoardController {
 
 
         return "redirect:/board/" + boardIndex;
+
     }
 
 //    @GetMapping(value= "/board/reply")
@@ -429,4 +438,62 @@ public class BoardController {
 
 
     }
+    @GetMapping(value = "/hashtag")
+    public String hashtag(String hashtag, Model model, @PageableDefault(page=0, size=10, sort="boardIndex", direction = Sort.Direction.DESC) Pageable pageable){
+        List<Long> indexList = boardHashtagsService.findHashBoardIndex(hashtag);
+        Page<Board> hashList = boardRepository.findByBoardIndexIn(indexList, pageable);
+
+        int nowPage = hashList.getPageable().getPageNumber() + 1;
+
+
+        int startPage = Math.max(nowPage - 2, 1);
+
+        int endPage = Math.min(nowPage + 2, hashList.getTotalPages());
+
+        // 현재 페이지 1번일 때 1 뒤에 2, 3, 4, 5p까지 출력되도록함.
+        if(nowPage == 1){
+            endPage = Math.min(nowPage + 4, hashList.getTotalPages());
+
+        }else if(nowPage == 2){
+            // 현재 페이지 2번일 때 뒤에 3, 4, 5p까지 출력되도록 함.
+            endPage  = Math.min(nowPage + 3, hashList.getTotalPages());
+        }
+
+        // 현재 페이지가 마지막 페이지일 때
+        // 현재 페이지 앞에 페이지를 뜨게 만듦
+        if(nowPage == (hashList.getTotalPages()-1)){
+            startPage = Math.min(nowPage - 3, hashList.getTotalPages());
+        }else if(nowPage == (hashList.getTotalPages())){
+            startPage = Math.min(nowPage - 4, hashList.getTotalPages());
+        }
+
+        if(startPage < 1){
+            startPage = 1;
+        }
+
+        int prevPage = nowPage - 1;
+        int nextPage = nowPage + 1;
+
+
+        model.addAttribute("hashList", hashList);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("totalPages", hashList.getTotalPages());
+
+        return "board/hashtag";
+
+
+    }
+
+    @GetMapping(value="board/delete/{boardIndex}")
+    public String deleteBoard(@PathVariable("boardIndex") Long boardIndex){
+        boardService.deleteBoard(boardIndex);
+        return "redirect:/";
+    }
+
+
+
 }

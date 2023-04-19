@@ -7,6 +7,7 @@ import filmcrush.first_class.dto.MovieImgDto;
 import filmcrush.first_class.entity.Board;
 import filmcrush.first_class.entity.Movie;
 import filmcrush.first_class.entity.MovieImg;
+import filmcrush.first_class.repository.BoardRepository;
 import filmcrush.first_class.repository.MovieImgRepository;
 import filmcrush.first_class.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class MovieService {
     private final MovieRepository movieRepository;
     private final MovieImgService movieImgService;
     private final MovieImgRepository movieImgRepository;
+    private final BoardRepository boardRepository;
 
     public Page<Movie> movieList(Pageable pageable) {
         return movieRepository.findAll(pageable);
@@ -43,7 +45,7 @@ public class MovieService {
             MovieImg movieImg = new MovieImg();
             movieImg.setMovie(movie);
 
-            movieImgService.saveMovieImg(movieImg, movieImgFileList.get(0));
+            movieImgService.saveMovieImg(movieImg, movieImgFileList.get(0), movie.getMovieIndex());
 
         return movie.getMovieIndex();
     }
@@ -58,8 +60,8 @@ public class MovieService {
             movieImgDtoList.add(movieImgDto);
         }
 
-        movie = movieRepository.findById(movieIndex)
-                .orElseThrow(EntityNotFoundException::new);
+//        movie = movieRepository.findById(movieIndex)
+//                .orElseThrow(EntityNotFoundException::new);
         MovieFormDto movieFormDto = MovieFormDto.of(movie);
         movieFormDto.setMovieImgDtoList(movieImgDtoList);
         return movieFormDto;
@@ -68,31 +70,36 @@ public class MovieService {
 
 
 
-    public Long updateMovie(MovieFormDto movieFormDto, List<MultipartFile> movieImgFileList) throws Exception {
+    public Long updateMovie(MovieFormDto movieFormDto, MultipartFile movieImgFileList) throws Exception {
         //상품 수정
         Movie movie = movieRepository.findById(movieFormDto.getMovieIndex())
                 .orElseThrow(EntityNotFoundException::new);
         movie.updateMovie(movieFormDto);
 
-        Long movieImgIndex = movieFormDto.getMovieImgIndex();
+        movieImgService.updateMovieImg(movie.getMovieIndex(), movieImgFileList);
+       // Long movieImgIndex = movieFormDto.getMovieImgIndex();
 
-        //이미지 등록
-        if(movieImgIndex != null) {
-            movieImgService.updateMovieImg(movieImgIndex, movieImgFileList.get(0));
-        }
+//        //이미지 등록
+//        if(movieImgIndex != null) {
+//            movieImgService.updateMovieImg(movieImgIndex, movieImgFileList);
+//        }
         return movie.getMovieIndex();
     }
 
-//    @Transactional(readOnly = true)
-//    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
-//        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
-//    }
+//    public Long updateMovie2(Long movieIndex, MovieFormDto movieFormDto, MultipartFile movieImgFileList) {
+//        Movie movie = movieRepository.findByMovieIndex(movieIndex); // 삭제하고싶은 movie 객체
+//        movieImgRepository.deleteByMovie(movie); // 이미지 삭제
 //
-//    @Transactional(readOnly = true)
-//    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
-//        return itemRepository.getMainItemPage(itemSearchDto, pageable);
+//
 //    }
 
+    @Transactional
+    public void deleteMovie(Long movieIndex) {
+        Movie movie = movieRepository.findByMovieIndex(movieIndex); // 삭제하고싶은 movie 객체
+        movieImgRepository.deleteByMovie(movie); // 이미지 삭제
+        boardRepository.deleteByMovie(movie); // 게시물 삭제
+        movieRepository.deleteByMovieIndex(movieIndex); // 영화 삭제
 
+    }
 
 }

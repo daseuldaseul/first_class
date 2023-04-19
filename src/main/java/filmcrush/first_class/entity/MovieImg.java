@@ -25,9 +25,10 @@ public class MovieImg {
     @JoinColumn(name = "movie_index")
     private Movie movie;
 
-    public void updateMovieImg(String oriImgName, String imgName, String imgUrl) {
+    public void updateMovieImg(String oriImgName, String imgName, String imgUrl, Movie movie) {
         this.oriImgName = oriImgName;
         this.imgName = imgName;
         this.imgUrl = imgUrl;
+        this.movie = movie;
     }
 }

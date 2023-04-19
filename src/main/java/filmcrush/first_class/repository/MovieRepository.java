@@ -15,7 +15,10 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     Page<Movie> findByMovieTitleContaining(String keyword, Pageable pageable);
 
     Movie findByMovieIndex(Long movieIndex);
+
     Page<Movie> findAll(Pageable pageable);
 
-
+    void deleteByMovieIndex(Long movieIndex);
+    //매개변수로 들어온 movieIndex를 찾아서 삭제를 하겠다.
+    // void인 이유는 delete하고 끝내야하니까.
 }

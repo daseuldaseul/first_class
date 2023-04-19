@@ -1,7 +1,9 @@
 package filmcrush.first_class.service;
 
+import filmcrush.first_class.entity.Movie;
 import filmcrush.first_class.entity.MovieImg;
 import filmcrush.first_class.repository.MovieImgRepository;
+import filmcrush.first_class.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -20,13 +23,15 @@ public class MovieImgService {
 
     private final MovieImgRepository movieImgRepository;
 
+    private final MovieRepository movieRepository;
+
     private final FileService fileService;
 
-    public void saveMovieImg(MovieImg movieImg, MultipartFile movieImgFile) throws Exception {
+    public void saveMovieImg(MovieImg movieImg, MultipartFile movieImgFile, Long movieIndex) throws Exception {
         String oriImgName = movieImgFile.getOriginalFilename();
         String imgName = "";
         String imgUrl = "";
-
+        Movie movie = movieRepository.findByMovieIndex(movieIndex);
         //파일 업로드
         if(!StringUtils.isEmpty(oriImgName)) {
             imgName = fileService.uploadFile(movieImgLocation, oriImgName, movieImgFile.getBytes());
@@ -34,24 +39,37 @@ public class MovieImgService {
         }
 
         //상품 이미지 정보 저장
-        movieImg.updateMovieImg(oriImgName, imgName, imgUrl);
+        movieImg.updateMovieImg(oriImgName, imgName, imgUrl, movie);
         movieImgRepository.save(movieImg);
     }
 
-    public void updateMovieImg(Long movieImgIndex, MultipartFile movieImgFile) throws Exception {
-        if(!movieImgFile.isEmpty()) {
-            MovieImg savedMovieImg = movieImgRepository.findById(movieImgIndex).orElseThrow(EntityNotFoundException::new);
+    public List<MovieImg> updateMovieImg(Long movieIndex, MultipartFile movieImgFile) throws Exception {
 
-            //기존 이미지 파일 삭제
-            if(!StringUtils.isEmpty(savedMovieImg.getImgName())) {
-                fileService.deleteFile(movieImgLocation + "/" + savedMovieImg.getImgName());
+        Movie movie = movieRepository.findByMovieIndex(movieIndex);
+        movieImgRepository.deleteByMovie(movie);
 
-                String oriImgName = movieImgFile.getOriginalFilename();
-                String imgName = fileService.uploadFile(movieImgLocation, oriImgName, movieImgFile.getBytes());
-                String imgUrl = "/images/movie/" + imgName;
-                savedMovieImg.updateMovieImg(oriImgName, imgName, imgUrl);
+        MovieImg movieImg = new MovieImg();
+        saveMovieImg(movieImg, movieImgFile, movieIndex);
+        List<MovieImg> savedMovieImg = movieImgRepository.findByMovie(movie);
 
-            }
-        }
+        return savedMovieImg;
+
     }
+
+//    public void updateMovieImg(Long movieImgIndex, MultipartFile movieImgFile) throws Exception {
+////        if(!movieImgFile.isEmpty()) {
+////            MovieImg savedMovieImg = movieImgRepository.findById(movieImgIndex).orElseThrow(EntityNotFoundException::new);
+////
+////            //기존 이미지 파일 삭제
+////            if(!StringUtils.isEmpty(savedMovieImg.getImgName())) {
+////                fileService.deleteFile(movieImgLocation + "/" + savedMovieImg.getImgName());
+////
+////                String oriImgName = movieImgFile.getOriginalFilename();
+////                String imgName = fileService.uploadFile(movieImgLocation, oriImgName, movieImgFile.getBytes());
+//                String imgUrl = "/images/movie/" + imgName;
+//                savedMovieImg.updateMovieImg(oriImgName, imgName, imgUrl);
+//
+//            }
+//        }
+//    }
 }

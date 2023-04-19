@@ -25,7 +25,7 @@
           <div th:each="movieDto, status: ${movieList.getContent()}" >
             <div class="num" th:text="${movieDto.movieIndex}"></div>
             <div class="title">
-              <a th:href="'/add/movie/'+${movieDto.movieIndex}" th:text="${movieDto.movieTitle}"></a>
+              <a th:href="'/movieMng/add/movie/'+${movieDto.movieIndex}" th:text="${movieDto.movieTitle}"></a>
             </div>
             <div class="director" th:text="${movieDto.movieDirector}"></div>
             <div class="actor" th:text="${movieDto.movieActor}"></div>
@@ -33,17 +33,16 @@
           </div>
 
         </div>
-
-<!--        <div class="board-page">-->
-<!--          <a th:href="@{/(page=${0})}" class="bt first"><<</a>-->
-<!--          <a th:href="@{/(page=${startPage-2})}" class="bt prev"><</a>-->
-<!--          <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">-->
-<!--            <a th:if="${page != nowPage}" th:href="@{/(page=${page-1})}" th:text ="${page}" class="num"></a>-->
-<!--            <a th:if="${page==nowPage}" th:text ="${page}" class="num on"></a>-->
-<!--          </th:block>-->
-<!--          <a th:if="${endPage < totalPages}" th:href="@{/(page=${endPage})}" class="bt next">></a>-->
-<!--          <a th:href="@{/(page=${totalPages-1})}" class="bt last">>></a>-->
-<!--        </div>-->
+        <div class="board-page">
+          <a th:href="@{/movieMng/(page=${0})}" class="bt first"><<</a>
+          <a th:href="@{/movieMng/(page=${startPage-2})}" class="bt prev"><</a>
+          <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+            <a th:if="${page != nowPage}" th:href="@{/movieMng/(page=${page-1})}" th:text ="${page}" class="num"></a>
+            <a th:if="${page==nowPage}" th:text ="${page}" class="num on"></a>
+          </th:block>
+          <a th:if="${endPage < totalPages}" th:href="@{/movieMng/(page=${endPage})}" class="bt next">></a>
+          <a th:href="@{/movieMng/(page=${totalPages-1})}" class="bt last">>></a>
+        </div>
 
       </div>
 

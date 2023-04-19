@@ -37,13 +37,13 @@ public class MovieController {
 
 
 
-    @GetMapping(value = "/add/movie")
+    @GetMapping(value = "/movieMng/add/movie")
     public String movieForm(Model model) {
         model.addAttribute("movieFormDto", new MovieFormDto());
         return "movie/movieForm";
     }
 
-    @PostMapping(value = "/add/movie")
+    @PostMapping(value = "/movieMng/add/movie")
     public String movieNew(@Valid MovieFormDto movieFormDto, BindingResult bindingResult, Model model,
                           @RequestParam("movieImgFile") List<MultipartFile> movieImgFileList) {
         if(bindingResult.hasErrors()) {
@@ -65,7 +65,7 @@ public class MovieController {
     }
 
 
-    @GetMapping(value = "/add/movie/{movieIndex}")
+    @GetMapping(value = "/movieMng/add/movie/{movieIndex}")
     public String movieDtl(@PathVariable("movieIndex") Long movieIndex, Model model) {
 
             MovieFormDto movieFormDto = movieService.getMovieDtl(movieIndex);
@@ -76,17 +76,17 @@ public class MovieController {
     }
 
 
-    @PostMapping(value = "/add/movie/{movieIndex}")
+    @PostMapping(value = "/movieMng/add/movie/{movieIndex}")
     public String movieUpdate(@Valid MovieFormDto movieFormDto, BindingResult bindingResult,
-                             @RequestParam("movieImgFile") List<MultipartFile> movieImgFileList, Model model) throws Exception {
-        if(bindingResult.hasErrors()) {
-            return "movie/movieForm";
-        }
-
-        if(movieImgFileList.get(0).isEmpty() && movieFormDto.getMovieIndex() == null) {
-            model.addAttribute("errorMessage", "영화 포스터는 반드시 등록해야합니다.");
-            return "movie/movieForm";
-        }
+                             @RequestParam("movieImgFile") MultipartFile movieImgFileList, Model model) throws Exception {
+//        if(bindingResult.hasErrors()) {
+//            return "movie/movieForm";
+//        }
+//
+//        if(movieImgFileList.isEmpty() && movieFormDto.getMovieIndex() == null) {
+//            model.addAttribute("errorMessage", "영화 포스터는 반드시 등록해야합니다.");
+//            return "movie/movieForm";
+//        }
 
 //        try {
             movieService.updateMovie(movieFormDto, movieImgFileList);
@@ -147,5 +147,11 @@ public class MovieController {
         model.addAttribute("nextPage", nextPage);
         model.addAttribute("totalPages", list.getTotalPages());
         return "board/MovieMng";
+    }
+
+    @GetMapping(value = "/movieMng/delete/movie/{movieIndex}")
+    public String deleteMovie(@PathVariable("movieIndex") Long movieIndex) {
+        movieService.deleteMovie(movieIndex);
+        return "redirect:/movieMng";
     }
 }

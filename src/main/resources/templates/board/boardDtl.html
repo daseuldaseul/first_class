@@ -34,6 +34,9 @@
             <li class="date">2023.04.10</li>
           </ul>
         </div>
+        <div th:each="hashList, status: ${hashList}">
+          <a th:href="'/hashtag?hashtag='+ ${hashList.hashName}" th:text="'#' + ${hashList.hashName}"></a>
+        </div>
       </div>
     </div>
   </div>

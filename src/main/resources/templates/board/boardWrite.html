@@ -34,7 +34,7 @@
         <input readonly="true" name="movieTitle" id="searchMovieTitle" type="text" placeholder="영화 제목" th:field="*{movie}">
 
         <button type="button" onclick="openMovieSearch()">영화 검색</button>
-
+        <input name="hashtags" id="hashtags" type="text" placeholder="해시태그">
         <textarea name="boardContent" placeholder="본문 내용 입력하쇼" th:field="*{boardContent}"></textarea>
         <button type="submit">작성</button>
         <input type="hidden" th:name="${_csrf.parameterName}"

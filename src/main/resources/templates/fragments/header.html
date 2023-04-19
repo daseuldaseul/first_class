@@ -17,7 +17,9 @@
         <a th:href="@{/}">
             <img id="logo" src="/img/logo.png" method="get">
         </a>
-        <a th:href="@{/user/login}" class="join">로그인</a>
+        <a th:href="@{/user/login}" class="join" sec:authorize="isAnonymous()">로그인</a>
+        <a th:href="@{/user/logout}" class="join" sec:authorize="isAuthenticated()">로그아웃</a>
+        <a th:href="@{/movieMng}" class="join" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">영화 관리</a>
     </nav>
 </div>
 </html>

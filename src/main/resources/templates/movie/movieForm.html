@@ -114,13 +114,19 @@
     </div>
 
     <div th:if="${#strings.isEmpty(movieFormDto.movieIndex)}" style="text-align: center">
-      <button th:formaction="@{/add/movie}" type="submit" class="btn btn-primary">저장</button>
+      <button th:formaction="@{/movieMng/add/movie}" type="submit" class="btn btn-primary">저장</button>
     </div>
     <div th:unless="${#strings.isEmpty(movieFormDto.movieIndex)}" style="text-align: center">
-      <button th:formaction="@{'/add/movie/' + ${movieFormDto.movieIndex} }" type="submit" class="btn btn-primary">수정</button>
+      <button th:formaction="@{'/movieMng/add/movie/' + ${movieFormDto.movieIndex} }" type="submit" class="btn btn-primary">수정</button>
     </div>
+
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
+  </form>
+  <form th:action="'/movieMng/delete/movie/'+${movieFormDto.movieIndex}" method="get">
+    <button class="btn btn-primary">삭제</button>
+    <input type="hidden" th:name="${_csrf.parameterName}"
+           th:value="${_csrf.token}">
   </form>
 
 </div>
