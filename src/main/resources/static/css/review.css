@@ -44,54 +44,67 @@
 .contents {
   margin: auto 50px;
   padding: 50px 0 ;
-  min-height : 300px;
   line-height: 40px;
   font-size: 2.3rem;
 }
 
-.like {
+#like {
+  display: flex;
+  flex-direction: column;
   margin: auto;
   text-align: center;
   font-size: 20px;
 }
 
-.like img {
+#like img {
   width: 50px;
   height: 50px;
 }
 
+/* 하트 버튼스타일 초기화 */
+#like button  {
+  background: inherit ; border:none; box-shadow:none; border-radius:0;
+  padding:0; overflow:visible; cursor:pointer
+}
+
+#modify-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 60px;
+}
+
+#modify-btn button{
+  margin-right: 10px;
+}
+
 /* 댓글 입력 */
-.reply-container {
+.reply-write {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: baseline;
 }
 
-.reply-container .btn {
+.reply-write .btn {
   margin-left: 20px;
-
-}
-#reply-user {
-  font-size: 12px;
-  font-family: 'SBAggroB';
-  color: white;
-}
-
-#reply-content {
-  font-size: 20px;
-  font-family: 'SBAggroB';
-  color: white;
+  margin-top: 32px;
 }
 
 #reply-input {
   font-size: 20px;
-  font-family: 'SBAggroB';
+  font-family: 'Happiness-Sans-Title';
   background: white;
   color: black;
-  padding:15px;
+  padding:10px;
   border-radius: 10px;
   line-height: 45px;
+}
+
+#reply-write {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 /*----- 별점주기 -----*/

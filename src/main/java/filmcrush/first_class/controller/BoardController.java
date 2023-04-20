@@ -58,6 +58,12 @@ public class BoardController {
     BoardHashtagsService boardHashtagsService;
 
     @Autowired
+    MovieService movieService;
+
+    @Autowired
+    MovieImgService movieImgService;
+
+    @Autowired
     private UserService userService;
 
     @GetMapping(value = "/")
@@ -355,15 +361,8 @@ public class BoardController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String author = authentication.getName();
         Users user = userService.findUser(author);
-//        if(author != null){
-//            // 로그인한 사용자라면
-//
-//            /* member_id 반환 */
-//            ;
-//            /* 현재 로그인한 유저가 이 게시물을 좋아요 했는지 안 했는지 여부 확인 */
-//
-//
-//        }
+
+
         //로그인한 유저가 좋아요 했는지 여부 확인
         Optional<UserLike> like = boardService.findLike(board, user);
         int heart = 0;
@@ -374,6 +373,11 @@ public class BoardController {
         }
 
         List<Reply> replyList = replyService.getBoardView(board);
+
+        MovieImg movieImg = movieImgService.getMovieImgDtl(board.getMovie().getMovieIndex());
+
+
+        model.addAttribute("movieImgDto", movieImg);
         model.addAttribute("user",user);
         model.addAttribute("hashList", hashList);
         model.addAttribute("replyList", replyList);

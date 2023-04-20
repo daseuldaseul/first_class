@@ -1,15 +1,47 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
 <head>
   <meta charset="UTF-8">
-  <title>메인 페이지</title>
+  <title>영화 관리페이지</title>
+  <head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+    <link th:href="@{/css/manager.css}" rel="stylesheet">
+    <link rel="icon" href="/img/favicon.png">
+    <title>FilmCrush</title>
+  </head>
 </head>
 <body>
-<h1>어어엉</h1>
+
+<div th:replace="fragments/header::header"></div>
+<div class="wrapper">
+  <!--  <header data-include="./header.html"></header>-->
+
+  <div class="container">
+
+    <!-- 게시판영역 -->
+    <div class="board-wrap">
 
       <div class="board-title">
-        <strong>영화 등록 게시판</strong>
+        <strong>영화 관리 페이지</strong>
+        <p>영화 등록 및 수정/삭제</p>
+        <!--        <div id="board-search">-->
+        <!--          &lt;!&ndash; valueName 필요한대로 수정 &ndash;&gt;-->
+        <!--          <select>-->
+        <!--            <option value="id">제목</option>-->
+        <!--            <option value="name">글쓴이</option>-->
+        <!--            <option value="favorites">영화명</option>-->
+        <!--          </select>-->
+        <!--          <input type="text" class="search-text" />-->
+        <!--          <div class="bt-wrap" id="board-search-btn">-->
+        <!--            <button class="btn">검색</button>-->
+        <!--          </div>-->
+<!--      </div>-->
       </div>
+
+    <!-- className 필요한대로 수정 -->
       <div class="board-list-wrap">
         <div class="board-list">
           <div class="top">
@@ -17,22 +49,26 @@
             <div class="title">
               <p>TITLE</p>
             </div>
-            <div class="title">영화 제목</div>
-            <div class="director">영화 감독</div>
-            <div class="actor">영화 배우</div>
+            <div class="title">MOVIE TITLE</div>
+            <div class="director">DIRECTOR</div>
+            <div class="actor">ACTOR</div>
+            <div class="modify">MODIFY</div>
           </div>
 
-          <div th:each="movieDto, status: ${movieList.getContent()}" >
+          <div th:each="movieDto, status: ${movieList.getContent()}">
             <div class="num" th:text="${movieDto.movieIndex}"></div>
-            <div class="title">
-              <a th:href="'/movieMng/add/movie/'+${movieDto.movieIndex}" th:text="${movieDto.movieTitle}"></a>
-            </div>
+            <div class="title"><a th:text="${movieDto.movieTitle}"></a></div>
             <div class="director" th:text="${movieDto.movieDirector}"></div>
             <div class="actor" th:text="${movieDto.movieActor}"></div>
-
+            <div>
+              <a  class="modify" href="'/movieMng/add/movie/'+${movieDto.movieIndex}">
+                <img src="/img/modify.png">
+              </a>
+            </div>
           </div>
 
         </div>
+        <!-- 페이징 번호 -->
         <div class="board-page">
           <a th:href="@{/movieMng/(page=${0})}" class="bt first"><<</a>
           <a th:href="@{/movieMng/(page=${startPage-2})}" class="bt prev"><</a>
@@ -43,10 +79,22 @@
           <a th:if="${endPage < totalPages}" th:href="@{/movieMng/(page=${endPage})}" class="bt next">></a>
           <a th:href="@{/movieMng/(page=${totalPages-1})}" class="bt last">>></a>
         </div>
+        <div class="bt-wrap">
+          <a href="/movieMng/add/movie">
+            <button class="btn" id="main-button">
+              영화등록
+            </button>
+          </a>
+        </div>
 
       </div>
 
+  </div>
 
+</div>
+<!--  <script src="../main.js"></script>-->
+<script th:src="@{/js/main.js}" defer></script>
+<script th:src="@{/js/include.js}" defer></script>
 
 
 <!--
@@ -57,6 +105,6 @@
     th:if ~ : page 변수와 nowPage 변수가 같지 않을 때 링크 생성.
  -->
 
-
+</div>
 </body>
 </html>

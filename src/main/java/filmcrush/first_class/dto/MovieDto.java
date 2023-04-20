@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -24,6 +27,8 @@ public class MovieDto {
     private String movieDirector; // 영화 감독
 
     private String movieActor; // 영화 배우
+
+    private List<MovieImgDto> movieImgDtoList = new ArrayList<>();
 
     private static ModelMapper modelMapper = new ModelMapper();
     // 소스 객체와 대상 객체 간의 값을 자동으로 매핑.

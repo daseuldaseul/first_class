@@ -56,6 +56,16 @@ public class MovieImgService {
 
     }
 
+    @Transactional
+    public MovieImg getMovieImgDtl(Long movieIndex) {
+        Movie movie = movieRepository.findByMovieIndex(movieIndex);
+        List<MovieImg> movieImgList = movieImgRepository.findByMovie(movie);
+
+
+        return movieImgList.get(0);
+
+    }
+
 //    public void updateMovieImg(Long movieImgIndex, MultipartFile movieImgFile) throws Exception {
 ////        if(!movieImgFile.isEmpty()) {
 ////            MovieImg savedMovieImg = movieImgRepository.findById(movieImgIndex).orElseThrow(EntityNotFoundException::new);
