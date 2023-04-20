@@ -84,8 +84,9 @@ a {
 }
 
 .board-list .title {
-  width: 60%;
-  text-align: left;
+  width: 45%;
+  /*text-align: left;*/
+  text-align: center;
   /*margin-left: 20px;*/
   padding-left: 80px;
 }
@@ -94,15 +95,15 @@ a {
   text-align: center;
 }
 
-.board-list .writer {
-  width: 10%;
+.board-list .director {
+  width: 15%;
 }
 
-.board-list .date {
-  width: 10%;
+.board-list .actor {
+  width: 15%;
 }
 
-.board-list .count {
+.board-list .modify {
   width: 10%;
 }
 

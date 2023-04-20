@@ -2,7 +2,6 @@
 
 .m-a {
     margin: auto;
-    text-align : center;
 }
 
 .write-container {
@@ -48,14 +47,8 @@
 }
 
 #search-area .btn {
-    margin-left: 5px;
+    margin-left: 20px;
     padding: 5px;
-    align-items: center;
-}
-
-#movie-search {
-    margin-left : 20px;
-    margin-bottom :20px;
 }
 
 /* 본문 */
