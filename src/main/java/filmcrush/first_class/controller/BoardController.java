@@ -347,7 +347,7 @@ public class BoardController {
         Board board = boardRepository.findByBoardIndex(boardIndex);
         List<Hashtags> hashList = hashtagsService.hashtagsList(board);
 
-//        board.setViewNum(board.getViewNum() +1);
+        board.setViewNum(board.getViewNum() +1);
 
         //좋아요
 //        int like = 0; // 비로그인 유저라면 무조건 like = false;
