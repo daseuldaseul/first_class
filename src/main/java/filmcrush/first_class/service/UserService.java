@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService{
             throw new IllegalStateException("이미 가입된 이메일입니다");
         }
 
-        Users findUserId = userRepository.findByUserEmail(user.getUserId());
+        Users findUserId = userRepository.findByUserId(user.getUserId());
         if(findUserId != null){
             throw new IllegalStateException("이미 사용중인 아이디 입니다");
         }
@@ -42,6 +42,8 @@ public class UserService implements UserDetailsService{
         if(findUserNickname != null){
             throw new IllegalStateException("이미 사용중인 닉네임 입니다");
         }
+
+
 
     }
 

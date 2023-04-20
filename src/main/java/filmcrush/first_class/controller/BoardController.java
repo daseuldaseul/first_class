@@ -22,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -120,7 +121,7 @@ public class BoardController {
      **/
 //    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping(value = "/board/write")
-    public String boardWrite(@ModelAttribute("boardFormDto") BoardFormDto boardFormDto, Model model) {
+    public String boardWrite(String hashtags, @ModelAttribute("boardFormDto") BoardFormDto boardFormDto, Model model) {
         Board board = new Board();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String author = authentication.getName();
@@ -135,6 +136,23 @@ public class BoardController {
         board.setReplyNum(0L);
 
         boardRepository.save(board);
+        String[] words = hashtags.split("#");
+        List<String> hashtagList = new ArrayList<>();
+        for (String word : words) {
+            String trimmed = word.trim();
+            if (!trimmed.isEmpty()) {
+                hashtagList.add(trimmed);
+            }
+
+        }
+
+        for(String tags : hashtagList){
+            BoardHashtags boardHashtags = new BoardHashtags();
+            Hashtags tag = hashtagsService.findHash(tags);
+            boardHashtags.setBoard(board);
+            boardHashtags.setHashtags(tag);
+            boardHashtagsRepository.save(boardHashtags);
+        }
         model.addAttribute("boardFormDto", new BoardFormDto());
         return "redirect:/";
     }
@@ -495,5 +513,15 @@ public class BoardController {
     }
 
 
+
+    //게시글 수정 페이지 만들기
+    @GetMapping(value="board/write/{boardIndex}")
+    public String updateBoard(@PathVariable("boardIndex") Long boardIndex, Model model){
+        BoardFormDto boardFormDto = boardService.getBoardDtl(boardIndex);
+        System.out.println(boardFormDto);
+        model.addAttribute("BoardFormDto", boardFormDto);
+
+        return "board/boardWrite";
+    }
 
 }

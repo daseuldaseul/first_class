@@ -2,6 +2,7 @@ package filmcrush.first_class.service;
 
 import filmcrush.first_class.dto.BoardDto;
 import filmcrush.first_class.dto.BoardFormDto;
+import filmcrush.first_class.dto.BoardUpdateDto;
 import filmcrush.first_class.dto.ReplyDto;
 import filmcrush.first_class.entity.Board;
 import filmcrush.first_class.entity.Movie;
@@ -14,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.persistence.EntityNotFoundException;
 
 import java.util.List;
 
@@ -77,5 +80,20 @@ public class BoardService {
         boardRepository.deleteByBoardIndex(boardIndex);
 
     }
+
+    @Transactional(readOnly = true)
+    public BoardFormDto getBoardDtl(Long boardIndex){
+        Board board = boardRepository.findById(boardIndex)
+                .orElseThrow(EntityNotFoundException::new);
+        BoardUpdateDto boardUpdateDto = BoardUpdateDto.of(board);
+        BoardFormDto boardFormDto = new BoardFormDto();
+        boardFormDto.setMovie(boardUpdateDto.getMovie().getMovieTitle());
+        boardFormDto.setBoardTitle(boardUpdateDto.getBoardTitle());
+        boardFormDto.setBoardContent(boardUpdateDto.getBoardContent());
+        boardFormDto.setBoardScore(boardUpdateDto.getBoardScore());
+        boardFormDto.setBoardIndex(boardUpdateDto.getBoardIndex());
+        return boardFormDto;
+    }
+
 
 }

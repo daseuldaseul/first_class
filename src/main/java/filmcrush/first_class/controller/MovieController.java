@@ -79,21 +79,7 @@ public class MovieController {
     @PostMapping(value = "/movieMng/add/movie/{movieIndex}")
     public String movieUpdate(@Valid MovieFormDto movieFormDto, BindingResult bindingResult,
                              @RequestParam("movieImgFile") MultipartFile movieImgFileList, Model model) throws Exception {
-//        if(bindingResult.hasErrors()) {
-//            return "movie/movieForm";
-//        }
-//
-//        if(movieImgFileList.isEmpty() && movieFormDto.getMovieIndex() == null) {
-//            model.addAttribute("errorMessage", "영화 포스터는 반드시 등록해야합니다.");
-//            return "movie/movieForm";
-//        }
-
-//        try {
             movieService.updateMovie(movieFormDto, movieImgFileList);
-//        } catch(Exception e) {
-//            model.addAttribute("errorMessage", "영화 정보 수정 중 에러가 발생하였습니다.");
-//            return "movie/movieForm";
-//        }
         return "redirect:/";
     }
 

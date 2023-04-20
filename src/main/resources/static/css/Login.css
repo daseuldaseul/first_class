@@ -1,0 +1,101 @@
+@font-face {
+  font-family: 'SBAggroB';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  background-color: #1b1b1b;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+
+h1{
+  color: white;
+  text-align: center;
+  margin-top: 30px;
+}
+
+input{
+  width: 300px;
+  padding: 13px;
+  margin: 12px;
+  border-radius: 5px;
+  border: none;
+  background-color: #2f2f2f;
+  color: #DE2A60;
+}
+
+button{
+  width: 300px;
+  height: 40px;
+  border-radius: 20px;
+  color: white;
+  background-color: #2f2f2f;  /*#ce95a6*/
+  border: none;
+  margin: 10px;
+}
+
+button:active{
+  background-color: #DE2A60;
+  transform: scale(0.95);
+}
+
+
+img {
+  width: 300px;
+}
+
+.container{
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+header{
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.head-container{
+  display: flex;
+  align-content: center;
+}
+
+.head-container a{
+  margin-right: 20px;
+  font-size: 14px;
+}
+
+.main{
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginform{
+  display: flex;
+  flex-direction: column;
+
+  width: 400px;
+  height: 500px;
+  padding: 10px;
+
+  background-color: #252525;
+  border-radius: 8px;
+  
+  align-items: center;
+  justify-content: center;
+}
