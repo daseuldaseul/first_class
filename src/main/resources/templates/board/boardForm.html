@@ -8,9 +8,9 @@
 </head>
 <th:block layout:fragment="script">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script th:inline="javascript">
-
+    <script th:inline="javascript" defer>
     </script>
+    <script th:src="@{/js/include.js}" type="text/javascript"></script>
 
 </th:block>
 <th:block layout:fragment="css">
@@ -19,27 +19,64 @@
 <div layout:fragment="content">
 
     <div class="wrapper">
-        <div class="container">
-            <strong class="poster-title"> 4월 개봉영화 </strong>
-            <div class="poster-container">
-                <ul class="poster">
-                    <li><img class="poster-img" src="/img/1.jpg"></li>
-                    <li>리바운드</li>
-                </ul>
-                <ul class="poster">
-                    <li><img class="poster-img" src="/img/2.jpg"></li>
-                    <li>패왕별희</li>
-                </ul>
-                <ul class="poster">
-                    <li><img class="poster-img" src="/img/3.jpg"></li>
-                    <li>마리아 칼라스: 세기의 디바</li>
-                </ul>
-                <ul class="poster">
-                    <li><img class="poster-img" src="/img/4.jpg"></li>
-                    <li>에어</li>
-                </ul>
+        <!-- 영화 포스터 영역 -->
+        <strong class="poster-title">✨ 4월 개봉영화 </strong>
+
+
+        <div class="poster-container">
+            <div class="poster_slider">
+                <div class="slider">
+
+                    <figure class="snip1273">
+                        <img src="/img/2.jpg" />
+                        <figcaption>
+                            <h3>【패왕별희】</h3>
+                            <p>감독 : 천카이거</p>
+                            <p>주연 : 장국영, 공리, 장풍의</p>
+                        </figcaption>
+                        <a href="#"></a>
+                    </figure>
+
+                    <figure class="snip1273">
+                        <img src="/img/1.jpg" />
+                        <figcaption>
+                            <h3>【마리아 칼라스】</h3>
+                            <p>감독 : 톰 볼프</p>
+                            <p>주연 : 마리아 칼라스</p>
+                        </figcaption>
+                        <a href="#"></a>
+                    </figure>
+
+                    <figure class="snip1273">
+                        <img src="/img/3.jpg" />
+                        <figcaption>
+                            <h3>【존윅4】</h3>
+                            <p>감독 : 채드 스타헬스키</p>
+                            <p>주연 : 키아누 리스브, 견자단, 빌 스카스가드</p>
+                        </figcaption>
+                        <a href="#"></a>
+                    </figure>
+
+                    <figure class="snip1273">
+                        <img src="/img/4.jpg" />
+                        <figcaption>
+                            <h3>【에어】</h3>
+                            <p>감독 : 벤 애플렉</p>
+                            <p>주연 : 멧 데이먼, 벤 애플렉, 제이슨 베이트먼</p>
+                        </figcaption>
+                        <a href="#"></a>
+                    </figure>
+
+
+                </div>
+            </div>
+            <!-- 화살표 -->
+            <div class="arrow">
+                <a href="" class="prev">이전</a>
+                    <a href="" class="next">다음</a>
             </div>
         </div>
+
 
         <div class="board-wrap">
             <div class="board-title">

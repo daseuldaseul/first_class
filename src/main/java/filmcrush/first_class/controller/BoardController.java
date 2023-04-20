@@ -125,7 +125,7 @@ public class BoardController {
         board.setBoardDate(LocalDateTime.now());
         board.setUser(userRepository.findByUserId(author));
         board.setMovie(movieRepository.findByMovieTitle(boardFormDto.getMovie()));
-
+        board.setBoardScore(boardFormDto.getBoardScore());
         board.setViewNum(0L);
         board.setReplyNum(0L);
 

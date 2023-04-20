@@ -1,9 +1,6 @@
 package filmcrush.first_class.dto;
 
-import filmcrush.first_class.entity.Board;
-import filmcrush.first_class.entity.Movie;
-import filmcrush.first_class.entity.Reply;
-import filmcrush.first_class.entity.Users;
+import filmcrush.first_class.entity.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
@@ -29,6 +26,13 @@ public class BoardDto {
     private Long viewNum;
 
     private LocalDateTime boardDate;
+
+    /* 추가 */
+    private Movie movie;
+
+    private Users user;
+
+    private MovieImg movieImg;
 
     private static ModelMapper modelMapper = new ModelMapper();
     // 소스 객체와 대상 객체 간의 값을 자동으로 매핑.
