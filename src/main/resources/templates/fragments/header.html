@@ -14,12 +14,25 @@
 </head>
 <div th:fragment="header" >
     <nav class="header">
+        <!-- 관리자 페이지 로고 -->
+        <div>
+            <a th:href="@{/movieMng}" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                <button class="manager" onfocus="this.blur()">
+                    <img src="/img/icon/manager.png" onmouseover="this.src='/img/icon/manager-2.png'" onmouseout="this.src='/img/icon/manager.png'">
+                </button>
+            </a>
+        </div>
+
         <a th:href="@{/}">
-            <img id="logo" src="/img/logo.png" method="get">
+            <img id="logo" src="/img/logo.png" method="get" style="border: 0px">
         </a>
+
+        <!-- 로그인 페이지 로고 -->
+        <div>
         <a th:href="@{/user/login}" class="join" sec:authorize="isAnonymous()">로그인</a>
         <a th:href="@{/user/logout}" class="join" sec:authorize="isAuthenticated()">로그아웃</a>
-        <a th:href="@{/movieMng}" class="join" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">영화 관리</a>
+        </div>
+
     </nav>
 </div>
 </html>
