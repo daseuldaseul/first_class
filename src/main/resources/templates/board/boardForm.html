@@ -83,8 +83,13 @@
 
                         <div class="title">
                             <a th:text="${boardDto.movie != null} ? ${'['+boardDto.movie.movieTitle+']'} : '[No Movie]'"></a>
-                            <a th:href="'/board/'+${boardDto.boardIndex}" th:text="${boardDto.boardTitle}"></a>
+<!--                            <a th:href="'/board/'+${boardDto.boardIndex}" th:text="${boardDto.boardTitle} + '   ['+ ${boardDto.replyNum} +']'" ></a>-->
+                            <a th:href="'/board/'+${boardDto.boardIndex}" th:text="${boardDto.boardTitle} "></a>
+
+                            <a th:text="'   ['+ ${boardDto.replyNum} +']'" style="color:  #DE2A60;"></a>
+
                         </div>
+
                         <div class="writer" th:text="${boardDto.user != null} ? ${boardDto.user.userNickname} : 'No User'"></div>
                         <div class="date" th:text="${boardDto.boardDate}"></div>
                         <div class="count" th:text="${boardDto.viewNum}"></div>

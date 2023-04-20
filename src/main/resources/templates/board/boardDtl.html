@@ -76,7 +76,9 @@
 
       </div>
       <div>
-        <button class="btn">수정</button>
+        <form th:action="'/board/write/' + ${boardDto.boardIndex}" method="get">
+          <button class="btn">수정</button>
+        </form>
         <form th:action="'/board/delete/' + ${boardDto.boardIndex}" method="get">
           <button class="btn">삭제</button>
         </form>

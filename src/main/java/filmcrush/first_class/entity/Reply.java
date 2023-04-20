@@ -29,6 +29,6 @@ public class Reply {
     private String replyContent; // 댓글 내용
 
     @Column(nullable = false)
-    private LocalDateTime reply_date; // 댓글 작성 시간
+    private LocalDateTime replyDate; // 댓글 작성 시간
 
 }

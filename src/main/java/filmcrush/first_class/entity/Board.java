@@ -1,5 +1,6 @@
 package filmcrush.first_class.entity;
 
+import filmcrush.first_class.dto.BoardFormDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -40,4 +41,14 @@ public class Board {
     private Long viewNum; // 조회수
 
     private LocalDateTime boardDate; // 작성일자
+
+    public void updateBoard(BoardFormDto boardFormDto, Movie movie){
+        this.boardIndex = boardFormDto.getBoardIndex();
+        this.boardTitle = boardFormDto.getBoardTitle();
+        this.boardScore = boardFormDto.getBoardScore();
+        this.movie = movie;
+        this.boardContent = boardFormDto.getBoardContent();
+
+    }
+
 }

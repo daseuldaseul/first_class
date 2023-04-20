@@ -22,7 +22,7 @@ public class ReplyDto {
 
     private String replyContent;
 
-    private LocalDateTime reply_date;
+    private LocalDateTime replyDate;
 
     private static ModelMapper modelMapper = new ModelMapper();
 

@@ -19,8 +19,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -131,7 +133,7 @@ public class BoardController {
         board.setBoardDate(LocalDateTime.now());
         board.setUser(userRepository.findByUserId(author));
         board.setMovie(movieRepository.findByMovieTitle(boardFormDto.getMovie()));
-
+        board.setBoardScore(boardFormDto.getBoardScore());
         board.setViewNum(0L);
         board.setReplyNum(0L);
 
@@ -362,7 +364,7 @@ public class BoardController {
         String author = authentication.getName();
 
         reply.setReplyContent(replyFormDto.getReplyContent());
-        reply.setReply_date(LocalDateTime.now());
+        reply.setReplyDate(LocalDateTime.now());
         reply.setBoard(boardRepository.findByBoardIndex(boardIndex));
         reply.setUser(userRepository.findByUserId(author));
 
@@ -518,10 +520,44 @@ public class BoardController {
     @GetMapping(value="board/write/{boardIndex}")
     public String updateBoard(@PathVariable("boardIndex") Long boardIndex, Model model){
         BoardFormDto boardFormDto = boardService.getBoardDtl(boardIndex);
-        System.out.println(boardFormDto);
-        model.addAttribute("BoardFormDto", boardFormDto);
+
+        model.addAttribute("boardFormDto", boardFormDto);
 
         return "board/boardWrite";
+    }
+    @PostMapping(value="board/write/{boardIndex}")
+    public String boardUpdate(@Valid BoardFormDto boardFormDto, BindingResult bindingResult,
+                              Model model, @PathVariable("boardIndex") Long boardIndex) throws Exception{
+
+        if(bindingResult.hasErrors()){
+
+            return "board/boardWrite";
+        }
+        try {
+
+            boardService.updateBoard(boardFormDto);
+        }catch(Exception e){
+            model.addAttribute("errorMessage","게시판 수정 중 에러 발생");
+            return "board/boardWrite";
+        }
+
+        return "redirect:/board/" + boardIndex;
+    }
+
+    @GetMapping(value="reply/delete/{replyIndex}")
+    public String deleteReply(@PathVariable("replyIndex") Long replyIndex){
+
+
+
+        Reply reply = replyRepository.findByReplyIndex(replyIndex);
+        Long index = reply.getBoard().getBoardIndex();
+        Board board = boardRepository.findByBoardIndex(index);
+        replyService.deleteReply(replyIndex);
+        List<Reply> replyList = replyService.getBoardView(board);
+        board.setReplyNum((long)replyList.size());
+        boardRepository.save(board);
+
+        return "redirect:/board/" + index;
     }
 
 }

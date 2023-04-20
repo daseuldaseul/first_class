@@ -4,6 +4,7 @@ import filmcrush.first_class.dto.BoardDto;
 import filmcrush.first_class.dto.BoardFormDto;
 import filmcrush.first_class.entity.Board;
 import filmcrush.first_class.entity.Movie;
+import filmcrush.first_class.entity.Reply;
 import filmcrush.first_class.entity.Users;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,5 +39,6 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
     void deleteByBoardIndex(Long boardIndex);
 
     Page<Board> findByBoardIndexIn(List<Long> list, Pageable pageable);
+
 
 }

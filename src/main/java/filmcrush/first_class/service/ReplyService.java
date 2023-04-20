@@ -19,4 +19,9 @@ public class ReplyService {
         List<Reply> replyList = replyRepository.findByBoard(board);
         return replyList;
     }
+
+    @Transactional
+    public void deleteReply(Long replyIndex) {
+        replyRepository.deleteByReplyIndex(replyIndex);
+    }
 }

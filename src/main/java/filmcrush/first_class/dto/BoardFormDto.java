@@ -33,6 +33,8 @@ public class BoardFormDto {
 
     private Long viewNum; // 조회수
 
+    private String hashtags;
+
     private LocalDateTime boardDate; // 작성일자
 
     private static ModelMapper modelMapper = new ModelMapper();

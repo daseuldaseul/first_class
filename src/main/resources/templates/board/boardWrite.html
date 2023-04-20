@@ -33,10 +33,13 @@
 
 <div class="wrapper">
     <div class="write-container">
-        <form action="/board/write" method="post" th:object="${boardFormDto}">
+        <form method="post" th:object="${boardFormDto}">
             <h2 class="m-a">리뷰작성</h2>
+
+            <input type="hidden" th:field="*{boardIndex}">
+
             <div class="title m-a">
-                <input id="title-input" name="boardTitle" type="text" placeholder="제목" th:value="${boardTitle}">
+                <input id="title-input" name="boardTitle" type="text" placeholder="제목" th:value="*{boardTitle}">
             </div>
             <div id="search-area">
                 <p>영화검색 </p>
@@ -67,9 +70,10 @@
 
             <!--  본문작성  -->
             <div class="contents m-a">
-                <p> <textarea id="content-input" cols="67" rows="10" name="boardContent" placeholder="본문 내용 입력하쇼" th:valye="${boardContent}"></textarea></p>
+                <p> <textarea id="content-input" cols="67" rows="10" name="boardContent" placeholder="본문 내용 입력하쇼" th:field="*{boardContent}"></textarea></p>
 
-                <!--            <input name="hashtags" id="hashtags" type="text" placeholder="해시태그">-->
+                <input name="hashtags" id="hashtags" type="text" th:value="*{hashtags}" placeholder="해시태그">
+
             </div>
             <div class="bt-wrap">
                 <button class="btn" type="submit">등록하기</button>
