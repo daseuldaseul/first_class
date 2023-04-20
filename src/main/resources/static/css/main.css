@@ -131,6 +131,11 @@ ul, li {
 }
 
 /* <button> 버튼 */
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
 .btn {
   display: inline-block;

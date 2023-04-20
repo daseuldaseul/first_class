@@ -30,8 +30,8 @@
           <strong class="contents-title" th:text="${boardDto.boardTitle}">올해 최고의영화!</strong>
           <ul id="title-info">
             <li class="nickname" th:text="${boardDto.user != null }? ${boardDto.user.userNickname} : 'No User'" >글쓴이</li>
-            <li class="view" th:text="${boardDto.viewNum}">조회수</li>
-            <li class="date" th:text="${boardDto.boardDate}">2023.04.10</li>
+            <li class="view" th:text="${boardDto.viewNum != null }? ${boardDto.viewNum} : '0'">조회수</li>
+            <li class="date" th:text="${#temporals.format(boardDto.boardDate, 'yyyy-MM-dd HH:mm:ss')}">2023.04.10</li>
           </ul>
         </div>
         <div th:each="hashList, status: ${hashList}">
@@ -65,17 +65,25 @@
           </ul>
           <!-- 해시태그 기능 추가해야됨-->
         </div>
-        <div class="contents" th:utext="${boardDto.boardContent}">
+        <div class="contents" th:text="${boardDto.boardContent}">
           <!-- 본문내용 -->
         </div>
         <!-- 하트누르면 색깔바뀌면서 숫자 증가 기능넣기 -->
         <div class="like">
+          <!-- 로그인 유저와 작성자가 동일하지 않다면 -->
+          <!-- 좋아요 -->
+<!--          <input type="hidden" id="boardIndex" th:value="*{boardDto.boardIndex}" />-->
+<!--          <input type="hidden" id="userId" th:value="*{user.userId}">-->
+
+<!--          &lt;!&ndash;            유저가 좋아요 했는지 확인 0아니면 1&ndash;&gt;-->
+<!--          <input type="hidden" th:id="like_check" th:value="${heart}">-->
+<!--          <img th:id="like-icon" src="/img/like.png">-->
+
           <img id="like-icon" src="/img/like.png">
-          <p>233</p>
-        </div>
+          <p th:text="${boardDto.likeNum}">00</p>
 
       </div>
-      <div>
+      <div class="row">
         <form th:action="'/board/write/' + ${boardDto.boardIndex}" method="get">
           <button class="btn">수정</button>
         </form>
@@ -90,6 +98,7 @@
   </div>
 
 
+</div>
 </div>
 </body>
 </html>
