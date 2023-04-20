@@ -35,6 +35,8 @@ public class Board {
 
     private String boardContent; // 리뷰 본문 내용
 
+    @Column(nullable = false)
+    @ColumnDefault("0")
     private Long likeNum; // 좋아요 수
 
     private Long viewNum; // 조회수

@@ -25,6 +25,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -132,6 +133,7 @@ public class BoardController {
         board.setBoardTitle(boardFormDto.getBoardTitle());
         board.setBoardContent(boardFormDto.getBoardContent());
         board.setBoardDate(LocalDateTime.now());
+        board.setLikeNum(0L);
         board.setUser(userRepository.findByUserId(author));
         board.setMovie(movieRepository.findByMovieTitle(boardFormDto.getMovie()));
 
@@ -425,4 +427,6 @@ public class BoardController {
 
         return email;
     }
+
+
 }

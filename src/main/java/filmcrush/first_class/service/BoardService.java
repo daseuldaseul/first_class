@@ -88,7 +88,7 @@ public class BoardService {
                     new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
              board = boardRepository.findById(board.getBoardIndex()).orElseThrow(() ->
                     new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
-
+            board.setLikeNum(board.getLikeNum()+1);
             /* 좋아요 엔티티 생성 */
 //            좋아요가 없으면 추가
             UserLike userLike = new UserLike(user, board);
@@ -96,7 +96,7 @@ public class BoardService {
 
             return 1;
         } else {
-
+            board.setLikeNum(board.getLikeNum()-1);
             /* 좋아요 한 게시물이면 좋아요 삭제, false 반환 */
             userLikeRepository.deleteByUserAndBoard(user, board);
 

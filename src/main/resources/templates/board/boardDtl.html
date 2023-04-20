@@ -99,8 +99,8 @@
           <strong class="contents-title" th:text="${boardDto.boardTitle}">올해 최고의영화!</strong>
           <ul id="title-info">
             <li class="nickname" th:text="${boardDto.user != null }? ${boardDto.user.userNickname} : 'No User'" >글쓴이</li>
-            <li class="view" th:text="${boardDto.viewNum}">조회수</li>
-            <li class="date" th:text="${boardDto.boardDate}">2023.04.10</li>
+            <li class="view" th:text="${boardDto.viewNum != null }? ${boardDto.viewNum} : '0'">조회수</li>
+            <li class="date" th:text="${#temporals.format(boardDto.boardDate, 'yyyy-MM-dd HH:mm:ss')}">2023.04.10</li>
           </ul>
         </div>
 
@@ -134,7 +134,7 @@
           <!-- 본문내용 -->
 
 
-          <div>
+          <div class="like">
             <!-- 로그인 유저와 작성자가 동일하지 않다면 -->
             <!-- 좋아요 -->
             <input type="hidden" id="boardIndex" th:value="*{boardDto.boardIndex}" />
@@ -143,7 +143,7 @@
 <!--            유저가 좋아요 했는지 확인 0아니면 1-->
             <input type="hidden" th:id="like_check" th:value="${heart}">
             <img th:id="like-icon" src="/img/like.png">
-
+            <p th:text="${boardDto.likeNum}">00</p>
           </div>
 
 <!--          <p th:text="${boardDto.likeNum}">123</p>-->
