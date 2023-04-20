@@ -86,12 +86,12 @@
 <!--                            <a th:href="'/board/'+${boardDto.boardIndex}" th:text="${boardDto.boardTitle} + '   ['+ ${boardDto.replyNum} +']'" ></a>-->
                             <a th:href="'/board/'+${boardDto.boardIndex}" th:text="${boardDto.boardTitle} "></a>
 
-                            <a th:text="'   ['+ ${boardDto.replyNum} +']'" style="color:  #DE2A60;"></a>
+                            <a th:text="${boardDto.replyNum != null} ? ${'['+boardDto.replyNum+']'} : '[0]'" style="color:  #DE2A60;"></a>
 
                         </div>
 
                         <div class="writer" th:text="${boardDto.user != null} ? ${boardDto.user.userNickname} : 'No User'"></div>
-                        <div class="date" th:text="${boardDto.boardDate}"></div>
+                        <div class="date" th:text="${#temporals.format(boardDto.boardDate, 'yyyy-MM-dd')}"></div>
                         <div class="count" th:text="${boardDto.viewNum}"></div>
 
                     </div>
