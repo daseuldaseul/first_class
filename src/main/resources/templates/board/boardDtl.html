@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layouts/layout1}">
 
 <head>
@@ -139,11 +139,18 @@
           <!-- 로그인 유저와 작성자가 동일하지 않다면 -->
           <!-- 좋아요 -->
           <input type="hidden" id="boardIndex" th:value="*{boardDto.boardIndex}" />
-          <input type="hidden" id="userId" th:value="*{user.userId}">
 
-<!--          유저가 좋아요 했는지 확인 0아니면 -->
-          <input type="hidden" th:id="like_check" th:value="${heart}">
-          <img th:id="like-icon" src="/img/like.png">
+
+          <div sec:authorize="isAuthenticated()">
+            <input type="hidden" id="userId" th:value="*{user.userId}">
+            <!--          유저가 좋아요 했는지 확인 0아니면 -->
+
+            <input type="hidden" th:id="like_check" th:value="${heart}">
+            <img th:id="like-icon" src="/img/like.png">
+
+          </div>
+            <img sec:authorize="isAnonymous()" th:id="like-icon" src="/img/like.png">
+
 
           <p th:text="${boardDto.likeNum}">00</p>
 
