@@ -47,6 +47,7 @@ public class UserController {
             Users user = Users.createUser(userFormDto, passwordEncoder);
             userService.saveUser(user);
         }catch(IllegalStateException e){
+            System.out.println(e.getMessage() + "메시지 확인");
             model.addAttribute("errorMessage", e.getMessage());
             return "/user/userForm";
         }
