@@ -5,6 +5,10 @@
 
 <head>
   <meta charset="UTF-8">
+
+  <meta name="_csrf" th:content="${_csrf.token}">
+  <meta name="_csrf_header" th:content="${_csrf.headerName}">
+
   <title>리뷰 상세페이지</title>
   <!-- CSS only -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -19,6 +23,68 @@
 <th:block layout:fragment="css">
 
 </th:block>
+
+<th:block layout:fragment="script">
+
+  <script th:inline="javascript">
+
+    $(document).ready(function () {
+      const emptyLikeUrl = "/img/like.png";
+      const clickLikeUrl = "/img/like-on.png";
+
+      let likeVal = document.getElementById("like_check").value;
+
+      console.log(likeVal);
+
+      if (likeVal!=1) {
+        $("#like-icon").attr("src", emptyLikeUrl);
+        console.log(likeVal);
+      } else {
+        $("#like-icon").attr("src", clickLikeUrl);
+        console.log(likeVal);
+      }
+
+
+        $("#like-icon").click(function () {
+            const boardIndex = $("#boardIndex").val();
+            const userId = $("#userId").val();
+            const csrfToken = $("meta[name='_csrf']").attr("content");
+            const csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/board/like/" + boardIndex + "?userId=" + userId,
+                dataType: 'json',
+                data: JSON.stringify({ users: {userId: userId}, boardIndex, boardIndex}),
+                cache: false,
+                timeout: 600000,
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
+                success: function (data) {
+
+                if (data=!1) {
+                        $("#like-icon").attr("src", clickLikeUrl);
+                        location.href="/board/"+ boardIndex;
+                        console.log("좋아요");
+
+                    } else {
+                        $("#like-icon").attr("src", emptyLikeUrl);
+                        location.href="/board/"+boardIndex;
+                        console.log("싫어요");
+                    }
+                }, error: function () {
+                    $("#like-icon").attr("src", clickLikeUrl);
+                    console.log('오타 찾으세요')
+                }
+            });
+
+        });
+    });
+</script>
+</th:block>
+
 <body>
 <div layout:fragment="content" >
 
@@ -65,21 +131,20 @@
           </ul>
           <!-- 해시태그 기능 추가해야됨-->
         </div>
-        <div class="contents" th:text="${boardDto.boardContent}">
+        <div class="contents" th:utext="${boardDto.boardContent}"> </div>
           <!-- 본문내용 -->
         </div>
         <!-- 하트누르면 색깔바뀌면서 숫자 증가 기능넣기 -->
         <div class="like">
           <!-- 로그인 유저와 작성자가 동일하지 않다면 -->
           <!-- 좋아요 -->
-<!--          <input type="hidden" id="boardIndex" th:value="*{boardDto.boardIndex}" />-->
-<!--          <input type="hidden" id="userId" th:value="*{user.userId}">-->
+          <input type="hidden" id="boardIndex" th:value="*{boardDto.boardIndex}" />
+          <input type="hidden" id="userId" th:value="*{user.userId}">
 
-<!--          &lt;!&ndash;            유저가 좋아요 했는지 확인 0아니면 1&ndash;&gt;-->
-<!--          <input type="hidden" th:id="like_check" th:value="${heart}">-->
-<!--          <img th:id="like-icon" src="/img/like.png">-->
+<!--          유저가 좋아요 했는지 확인 0아니면 -->
+          <input type="hidden" th:id="like_check" th:value="${heart}">
+          <img th:id="like-icon" src="/img/like.png">
 
-          <img id="like-icon" src="/img/like.png">
           <p th:text="${boardDto.likeNum}">00</p>
 
       </div>

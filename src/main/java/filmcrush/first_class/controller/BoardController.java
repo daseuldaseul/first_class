@@ -6,15 +6,14 @@ import filmcrush.first_class.dto.ReplyDto;
 import filmcrush.first_class.dto.ReplyFormDto;
 import filmcrush.first_class.entity.*;
 import filmcrush.first_class.repository.*;
-import filmcrush.first_class.service.BoardHashtagsService;
-import filmcrush.first_class.service.BoardService;
-import filmcrush.first_class.service.HashtagsService;
-import filmcrush.first_class.service.ReplyService;
+import filmcrush.first_class.service.*;
+import filmcrush.first_class.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,6 +25,7 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -56,6 +56,9 @@ public class BoardController {
 
     @Autowired
     BoardHashtagsService boardHashtagsService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping(value = "/")
     public String boardForm(@RequestParam(required = false) String type, Model model, @PageableDefault(page = 0, size = 10, sort = "boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
@@ -131,6 +134,7 @@ public class BoardController {
         board.setBoardTitle(boardFormDto.getBoardTitle());
         board.setBoardContent(boardFormDto.getBoardContent());
         board.setBoardDate(LocalDateTime.now());
+        board.setLikeNum(0L);
         board.setUser(userRepository.findByUserId(author));
         board.setMovie(movieRepository.findByMovieTitle(boardFormDto.getMovie()));
         board.setBoardScore(boardFormDto.getBoardScore());
@@ -343,15 +347,59 @@ public class BoardController {
         Board board = boardRepository.findByBoardIndex(boardIndex);
         List<Hashtags> hashList = hashtagsService.hashtagsList(board);
 
-        board.setViewNum(board.getViewNum() +1);
+//        board.setViewNum(board.getViewNum() +1);
+
+        //좋아요
+//        int like = 0; // 비로그인 유저라면 무조건 like = false;
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String author = authentication.getName();
+        Users user = userService.findUser(author);
+//        if(author != null){
+//            // 로그인한 사용자라면
+//
+//            /* member_id 반환 */
+//            ;
+//            /* 현재 로그인한 유저가 이 게시물을 좋아요 했는지 안 했는지 여부 확인 */
+//
+//
+//        }
+        //로그인한 유저가 좋아요 했는지 여부 확인
+        Optional<UserLike> like = boardService.findLike(board, user);
+        int heart = 0;
+        if(like.isEmpty()) {
+            heart = 0;
+        }else {
+            heart = 1;
+        }
+
         List<Reply> replyList = replyService.getBoardView(board);
+        model.addAttribute("user",user);
         model.addAttribute("hashList", hashList);
         model.addAttribute("replyList", replyList);
         model.addAttribute("boardDto", boardDto);
         model.addAttribute("replyFormDto", new ReplyFormDto());
+        model.addAttribute("heart", heart);
 
 
         return "board/boardDtl";
+    }
+
+    @PostMapping(value = "/board/like/{boardIndex}")
+    public @ResponseBody int likeBoard(@PathVariable Long boardIndex, @RequestParam(name = "userId") String userId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String author = authentication.getName();
+
+        Users user = userService.findUser(author);
+
+
+        Board board = boardService.findBoard(boardIndex);
+        System.out.println(boardIndex);
+
+        // 저장 true, 삭제 false
+        int result = boardService.saveLike(board, user);
+
+        return result;
     }
 
     @PostMapping(value = "/board/{boardIndex}")
@@ -560,4 +608,12 @@ public class BoardController {
         return "redirect:/board/" + index;
     }
 
+    private String getCurrentUserEmail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = "";
+
+        Object principal = authentication.getPrincipal();
+
+        return email;
+    }
 }

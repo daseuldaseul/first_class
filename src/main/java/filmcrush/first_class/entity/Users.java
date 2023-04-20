@@ -8,6 +8,8 @@ import lombok.ToString;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -34,6 +36,9 @@ public class Users {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserLike> likes = new ArrayList<>();
 
     public static Users createUser(UserFormDto userFormDto, PasswordEncoder passwordEncoder){
         Users user = new Users();

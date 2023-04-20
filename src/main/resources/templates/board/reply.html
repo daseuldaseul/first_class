@@ -11,7 +11,7 @@
     <div>
 
         <div th:each="boardDto, status: ${boardDto}" >
-            <h1>댓글 <span th:text="${'('+boardDto.replyNum+')'}"></span></h1>
+            <h1>댓글 <span th:text="${boardDto.replyNum != null} ? ${'('+boardDto.replyNum+')'} : '(0)'"></span></h1>
             <div th:each="replyList, status: ${replyList}">
 
 

@@ -1,6 +1,5 @@
 package filmcrush.first_class.service;
 
-
 import filmcrush.first_class.entity.Users;
 import filmcrush.first_class.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -61,4 +60,9 @@ public class UserService implements UserDetailsService{
                 .roles(user.getRole().toString())
                 .build();
     }
-}
+
+    public Users findUser(String userId){
+        Users user = userRepository.findByUserId(userId);
+
+        return user;
+    }}

@@ -4,9 +4,11 @@ import filmcrush.first_class.dto.BoardFormDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -36,6 +38,11 @@ public class Board {
 
     private Long replyNum; // 댓글 수, 댓글
 
+    @OneToMany(mappedBy = "board")
+    private List<UserLike> likes = new ArrayList<>();
+
+    @Column(nullable = false)
+    @ColumnDefault("0")
     private Long likeNum; // 좋아요 수
 
     private Long viewNum; // 조회수

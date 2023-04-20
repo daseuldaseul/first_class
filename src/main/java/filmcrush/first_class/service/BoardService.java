@@ -5,9 +5,7 @@ import filmcrush.first_class.dto.BoardFormDto;
 import filmcrush.first_class.dto.BoardUpdateDto;
 import filmcrush.first_class.dto.ReplyDto;
 import filmcrush.first_class.entity.*;
-import filmcrush.first_class.repository.BoardHashtagsRepository;
-import filmcrush.first_class.repository.BoardRepository;
-import filmcrush.first_class.repository.MovieRepository;
+import filmcrush.first_class.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,11 +17,18 @@ import javax.persistence.EntityNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private UserLikeRepository userLikeRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private BoardHashtagsRepository boardHashtagsRepository;
@@ -76,6 +81,47 @@ public class BoardService {
         Board board = boardRepository.findByBoardIndex(boardIndex);
         BoardDto boardDto = BoardDto.of(board);
         return boardDto;
+    }
+
+    public Optional<UserLike> findLike(Board board, Users user) {
+
+        return userLikeRepository.findByUserAndBoard(user, board);
+
+    }
+
+    public int saveLike(Board board, Users user) {
+
+        /** 로그인한 유저가 해당 게시물을 좋아요 했는지 안 했는지 확인 **/
+        if(findLike(board, user).isEmpty()){
+
+            /* 좋아요 하지 않은 게시물이면 좋아요 추가, true 반환 */
+            user = userRepository.findById(user.getUserId()).orElseThrow(() ->
+                    new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+            board = boardRepository.findById(board.getBoardIndex()).orElseThrow(() ->
+                    new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
+
+            /* 좋아요 엔티티 생성 */
+//            좋아요가 없으면 추가
+            board.setLikeNum(board.getLikeNum()+1);
+
+            UserLike userLike = new UserLike(user, board);
+            userLikeRepository.save(userLike);
+
+            return 1;
+        } else {
+
+            /* 좋아요 한 게시물이면 좋아요 삭제, false 반환 */
+            board.setLikeNum(board.getLikeNum()-1);
+
+            userLikeRepository.deleteByUserAndBoard(user, board);
+
+            return 0;
+        }
+    }
+
+    public Board findBoard(Long boardIndex){
+        Board board = boardRepository.findByBoardIndex(boardIndex);
+        return board;
     }
 
     @Transactional
