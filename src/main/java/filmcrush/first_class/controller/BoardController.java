@@ -1,15 +1,9 @@
 package filmcrush.first_class.controller;
 
-import filmcrush.first_class.dto.BoardDto;
-import filmcrush.first_class.dto.BoardFormDto;
-import filmcrush.first_class.dto.ReplyDto;
-import filmcrush.first_class.dto.ReplyFormDto;
+import filmcrush.first_class.dto.*;
 import filmcrush.first_class.entity.*;
 import filmcrush.first_class.repository.*;
-import filmcrush.first_class.service.BoardHashtagsService;
-import filmcrush.first_class.service.BoardService;
-import filmcrush.first_class.service.HashtagsService;
-import filmcrush.first_class.service.ReplyService;
+import filmcrush.first_class.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -56,6 +50,12 @@ public class BoardController {
 
     @Autowired
     BoardHashtagsService boardHashtagsService;
+
+    @Autowired
+    MovieService movieService;
+
+    @Autowired
+    MovieImgService movieImgService;
 
     @GetMapping(value = "/")
     public String boardForm(@RequestParam(required = false) String type, Model model, @PageableDefault(page = 0, size = 10, sort = "boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
@@ -345,10 +345,15 @@ public class BoardController {
 
         board.setViewNum(board.getViewNum() +1);
         List<Reply> replyList = replyService.getBoardView(board);
+        MovieImg movieImg = movieImgService.getMovieImgDtl(board.getMovie().getMovieIndex());
+
+
+        model.addAttribute("movieImgDto", movieImg);
         model.addAttribute("hashList", hashList);
         model.addAttribute("replyList", replyList);
         model.addAttribute("boardDto", boardDto);
         model.addAttribute("replyFormDto", new ReplyFormDto());
+
 
 
         return "board/boardDtl";

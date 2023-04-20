@@ -40,8 +40,9 @@
 
 
         <div class="movie-info">
-
-          <img class="poster-picture" src="/img/1.jpg">
+          <th:block th:each="movieImgDto, status : ${movieImgDto}">
+            <img class="poster-picture" th:src="${movieImgDto.imgUrl}">
+          </th:block>
 
           <ul>
             <li class="movie-title">제목:</li> <span th:text="${boardDto.movie != null}? ${boardDto.movie.movieTitle} : 'No Movie' ">기생충</span>

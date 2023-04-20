@@ -1,5 +1,6 @@
 package filmcrush.first_class.dto;
 
+import filmcrush.first_class.entity.Movie;
 import filmcrush.first_class.entity.MovieImg;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
@@ -18,6 +19,7 @@ public class MovieImgDto {
 
     private String imgUrl; // 이미지 조회 경로
 
+    private Movie movie;
 
     private static ModelMapper modelMapper = new ModelMapper();
 

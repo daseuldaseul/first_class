@@ -1,5 +1,6 @@
 package filmcrush.first_class.service;
 
+import filmcrush.first_class.dto.MovieImgDto;
 import filmcrush.first_class.entity.Movie;
 import filmcrush.first_class.entity.MovieImg;
 import filmcrush.first_class.repository.MovieImgRepository;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -53,6 +55,16 @@ public class MovieImgService {
         List<MovieImg> savedMovieImg = movieImgRepository.findByMovie(movie);
 
         return savedMovieImg;
+
+    }
+
+    @Transactional
+    public MovieImg getMovieImgDtl(Long movieIndex) {
+        Movie movie = movieRepository.findByMovieIndex(movieIndex);
+        List<MovieImg> movieImgList = movieImgRepository.findByMovie(movie);
+
+
+        return movieImgList.get(0);
 
     }
 
