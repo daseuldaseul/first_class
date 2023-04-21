@@ -39,6 +39,12 @@ public class BoardService {
     @Autowired
     private MovieRepository movieRepository;
 
+    @Autowired
+    private ReplyRepository replyRepository;
+
+    @Autowired
+    private ReReplyRepository reReplyRepository;
+
     public Page<Board> boardList(Pageable pageable) {
         return boardRepository.findAll(pageable);
     }
@@ -130,7 +136,7 @@ public class BoardService {
         Board board = boardRepository.findByBoardIndex(boardIndex);
         boardHashtagsRepository.deleteByBoard(board);
         boardRepository.deleteByBoardIndex(boardIndex);
-
+// 여기하는중
     }
 
 

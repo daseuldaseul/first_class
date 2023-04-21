@@ -1,9 +1,6 @@
 package filmcrush.first_class.controller;
 
-import filmcrush.first_class.dto.BoardDto;
-import filmcrush.first_class.dto.BoardFormDto;
-import filmcrush.first_class.dto.ReplyDto;
-import filmcrush.first_class.dto.ReplyFormDto;
+import filmcrush.first_class.dto.*;
 import filmcrush.first_class.entity.*;
 import filmcrush.first_class.repository.*;
 import filmcrush.first_class.service.*;
@@ -65,6 +62,15 @@ public class BoardController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ReReplyService reReplyService;
+
+    @Autowired
+    ReReplyRepository reReplyRepository;
+
+    @Autowired
+    UserLikeRepository userLikeRepository;
 
     @GetMapping(value = "/")
     public String boardForm(@RequestParam(required = false) String type, Model model, @PageableDefault(page = 0, size = 10, sort = "boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
@@ -373,10 +379,15 @@ public class BoardController {
         }
 
         List<Reply> replyList = replyService.getBoardView(board);
+        List<ReReply> reReplyList = new ArrayList<>();
+        for(Reply reply : replyList) {
+            reReplyList.addAll(reReplyService.getReplyView(reply));
+
+        }
 
         MovieImg movieImg = movieImgService.getMovieImgDtl(board.getMovie().getMovieIndex());
 
-
+        model.addAttribute("reReplyList", reReplyList);
         model.addAttribute("movieImgDto", movieImg);
         model.addAttribute("user",user);
         model.addAttribute("hashList", hashList);
@@ -562,6 +573,7 @@ public class BoardController {
 
     @GetMapping(value="board/delete/{boardIndex}")
     public String deleteBoard(@PathVariable("boardIndex") Long boardIndex){
+        Board board = boardRepository.findByBoardIndex(boardIndex);
         boardService.deleteBoard(boardIndex);
         return "redirect:/";
     }
@@ -620,4 +632,47 @@ public class BoardController {
 
         return email;
     }
+
+    @GetMapping(value="/reReply/{boardIndex}/{replyIndex}")
+    public String reReplyWrite(@ModelAttribute("reReplyFormDto") ReReplyFormDto reReplyFormDto,
+                               @PathVariable("replyIndex") Long replyIndex, @PathVariable("boardIndex") Long boardIndex, Model model){
+
+        ReReply reReply = new ReReply();
+
+        BoardDto boardDto = boardService.getBoardView(boardIndex);
+
+        model.addAttribute("boardDto", boardDto);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String author = authentication.getName();
+        reReply.setReReplyContent(reReplyFormDto.getReReplyContent());
+        reReply.setReReplyDate(LocalDateTime.now());
+        reReply.setReply(replyRepository.findByReplyIndex(replyIndex));
+        reReply.setUser(userRepository.findByUserId(author));
+        reReplyRepository.save(reReply);
+
+
+        return "redirect:/board/" + boardIndex;
+
+
+    }
+
+    @GetMapping(value="reReply/delete/{reReplyIndex}")
+    public String deleteReReply(@PathVariable("reReplyIndex") Long reReplyIndex){
+        ReReply reReply = reReplyRepository.findByReReplyIndex(reReplyIndex);
+        Long index = reReply.getReply().getReplyIndex();
+        Reply reply = replyRepository.findByReplyIndex(index);
+
+        Long boardIndex = reply.getBoard().getBoardIndex();
+
+        reReplyService.deleteReReply(reReplyIndex);
+//        List<ReReply> reReplyList = reReplyService.getReplyView(reply);
+//        board.setReplyNum((long)replyList.size());
+//        boardRepository.save(board);
+//댓글 수 수정해야함 대댓글도 댓글 수 수정~
+        return "redirect:/board/" + boardIndex;
+    }
+
 }
+
+
+
