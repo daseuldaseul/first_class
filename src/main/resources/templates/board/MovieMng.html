@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
-<head>
+
   <head>
     <meta charset="UTF-8">
     <link th:href="@{/css/main.css}" rel="stylesheet">
@@ -11,7 +11,7 @@
     <script th:src="@{/js/include.js}" defer></script>
     <title>FilmCrush</title>
   </head>
-</head>
+
 <body>
 
 <div th:replace="fragments/header::header"></div>
@@ -36,7 +36,7 @@
 <!--          <div class="bt-wrap" id="board-search-btn">-->
 <!--            <button class="btn">검색</button>-->
 <!--          </div>-->
-        </div>
+<!--        </div>-->
       </div>
 
       <!-- className 필요한대로 수정 -->
@@ -51,11 +51,11 @@
           </div>
           <div th:each="movieDto, status: ${movieList.getContent()}">
             <div class="num" th:text="${movieDto.movieIndex}"></div>
-            <div class="title"><a th:href="'/movieMng/add/movie/'+${movieDto.movieIndex}" th:text="${movieDto.movieTitle}"></a></div>
+            <div class="title" th:text="${movieDto.movieTitle}"></div>
             <div class="director" th:text="${movieDto.movieDirector}"></div>
             <div class="actor" th:text="${movieDto.movieActor}"></div>
-            <div class="modify">
-              <a href="modify_movie.html">
+            <div>
+              <a class="modify" th:href="'/movieMng/add/movie/'+${movieDto.movieIndex}">
                 <img src="/img/modify.png">
               </a>
             </div>
@@ -73,7 +73,7 @@
           <a th:href="@{/movieMng/(page=${totalPages-1})}" class="bt last">>></a>
         </div>
         <div class="bt-wrap">
-          <a href="add_movie.html">
+          <a href="/movieMng/add/movie">
             <button class="btn" id="main-button">
               영화등록
             </button>
@@ -83,10 +83,9 @@
     </div>
 
   </div>
-<!--  <script src="../main.js"></script>-->
-<script th:src="@{/js/main.js}" defer></script>
 
 
 
+</div>
 </body>
 </html>

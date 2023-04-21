@@ -80,7 +80,6 @@
 
                     <div th:each="boardDto, status: ${boardList.getContent()}" >
                         <div class="num" th:text="${boardDto.boardIndex}"></div>
-
                         <div class="title">
                             <a th:text="${boardDto.movie != null} ? ${'['+boardDto.movie.movieTitle+']'} : '[No Movie]'"></a>
                             <a th:href="'/board/'+${boardDto.boardIndex}" th:text="${boardDto.boardTitle} "></a>
