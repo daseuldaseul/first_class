@@ -1,5 +1,6 @@
 package filmcrush.first_class.service;
 
+import filmcrush.first_class.dto.MovieImgDto;
 import filmcrush.first_class.entity.Movie;
 import filmcrush.first_class.entity.MovieImg;
 import filmcrush.first_class.repository.MovieImgRepository;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service

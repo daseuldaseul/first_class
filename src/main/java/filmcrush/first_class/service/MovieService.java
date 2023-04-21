@@ -70,6 +70,9 @@ public class MovieService {
 
 
 
+
+
+
     public Long updateMovie(MovieFormDto movieFormDto, MultipartFile movieImgFileList) throws Exception {
         //상품 수정
         Movie movie = movieRepository.findById(movieFormDto.getMovieIndex())

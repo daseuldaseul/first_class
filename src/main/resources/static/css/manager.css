@@ -84,33 +84,27 @@ a {
 }
 
 .board-list .title {
-  width: 30%;
+  width: 45%;
   /*text-align: left;*/
   text-align: center;
   /*margin-left: 20px;*/
   padding-left: 80px;
 }
 
-/*
 .board-list .top .title {
   text-align: center;
 }
-*/
 
 .board-list .director {
   width: 15%;
 }
 
 .board-list .actor {
-  width: 25%;
+  width: 15%;
 }
 
 .board-list .modify {
   width: 10%;
-}
-
-.board-list .modify img {
-  margin-left: 50px
 }
 
 /* 게시판 하단 페이징 */
