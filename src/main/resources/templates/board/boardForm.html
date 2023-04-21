@@ -89,7 +89,7 @@
                         </div>
 
                         <div class="writer" th:text="${boardDto.user != null} ? ${boardDto.user.userNickname} : 'No User'"></div>
-                        <div class="date" th:text="${#temporals.format(boardDto.boardDate, 'yyyy-MM-dd HH:mm:ss')}"></div>
+                        <div class="date" th:text="${#temporals.format(boardDto.boardDate, 'yyyy-MM-dd')}"></div>
                         <div class="count" th:text="${boardDto.viewNum}"></div>
 
                     </div>
