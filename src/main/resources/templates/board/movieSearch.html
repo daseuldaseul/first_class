@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>영화 검색 페이지</title>
+  <link th:href="@{/css/movieSearch.css}" rel="stylesheet">
   <script th:inline="javascript">
 function selectMovie(title) {
   window.opener.postMessage({
@@ -39,7 +40,7 @@ function selectMovie(title) {
 
     <td th:text="${boardDto.movieTitle}"></td>
     <td>
-      <button type="button" th:onclick="selectMovie(this.getAttribute('data-title'))" th:data-title="${boardDto.movieTitle}">영화 선택</button>
+      <button type="button" th:onclick="selectMovie(this.getAttribute('data-title'))" th:data-title="${boardDto.movieTitle}">선택</button>
     </td>
 
 

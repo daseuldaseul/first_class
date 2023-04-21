@@ -34,11 +34,13 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
 
     Board findByBoardIndex(Long boardIndex);
 
+
     void deleteByMovie(Movie movie);
 
     void deleteByBoardIndex(Long boardIndex);
 
     Page<Board> findByBoardIndexIn(List<Long> list, Pageable pageable);
 
+    List<Board> findByMovie(Movie movie);
 
 }

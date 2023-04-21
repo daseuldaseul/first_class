@@ -135,7 +135,7 @@ public class MovieController {
         return "board/MovieMng";
     }
 
-    @GetMapping(value = "/movieMng/delete/movie/{movieIndex}")
+    @PostMapping(value = "/movieMng/delete/movie/{movieIndex}")
     public String deleteMovie(@PathVariable("movieIndex") Long movieIndex) {
         movieService.deleteMovie(movieIndex);
         return "redirect:/movieMng";

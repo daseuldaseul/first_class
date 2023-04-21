@@ -9,12 +9,17 @@ import filmcrush.first_class.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityNotFoundException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,21 +50,16 @@ public class BoardService {
     @Autowired
     private ReReplyRepository reReplyRepository;
 
+    @Autowired
+    ReReplyService reReplyService;
+
+    @Autowired
+    ReplyService replyService;
+
     public Page<Board> boardList(Pageable pageable) {
         return boardRepository.findAll(pageable);
     }
 
-    @Transactional
-    public Page<Board> searchTitle(String title, Pageable pageable){
-        Page<Board> boardList = boardRepository.findByBoardTitleContaining(title, pageable);
-        return boardList;
-    }
-
-    @Transactional
-    public Page<Board> searchMovie(List<Movie> movie, Pageable pageable){
-        Page<Board> boardList = boardRepository.findByMovieIn(movie, pageable);
-        return boardList;
-    }
 
     public Page<Board> viewBoardList(Pageable pageable){
         Page<Board> boardList = boardRepository.findAllByOrderByViewNumDesc(pageable);
@@ -76,11 +76,6 @@ public class BoardService {
         return boardList;
     }
 
-    @Transactional
-    public Page<Board> searchUser(List<Users> user, Pageable pageable){
-        Page<Board> boardList = boardRepository.findByUserIn(user, pageable);
-        return boardList;
-    }
 
     @Transactional
     public BoardDto getBoardView(Long boardIndex){
@@ -134,9 +129,22 @@ public class BoardService {
     public void deleteBoard(Long boardIndex){
 
         Board board = boardRepository.findByBoardIndex(boardIndex);
+
+        List<Reply> replyList = replyService.getBoardView(board);
+        List<ReReply> reReplyList = new ArrayList<>();
+        for(Reply replies : replyList) {
+            reReplyList.addAll(reReplyService.getReplyView(replies));
+        }
+
+        for(ReReply reReplies : reReplyList){
+            reReplyRepository.deleteByReReplyIndex(reReplies.getReReplyIndex());
+        }
+
+        replyRepository.deleteByBoard(board);
+        userLikeRepository.deleteByBoard(board);
         boardHashtagsRepository.deleteByBoard(board);
         boardRepository.deleteByBoardIndex(boardIndex);
-// 여기하는중
+
     }
 
 
@@ -205,6 +213,222 @@ public class BoardService {
         return board.getBoardIndex();
     }
 
+    @Transactional
+    public void searchTitle(@RequestParam String keyword, Model model, @PageableDefault(page = 0, size = 3, sort = "boardIndex",
+            direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Board> searchList = boardRepository.findByBoardTitleContaining(keyword, pageable);
+
+        int nowPage = searchList.getPageable().getPageNumber() + 1;
 
 
+        int startPage = Math.max(nowPage - 2, 1);
+
+        int endPage = Math.min(nowPage + 2, searchList.getTotalPages());
+
+        // 현재 페이지 1번일 때 1 뒤에 2, 3, 4, 5p까지 출력되도록함.
+        if (nowPage == 1) {
+            endPage = Math.min(nowPage + 4, searchList.getTotalPages());
+
+        } else if (nowPage == 2) {
+            // 현재 페이지 2번일 때 뒤에 3, 4, 5p까지 출력되도록 함.
+            endPage = Math.min(nowPage + 3, searchList.getTotalPages());
+        }
+
+        // 현재 페이지가 마지막 페이지일 때
+        // 현재 페이지 앞에 페이지를 뜨게 만듦
+        if (nowPage == (searchList.getTotalPages() - 1)) {
+            startPage = Math.min(nowPage - 3, searchList.getTotalPages());
+        } else if (nowPage == (searchList.getTotalPages())) {
+            startPage = Math.min(nowPage - 4, searchList.getTotalPages());
+        }
+
+        if (startPage < 1) {
+            startPage = 1;
+        }
+
+        int prevPage = nowPage - 1;
+        int nextPage = nowPage + 1;
+
+        model.addAttribute("searchList", searchList);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("totalPages", searchList.getTotalPages());
+        model.addAttribute("keyword", keyword);
+
+    }
+
+
+    @Transactional
+    public void searchMovieTitle(@RequestParam String keyword, Model model, @PageableDefault(page = 0, size = 3, sort = "boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
+        List<Movie> movieList = movieRepository.findByMovieTitleContaining(keyword);
+        // keyword를 가진 Movie 객체 리스트를 movieList 담음
+
+        Page<Board> searchList = boardRepository.findByMovieIn(movieList, pageable);
+
+
+        int nowPage = searchList.getPageable().getPageNumber() + 1;
+
+
+        int startPage = Math.max(nowPage - 2, 1);
+
+        int endPage = Math.min(nowPage + 2, searchList.getTotalPages());
+
+        // 현재 페이지 1번일 때 1 뒤에 2, 3, 4, 5p까지 출력되도록함.
+        if (nowPage == 1) {
+            endPage = Math.min(nowPage + 4, searchList.getTotalPages());
+
+        } else if (nowPage == 2) {
+            // 현재 페이지 2번일 때 뒤에 3, 4, 5p까지 출력되도록 함.
+            endPage = Math.min(nowPage + 3, searchList.getTotalPages());
+        }
+
+        // 현재 페이지가 마지막 페이지일 때
+        // 현재 페이지 앞에 페이지를 뜨게 만듦
+        if (nowPage == (searchList.getTotalPages() - 1)) {
+            startPage = Math.min(nowPage - 3, searchList.getTotalPages());
+        } else if (nowPage == (searchList.getTotalPages())) {
+            startPage = Math.min(nowPage - 4, searchList.getTotalPages());
+        }
+
+        if (startPage < 1) {
+            startPage = 1;
+        }
+
+        int prevPage = nowPage - 1;
+        int nextPage = nowPage + 1;
+
+        model.addAttribute("searchList", searchList);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("totalPages", searchList.getTotalPages());
+
+    }
+
+    @Transactional
+    public void searchUserNickname(@RequestParam String keyword, Model model, @PageableDefault(page = 0, size = 3, sort = "boardIndex", direction = Sort.Direction.DESC) Pageable pageable) {
+
+        List<Users> userList = userRepository.findByUserNicknameContaining(keyword);
+        Page<Board> searchList = boardRepository.findByUserIn(userList, pageable);
+
+
+        int nowPage = searchList.getPageable().getPageNumber() + 1;
+
+
+        int startPage = Math.max(nowPage - 2, 1);
+
+        int endPage = Math.min(nowPage + 2, searchList.getTotalPages());
+
+        // 현재 페이지 1번일 때 1 뒤에 2, 3, 4, 5p까지 출력되도록함.
+        if (nowPage == 1) {
+            endPage = Math.min(nowPage + 4, searchList.getTotalPages());
+
+        } else if (nowPage == 2) {
+            // 현재 페이지 2번일 때 뒤에 3, 4, 5p까지 출력되도록 함.
+            endPage = Math.min(nowPage + 3, searchList.getTotalPages());
+        }
+
+        // 현재 페이지가 마지막 페이지일 때
+        // 현재 페이지 앞에 페이지를 뜨게 만듦
+        if (nowPage == (searchList.getTotalPages() - 1)) {
+            startPage = Math.min(nowPage - 3, searchList.getTotalPages());
+        } else if (nowPage == (searchList.getTotalPages())) {
+            startPage = Math.min(nowPage - 4, searchList.getTotalPages());
+        }
+
+        if (startPage < 1) {
+            startPage = 1;
+        }
+
+        int prevPage = nowPage - 1;
+        int nextPage = nowPage + 1;
+
+
+        model.addAttribute("searchList", searchList);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("totalPages", searchList.getTotalPages());
+
+
+    }
+
+    @Transactional
+    public void boardWrite(String author, String hashtags, BoardFormDto boardFormDto, Model model){
+
+
+        Board board = new Board();
+        board.setBoardTitle(boardFormDto.getBoardTitle());
+        board.setBoardContent(boardFormDto.getBoardContent());
+        board.setBoardDate(LocalDateTime.now());
+        board.setLikeNum(0L);
+        board.setUser(userRepository.findByUserId(author));
+        board.setMovie(movieRepository.findByMovieTitle(boardFormDto.getMovie()));
+        board.setBoardScore(boardFormDto.getBoardScore());
+        board.setViewNum(0L);
+        board.setReplyNum(0L);
+        boardRepository.save(board);
+
+        String[] words = hashtags.split("#");
+        List<String> hashtagList = new ArrayList<>();
+        for (String word : words) {
+            String trimmed = word.trim();
+            if (!trimmed.isEmpty()) {
+                hashtagList.add(trimmed);
+            }
+
+        }
+
+        for(String tags : hashtagList){
+            BoardHashtags boardHashtags = new BoardHashtags();
+            Hashtags tag = hashtagsService.findHash(tags);
+            boardHashtags.setBoard(board);
+            boardHashtags.setHashtags(tag);
+            boardHashtagsRepository.save(boardHashtags);
+        }
+        model.addAttribute("boardFormDto", new BoardFormDto());
+
+
+    }
+    @Transactional
+    public void paging(Page page, Model model){
+        int nowPage = page.getPageable().getPageNumber() + 1;
+
+        int startPage = Math.max(nowPage - 2, 1);
+
+        int endPage = Math.min(nowPage + 2, page.getTotalPages());
+
+        if (nowPage == 1) {
+            endPage = Math.min(nowPage + 4, page.getTotalPages());
+        } else if (nowPage == 2) {
+            endPage = Math.min(nowPage + 3, page.getTotalPages());
+        }
+
+        if (nowPage == (page.getTotalPages() - 1)) {
+            startPage = Math.min(nowPage - 3, page.getTotalPages());
+        } else if (nowPage == (page.getTotalPages())) {
+            startPage = Math.min(nowPage - 4, page.getTotalPages());
+        }
+
+        if (startPage < 1) {
+            startPage = 1;
+        }
+
+        int prevPage = nowPage - 1;
+        int nextPage = nowPage + 1;
+
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("totalPages", page.getTotalPages());
+    }
 }

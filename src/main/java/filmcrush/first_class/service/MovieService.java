@@ -29,6 +29,7 @@ public class MovieService {
     private final MovieImgService movieImgService;
     private final MovieImgRepository movieImgRepository;
     private final BoardRepository boardRepository;
+    private final BoardService boardService;
 
     public Page<Movie> movieList(Pageable pageable) {
         return movieRepository.findAll(pageable);
@@ -100,7 +101,11 @@ public class MovieService {
     public void deleteMovie(Long movieIndex) {
         Movie movie = movieRepository.findByMovieIndex(movieIndex); // 삭제하고싶은 movie 객체
         movieImgRepository.deleteByMovie(movie); // 이미지 삭제
-        boardRepository.deleteByMovie(movie); // 게시물 삭제
+        List<Board> boardList = boardRepository.findByMovie(movie);
+        for(Board boards : boardList){
+            boardService.deleteBoard(boards.getBoardIndex());
+        }
+//        boardRepository.deleteByMovie(movie); // 게시물 삭제
         movieRepository.deleteByMovieIndex(movieIndex); // 영화 삭제
 
     }

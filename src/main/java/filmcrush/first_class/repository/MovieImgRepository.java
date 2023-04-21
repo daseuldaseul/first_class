@@ -11,4 +11,7 @@ public interface MovieImgRepository extends JpaRepository<MovieImg, Long> {
 
     void deleteByMovie(Movie movie);
     //엔티티에 있는 참조내용인 Movie movie를 가리킨다.
+
+    List<MovieImg> findAllByOrderByMovieDesc();
+
 }

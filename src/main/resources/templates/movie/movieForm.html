@@ -126,7 +126,7 @@
       <div th:unless="${#strings.isEmpty(movieFormDto.movieIndex)}" style="text-align: center">
       <button th:formaction="@{'/movieMng/add/movie/' + ${movieFormDto.movieIndex} }" type="submit" class="button">MODIFY</button>
         <br />
-      <button th:formaction="@{'/movieMng/add/movie/' + ${movieFormDto.movieIndex} }" method="get" class="button">DELETE</button>
+      <button th:formaction="@{'/movieMng/delete/movie/' + ${movieFormDto.movieIndex} }" method="post" class="button">DELETE</button>
       <input type="hidden" th:name="${_csrf.parameterName}"
              th:value="${_csrf.token}">
     </div>

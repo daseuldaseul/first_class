@@ -15,4 +15,7 @@ public interface UserLikeRepository extends JpaRepository<UserLike, Long> {
 
     Optional<UserLike> findByUserAndBoard(Users user, Board board);
 //    void  deleteByBoardEntity_IdAndMemberEntity_Id(Long boardId, Long memberId);
+
+    void deleteByBoard(Board board);
+
 }

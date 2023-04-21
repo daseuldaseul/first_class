@@ -10,22 +10,25 @@
     <script>
     function openMovieSearch() {
 
-  var searchUrl = 'http://localhost:8080/board/movieSearch';
-  var searchWindowFeatures = 'width=500,height=300,left=50%,top=50%,margin-left=-250px,margin-top=-150px';
+        var searchUrl = 'http://localhost:8080/board/movieSearch';
+        var popupX = (document.body.offsetWidth / 2) - (200 / 2);
+        // 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+        var popupY= (window.screen.height / 2) - (300 / 2);
+        // 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+        var searchWindow = window.open(searchUrl, '_blank', 'status=no, height=350, width=500, left='+ popupX + ', top='+ popupY);
 
-  var searchWindow = window.open(searchUrl, '_blank', searchWindowFeatures);
+      window.addEventListener('message', function(event) {
+        if (event.source === searchWindow) {
+          if (event.data.type === 'movieTitle') {
+            var selectedMovieTitle = event.data.payload;
+            document.getElementById('searchMovieTitle').value = selectedMovieTitle;
+          }
+        }
+      });
 
-  window.addEventListener('message', function(event) {
-    if (event.source === searchWindow) {
-      if (event.data.type === 'movieTitle') {
-        var selectedMovieTitle = event.data.payload;
-        document.getElementById('searchMovieTitle').value = selectedMovieTitle;
-      }
-    }
-  });
-
-    }
+ }
 </script>
+
 </head>
 <body>
 <div th:replace="fragments/header::header"></div>

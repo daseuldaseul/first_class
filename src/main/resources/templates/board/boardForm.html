@@ -14,30 +14,25 @@
 
 </th:block>
 <th:block layout:fragment="css">
+    .poster-img {
+    width: 270px;
+    height: 350px;
+    margin-bottom: 10px;
+    }
 </th:block>
 
 <div layout:fragment="content">
 
     <div class="wrapper">
         <div class="container">
-            <strong class="poster-title"> 4월 개봉영화 </strong>
+            <strong class="poster-title"> 최신 영화</strong>
             <div class="poster-container">
-                <ul class="poster">
-                    <li><img class="poster-img" src="/img/1.jpg"></li>
-                    <li>리바운드</li>
-                </ul>
-                <ul class="poster">
-                    <li><img class="poster-img" src="/img/2.jpg"></li>
-                    <li>패왕별희</li>
-                </ul>
-                <ul class="poster">
-                    <li><img class="poster-img" src="/img/3.jpg"></li>
-                    <li>마리아 칼라스: 세기의 디바</li>
-                </ul>
-                <ul class="poster">
-                    <li><img class="poster-img" src="/img/4.jpg"></li>
-                    <li>에어</li>
-                </ul>
+                <th:block th:each="movieImgList, status : ${movieImgList}" >
+                    <ul class="poster">
+                    <li><img class="poster-img" th:src="${movieImgList.imgUrl}"></li>
+                    </ul>
+                </th:block>
+
             </div>
         </div>
 
@@ -101,7 +96,7 @@
                         <a th:if="${page != nowPage}" th:href="@{/(page=${page-1}, type=${param.type})}" th:text ="${page}" class="num"></a>
                         <a th:if="${page==nowPage}" th:text ="${page}" class="num on"></a>
                     </th:block>
-                    <a th:if="${endPage < totalPages}" th:href="@{/(page=${endPage}, type=${param.type})}" class="bt next">></a>
+                    <a th:href="@{/(page=${endPage-1}, type=${param.type})}" class="bt next">></a>
                     <a th:href="@{/(page=${totalPages-1}, type=${param.type})}" class="bt last">>></a>
                 </div>
                 <div class="bt-wrap" id="main-button">

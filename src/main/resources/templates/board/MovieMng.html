@@ -73,7 +73,7 @@
             <a th:if="${page != nowPage}" th:href="@{/movieMng/(page=${page-1})}" th:text ="${page}" class="num"></a>
             <a th:if="${page==nowPage}" th:text ="${page}" class="num on"></a>
           </th:block>
-          <a th:if="${endPage < totalPages}" th:href="@{/movieMng/(page=${endPage})}" class="bt next">></a>
+          <a th:href="@{/movieMng/(page=${endPage-1})}" class="bt next">></a>
           <a th:href="@{/movieMng/(page=${totalPages-1})}" class="bt last">>></a>
         </div>
         <div class="bt-wrap">
