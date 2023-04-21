@@ -107,14 +107,15 @@ $(document).ready(function() {
             <li class="date" th:text="${#temporals.format(boardDto.boardDate, 'yyyy-MM-dd HH:mm:ss')}">2023.04.10</li>
           </ul>
         </div>
-<!--        <div th:each="hashList, status: ${hashList}">-->
-<!--          <a th:href="'/hashtag?hashtag='+ ${hashList.hashName}" th:text="'#' + ${hashList.hashName}"></a>-->
-<!--        </div>-->
+        <!--        <div th:each="hashList, status: ${hashList}">-->
+        <!--          <a th:href="'/hashtag?hashtag='+ ${hashList.hashName}" th:text="'#' + ${hashList.hashName}"></a>-->
+        <!--        </div>-->
+
         <div class="review-hashtag">
           <div th:each="hashList, status: ${hashList}" class="hashtag-list">
             <a th:href="'/hashtag?hashtag='+ ${hashList.hashName}" th:text="'#' + ${hashList.hashName}" ></a>
           </div>
-
+        </div>
 
         <div class="movie-info">
 
@@ -144,31 +145,29 @@ $(document).ready(function() {
           </ul>
           <!-- 해시태그 기능 추가해야됨-->
         </div>
-        <div class="contents" th:utext="${boardDto.boardContent}"> </div>
-          <!-- 본문내용 -->
+        <div class="contents" th:utext="${boardDto.boardContent}" style="white-space: pre-line;"> </div>
+        <!-- 본문내용 -->
+      </div>
+      <!-- 하트누르면 색깔바뀌면서 숫자 증가 기능넣기 -->
+      <div class="like">
+        <!-- 로그인 유저와 작성자가 동일하지 않다면 -->
+        <!-- 좋아요 -->
+        <input type="hidden" id="boardIndex" th:value="*{boardDto.boardIndex}" />
+
+
+        <div sec:authorize="isAuthenticated()">
+          <input type="hidden" id="userId" th:value="*{user.userId}">
+          <!--          유저가 좋아요 했는지 확인 0아니면 -->
+
+          <input type="hidden" th:id="like_check" th:value="${heart}">
+          <img th:id="like-icon" src="/img/like.png">
         </div>
-        <!-- 하트누르면 색깔바뀌면서 숫자 증가 기능넣기 -->
-        <div class="like">
-          <!-- 로그인 유저와 작성자가 동일하지 않다면 -->
-          <!-- 좋아요 -->
-          <input type="hidden" id="boardIndex" th:value="*{boardDto.boardIndex}" />
 
-
-          <div sec:authorize="isAuthenticated()">
-            <input type="hidden" id="userId" th:value="*{user.userId}">
-            <!--          유저가 좋아요 했는지 확인 0아니면 -->
-
-            <input type="hidden" th:id="like_check" th:value="${heart}">
-            <img th:id="like-icon" src="/img/like.png">
-          </div>
-
-            <img sec:authorize="isAnonymous()" th:id="like-icon" src="/img/like.png">
-
-
-          <p th:text="${boardDto.likeNum}">00</p>
+        <img sec:authorize="isAnonymous()" th:id="like-icon" src="/img/like.png">
+        <p th:text="${boardDto.likeNum}">00</p>
 
       </div>
-      <div class="row">
+      <div class="row" style="display: flex; justify-content: center;">
         <form th:action="'/board/write/' + ${boardDto.boardIndex}" method="get">
           <button class="btn">수정</button>
         </form>
@@ -181,8 +180,6 @@ $(document).ready(function() {
       <div class="reply-container" th:replace="board/reply::boardReply"></div>
     </div>
   </div>
-
-
 </div>
 </div>
 </body>

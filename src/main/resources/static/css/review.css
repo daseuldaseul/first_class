@@ -1,5 +1,29 @@
 @import "main.css";
 
+/*----- 해시태그 -----*/
+
+.review-hashtag {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.hashtag-list {
+    display:flex;
+    margin-bottom:1rem;
+}
+.hashtag-list a {
+    font-size: 18px;
+    padding-bottom: 5px;
+    margin-right:5px;
+    text-decoration: none;
+}
+
+.hashtag-list a:hover{
+    color:#DE2A60;
+}
+
+
+
 .title-area {
   font-size: 40px;
 }
@@ -49,7 +73,7 @@
   font-size: 2.3rem;
 }
 
-#like {
+.like {
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -57,7 +81,7 @@
   font-size: 20px;
 }
 
-#like img {
+.like img {
   width: 50px;
   height: 50px;
 }
@@ -182,24 +206,6 @@
 #score .checked{
     font-size: 1.5em; /* 이모지 크기 */
     color: transparent; /* 기존 이모지 컬러 제거 */
-    text-shadow: 0 0 0 #ffcf20;;
+    text-shadow: 0 0 0 #ffcf20;
 
 
-/*----- 해시태그 -----*/
-.review-hashtag{
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-.hashtag-list{
-    display:flex;
-    margin-bottom:1rem;
-}
-.review-hashtag a{
-    font-size: 18px;
-    padding-bottom: 5px;
-    margin-right:5px;
-    text-decoration: none;
-}
-.review-hashtag a:hover {
-    color:#DE2A60;

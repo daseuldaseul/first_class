@@ -17,7 +17,7 @@
         <div th:each="boardDto, status: ${boardDto}" >
 
             <!-- 댓글 입력 창 -->
-            <h2>댓글 쓰기</h2>
+            <h1>댓글 <span th:text="${'('+boardDto.replyNum+')'}"></span></h1>
 
             <form th:action="${boardDto.boardIndex}" method="post" th:object="${replyFormDto}">
                 <textarea name="replyContent" id="reply-input" cols="50" rows="1" placeholder="댓글 내용 입력하쇼" th:field="*{replyContent}"></textarea>
@@ -30,7 +30,7 @@
             <br>
 
             <!-- 댓글 자리 -->
-            <h1>댓글 <span th:text="${'('+boardDto.replyNum+')'}"></span></h1>
+<!--            <h1>댓글 <span th:text="${'('+boardDto.replyNum+')'}"></span></h1>-->
             <div th:each="replyList, status: ${replyList}" >
 
 
