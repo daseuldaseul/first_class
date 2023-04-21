@@ -437,7 +437,11 @@ public class BoardController {
         Board board = boardRepository.findByBoardIndex(boardIndex);
 
         List<Reply> replyList = replyService.getBoardView(board);
-        board.setReplyNum((long)replyList.size());
+        List<ReReply> reReplyList = new ArrayList<>();
+        for(Reply replies : replyList) {
+            reReplyList.addAll(reReplyService.getReplyView(replies));
+        }
+        board.setReplyNum((long)(replyList.size()+reReplyList.size()));
         boardRepository.save(board);
 
 
@@ -618,8 +622,13 @@ public class BoardController {
         Board board = boardRepository.findByBoardIndex(index);
         replyService.deleteReply(replyIndex);
         List<Reply> replyList = replyService.getBoardView(board);
-        board.setReplyNum((long)replyList.size());
+        List<ReReply> reReplyList = new ArrayList<>();
+        for(Reply replies : replyList) {
+            reReplyList.addAll(reReplyService.getReplyView(replies));
+        }
+        board.setReplyNum((long)(replyList.size()+reReplyList.size()));
         boardRepository.save(board);
+
 
         return "redirect:/board/" + index;
     }
@@ -640,7 +649,7 @@ public class BoardController {
         ReReply reReply = new ReReply();
 
         BoardDto boardDto = boardService.getBoardView(boardIndex);
-
+        Board board = boardRepository.findByBoardIndex(boardIndex);
         model.addAttribute("boardDto", boardDto);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String author = authentication.getName();
@@ -649,6 +658,14 @@ public class BoardController {
         reReply.setReply(replyRepository.findByReplyIndex(replyIndex));
         reReply.setUser(userRepository.findByUserId(author));
         reReplyRepository.save(reReply);
+
+        List<Reply> replyList = replyRepository.findByBoard(board);
+        List<ReReply> reReplyList = new ArrayList<>();
+        for(Reply replies : replyList) {
+            reReplyList.addAll(reReplyService.getReplyView(replies));
+        }
+        board.setReplyNum((long)(replyList.size()+reReplyList.size()));
+        boardRepository.save(board);
 
 
         return "redirect:/board/" + boardIndex;
@@ -662,13 +679,17 @@ public class BoardController {
         Long index = reReply.getReply().getReplyIndex();
         Reply reply = replyRepository.findByReplyIndex(index);
 
-        Long boardIndex = reply.getBoard().getBoardIndex();
+        Board board = reply.getBoard();
+        Long boardIndex = board.getBoardIndex();
 
         reReplyService.deleteReReply(reReplyIndex);
-//        List<ReReply> reReplyList = reReplyService.getReplyView(reply);
-//        board.setReplyNum((long)replyList.size());
-//        boardRepository.save(board);
-//댓글 수 수정해야함 대댓글도 댓글 수 수정~
+        List<Reply> replyList = replyRepository.findByBoard(board);
+        List<ReReply> reReplyList = new ArrayList<>();
+        for(Reply replies : replyList) {
+            reReplyList.addAll(reReplyService.getReplyView(replies));
+        }
+        board.setReplyNum((long)(replyList.size()+reReplyList.size()));
+        boardRepository.save(board);
         return "redirect:/board/" + boardIndex;
     }
 
