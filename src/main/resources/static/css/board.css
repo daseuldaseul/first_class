@@ -25,6 +25,13 @@ a {
   width: 700px;
   height: 40px;
   padding: 10px;
+  border: 2px solid #DE2A60;
+  margin-top: 30px;
+}
+
+.board-search .sort:hover {
+  background: #DE2A60;
+  color: white !important;
 }
 
 .board-search input{
