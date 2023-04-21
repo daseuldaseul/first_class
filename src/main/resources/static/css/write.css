@@ -51,6 +51,17 @@
     padding: 5px;
 }
 
+
+#movie-search {
+    margin-left : 20px;
+    margin-bottom :20px;
+}
+
+#movie-search input {
+    border-radius: 10px;
+}
+
+
 /* 본문 */
 #content-input {
     font-size: 20px;
@@ -63,6 +74,12 @@
     margin: 25px 0;
     width: 1000px;
 }
+
+#hashtags{
+    width: 1000px;
+    padding: 20px;
+    border-radius: 10px;
+    font-size:2rem;
 
 /*----- 별점주기 -----*/
 #score fieldset{

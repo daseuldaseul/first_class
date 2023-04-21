@@ -26,6 +26,7 @@
 .movie-info {
   display: flex;
   flex-direction: row;
+    margin: 10px 0px 10px 0px;
 }
 
 .movie-info ul {
@@ -78,32 +79,127 @@
 }
 
 /* 댓글 입력 */
-.reply-write {
+.reply-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: baseline;
+  text-align:center;
 }
 
-.reply-write .btn {
+.reply-container .btn {
   margin-left: 20px;
-  margin-top: 32px;
+}
+
+#replyList{
+    display: flex;
+    margin:20px;
+    padding:10px;
+    align-items: baseline;
+}
+
+#user-list{
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+}
+
+#replyList img{
+    width:55px;
+    margin:10px 0px 10px 0px;
+}
+
+#reply-user {
+  display: flex;
+  border-radius: 30px;
+  background-color:#DE2A60;
+  width:80px;
+  height:30px;
+  padding:10px;
+  margin: 0 auto;
+  align-items:center;
+
+  font-size: 15px;
+  font-family: 'SBAggroB';
+
+  color: white;
+}
+
+#content-list{
+    display:flex;
+    flex-direction:column;
+}
+
+#reply-content {
+  width:800px;
+  min-height: 70px;
+  padding:15px;
+  margin:10px;
+
+  font-size: 16px;
+  font-family: 'SBAggroB';
+  border: 2px solid #DE2A60;
+  color: white;
+  border-radius:10px;
+
+}
+
+#reply-date{
+    display:flex;
+    margin-left: auto;
+    margin-right: 10px;
 }
 
 #reply-input {
-  font-size: 20px;
-  font-family: 'Happiness-Sans-Title';
+  font-size: 18px;
+  font-family: 'SBAggroB';
   background: white;
   color: black;
-  padding:10px;
   border-radius: 10px;
   line-height: 45px;
+
 }
 
-#reply-write {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+#replyList button {
+    width:60px;
+    border: none;
 }
 
+#replyList button img{
+    width:40px;
+}
+
+
+/*----- 별점주기 -----*/
+
+#score .unchecked{
+    font-size: 1.5em; /* 이모지 크기 */
+    color: transparent; /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
+}
+
+#score .checked{
+    font-size: 1.5em; /* 이모지 크기 */
+    color: transparent; /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #ffcf20;;
+
+
+/*----- 해시태그 -----*/
+.review-hashtag{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.hashtag-list{
+    display:flex;
+    margin-bottom:1rem;
+}
+.review-hashtag a{
+    font-size: 18px;
+    padding-bottom: 5px;
+    margin-right:5px;
+    text-decoration: none;
+}
+.review-hashtag a:hover {
+    color:#DE2A60;

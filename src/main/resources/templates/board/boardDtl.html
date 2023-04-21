@@ -107,9 +107,13 @@ $(document).ready(function() {
             <li class="date" th:text="${#temporals.format(boardDto.boardDate, 'yyyy-MM-dd HH:mm:ss')}">2023.04.10</li>
           </ul>
         </div>
-        <div th:each="hashList, status: ${hashList}">
-          <a th:href="'/hashtag?hashtag='+ ${hashList.hashName}" th:text="'#' + ${hashList.hashName}"></a>
-        </div>
+<!--        <div th:each="hashList, status: ${hashList}">-->
+<!--          <a th:href="'/hashtag?hashtag='+ ${hashList.hashName}" th:text="'#' + ${hashList.hashName}"></a>-->
+<!--        </div>-->
+        <div class="review-hashtag">
+          <div th:each="hashList, status: ${hashList}" class="hashtag-list">
+            <a th:href="'/hashtag?hashtag='+ ${hashList.hashName}" th:text="'#' + ${hashList.hashName}" ></a>
+          </div>
 
 
         <div class="movie-info">
