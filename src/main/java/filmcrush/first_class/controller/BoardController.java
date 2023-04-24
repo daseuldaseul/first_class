@@ -133,6 +133,8 @@ public class BoardController {
             boardService.searchMovieTitle(keyword, model, pageable);
         } else if (searchType.equals("userId")) {
             boardService.searchUserNickname(keyword, model, pageable);
+        }else if (searchType.equals("content")){
+            boardService.searchContent(keyword, model, pageable);
         }
         List<MovieImg> movieImgList = movieImgRepository.findAllByOrderByMovieDesc();
         List<MovieImg> mainMovieImgList = movieImgList.subList(0, 4);

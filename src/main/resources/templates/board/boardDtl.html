@@ -165,7 +165,8 @@ $(document).ready(function() {
         <p th:text="${boardDto.likeNum}">00</p>
 
       </div>
-      <div class="row" style="display: flex; justify-content: center;">
+      <div sec:authorize="isAuthenticated()" >
+      <div class="row" style="display: flex; justify-content: center;" th:if="${#authentication.principal.username == boardDto.user.userId or #authorization.expression('hasRole(''ADMIN'')')}">
         <form th:action="'/board/write/' + ${boardDto.boardIndex}" method="get">
           <button class="btn">수정</button>
         </form>
@@ -174,6 +175,8 @@ $(document).ready(function() {
         </form>
 
       </div>
+      </div>
+
 
       <div class="reply-container" th:replace="board/reply::boardReply"></div>
     </div>

@@ -43,4 +43,6 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
 
     List<Board> findByMovie(Movie movie);
 
+    Page<Board> findByBoardContentContaining(String keyword, Pageable pageable);
+
 }
