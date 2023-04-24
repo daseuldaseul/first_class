@@ -129,7 +129,7 @@
     align-items: baseline;
 }
 
-#reply-input {
+.reply-input {
     width:800px;
 
     margin: 10px 0px 20px 0px;
