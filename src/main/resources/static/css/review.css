@@ -126,6 +126,7 @@
     display: flex;
     flex-direction:row;
     margin-top:15px;
+    align-items: baseline;
 }
 
 #reply-input {
@@ -164,23 +165,10 @@
 }
 
 .user-list img{
-    width:30px;
+    width:20px;
 }
 
 #reply-user {
-  display: flex;
-
-  padding:10px;
-  margin: 0 auto;
-  align-items:center;
-
-  font-size: 20px;
-  font-family: 'SBAggroB';
-  font-weight: bold;
-  color: white;
-}
-
-#rereply-user {
   display: flex;
 
   padding:10px;
@@ -218,9 +206,16 @@
 .row{
    display:flex;
    flex-direction:row;
+   margin-bottom:30px;
+}
+
+#reReplyList{
+
+    margin-bottom:20px;
 }
 
 #re-reply{
+
     margin-left:20px;
     display:flex;
     flex-direction:row;
@@ -232,25 +227,24 @@
 
 }
 
-#replyList button {
+#reReplyWrap #replyList button {
     width:60px;
     border: none;
 }
 
+#reReplyWrap button{
+    width:60px;
+    border: none;
+    margin-bottom: 10px;
+}
 
 /*-------------------------------*/
-
-
 
 /*-----------대댓글---------------*/
 
 #reReplyWrap{
    display: flex;
     flex-direction:column;
-}
-
-#reReplyWrap{
-    display:flex;
 }
 
 #reReplyWrap form{
@@ -260,31 +254,27 @@
 
 #reReplyWrap textarea {
     display:flex;
-     width:800px;
+     width:750px;
      border: 1px solid #DE2A60;
      border-radius: 10px;
      padding: 15px;
-     font-size:18px;
+     font-size:15px;
+     margin-left: 25px;
 }
 
-#reReplyWrap button{
-
-  width: 100px;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 2px;
-  font-size: 1.5rem;
-  color : white;
-  background: #DE2A60;
+#rereply-user{
+    font-size:15px;
+    margin-right:10px;
 }
 
-.saveBtn{
-    margin-top:10px;
+#rereply-content{
+    margin: 15px 50px;
+    padding : 15px;
+
 }
+
 
 /*-------------------------------*/
-
-
 /*----- 별점주기 -----*/
 
 #score .unchecked{
@@ -297,9 +287,9 @@
     font-size: 1.5em; /* 이모지 크기 */
     color: transparent; /* 기존 이모지 컬러 제거 */
     text-shadow: 0 0 0 #ffcf20;
+}
 
-
-/*----- 해시태그 호버기능 왜 안되노 시발 -----*/
+/*----- 해시태그 호버기능 -----*/
 .hashtag-list a:hover{
     color:#DE2A60;
 }
