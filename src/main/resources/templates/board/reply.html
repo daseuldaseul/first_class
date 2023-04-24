@@ -50,7 +50,7 @@
                         <div id="reply">
                             <div id="reply-content" th:text="${replyList.replyContent != null} ? ${replyList.replyContent} : 'No reply'" style="white-space: pre-line;"></div>
                             <form th:action="'/reply/delete/' + ${replyList.replyIndex}" method="get">
-                                <button class="btn">댓글 삭제</button>
+                                <button class="btn">삭제</button>
                             </form>
                         </div>
 
@@ -59,8 +59,9 @@
                         <!-- 대댓-->
                         <div id="reReplyWrap">
 
-                            <button class="rereply-button" onclick="toggleForm(${replyList.replyIndex})">답글</button>
+                            <button class="rereply-button btn" onclick="toggleForm(${replyList.replyIndex})">답글</button>
 
+                            <!-- 대댓 입력창-->
                             <form method="get"  th:object="${reReplyFormDto}" th:action="'/reReply/' + ${boardDto.boardIndex} +'/'+ ${replyList.replyIndex}" style="display:none;">
                                 <div class="row">
                                     <textarea name="reReplyContent" cols="50" rows="1" placeholder="대댓글 내용 입력하쇼"></textarea>
@@ -75,20 +76,20 @@
                             <!-- 대댓-->
                             <div th:each="reReplyList, status: ${reReplyList}">
 
-                                <div  th:if="${reReplyList.reply.replyIndex == replyList.replyIndex}">
+                                <div  th:if="${reReplyList.reply.replyIndex == replyList.replyIndex}" id="reReplyList">
                                     <div id="re-reply">
                                         <div class="user-list">
-                                            <div><img src="/img/icon/like.png"></div>
+<!--                                            <div><img src="/img/icon/like.png"></div>-->
                                             <div id="rereply-user" th:text="${reReplyList.user.userNickname}"></div>
-                                            <div th:text="${#temporals.format(reReplyList.reReplyDate, 'yyyy-MM-dd HH:mm:ss')}" th:classappend="${'text-danger'}"></div>
+                                            <div th:text="${#temporals.format(reReplyList.reReplyDate, 'yyyy-MM-dd HH:mm:ss')}" ></div>
                                         </div>
                                         <div>
                                             <form th:action="'/reReply/delete/' + ${reReplyList.reReplyIndex}" method="get">
-                                                <button>삭제</button>
+                                                <button class="saveBtn">삭제</button>
                                             </form>
                                         </div>
                                     </div>
-                                    <div class="contents" th:text="${reReplyList.reReplyContent}" th:classappend="${'text-danger'}" style="white-space: pre-line;"> </div>
+                                    <div id="rereply-content" th:text="${reReplyList.reReplyContent}"  style="white-space: pre-line;"> </div>
 
                                 </div>
 
