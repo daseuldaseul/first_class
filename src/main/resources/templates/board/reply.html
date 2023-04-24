@@ -96,7 +96,7 @@
                                         </div>
                                         <div>
                                             <form th:action="'/reReply/delete/' + ${reReplyList.reReplyIndex}" method="get">
-                                                <button class="saveBtn" th:if="${#authentication.principal.username == reReplyList.user.userId or #authorization.expression('hasRole(''ADMIN'')')}">삭제</button>
+                                                <button class="saveBtn" sec:authorize="isAuthenticated()" th:if="${#authentication.principal.username == reReplyList.user.userId or #authorization.expression('hasRole(''ADMIN'')')}">삭제</button>
                                             </form>
                                         </div>
                                     </div>
