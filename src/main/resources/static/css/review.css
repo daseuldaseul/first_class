@@ -1,5 +1,27 @@
 @import "main.css";
 
+/*----- 해시태그 -----*/
+
+.review-hashtag {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.hashtag-list {
+    display:flex;
+    margin-bottom:1rem;
+}
+.hashtag-list a {
+    font-size: 18px;
+    padding-bottom: 5px;
+    margin-right:5px;
+    text-decoration: none;
+}
+
+
+
+/*---------타이틀------------*/
+
 .title-area {
   font-size: 40px;
 }
@@ -49,7 +71,7 @@
   font-size: 2.3rem;
 }
 
-#like {
+.like {
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -57,7 +79,7 @@
   font-size: 20px;
 }
 
-#like img {
+.like img {
   width: 50px;
   height: 50px;
 }
@@ -78,7 +100,7 @@
   margin-right: 10px;
 }
 
-/* 댓글 입력 */
+/*-----------댓글--------------------*/
 .reply-container {
   display: flex;
   flex-direction: row;
@@ -91,38 +113,83 @@
   margin-left: 20px;
 }
 
+/* 댓글 입력*/
+
+#reply-input-container{
+    display: flex;
+    flex-direction:column;
+    margin:20px;
+    padding:10px;
+}
+
+#reply-input-container form {
+    display: flex;
+    flex-direction:row;
+    margin-top:15px;
+}
+
+#reply-input {
+    width:800px;
+
+    margin: 10px 0px 20px 0px;
+    padding: 5px 15px 5px 15px;
+    font-size: 18px;
+    font-family: 'SBAggroB';
+    color: white;
+
+    border: 1px solid #DE2A60;
+    border-radius: 10px;
+    line-height: 45px;
+}
+
+#reply-input-container form .btn{
+    margin: 20px;
+    border-radius: 10px;
+}
+
+/*댓글 관리*/
 #replyList{
     display: flex;
+    flex-direction: column;
     margin:20px;
     padding:10px;
     align-items: baseline;
+    border-bottom: 1px solid #DE2A60;
 }
 
-#user-list{
+.user-list{
     display: flex;
-    flex-direction:column;
     align-items:center;
     text-align:center;
 }
 
-#replyList img{
-    width:55px;
-    margin:10px 0px 10px 0px;
+.user-list img{
+    width:30px;
 }
 
 #reply-user {
   display: flex;
-  border-radius: 30px;
-  background-color:#DE2A60;
-  width:80px;
-  height:30px;
+
   padding:10px;
   margin: 0 auto;
   align-items:center;
 
-  font-size: 15px;
+  font-size: 20px;
   font-family: 'SBAggroB';
+  font-weight: bold;
+  color: white;
+  }
 
+  #rereply-user {
+  display: flex;
+
+  padding:10px;
+  margin: 0 auto;
+  align-items:center;
+
+  font-size: 20px;
+  font-family: 'SBAggroB';
+  font-weight: bold;
   color: white;
 }
 
@@ -131,7 +198,13 @@
     flex-direction:column;
 }
 
+#reply{
+    display:flex;
+    flex-direction:row;
+}
+
 #reply-content {
+
   width:800px;
   min-height: 70px;
   padding:15px;
@@ -139,25 +212,23 @@
 
   font-size: 16px;
   font-family: 'SBAggroB';
-  border: 2px solid #DE2A60;
   color: white;
-  border-radius:10px;
-
 }
 
-#reply-date{
+.row{
+   display:flex;
+   flex-direction:row;
+}
+
+#re-reply{
+    margin-left:20px;
     display:flex;
-    margin-left: auto;
-    margin-right: 10px;
+    flex-direction:row;
 }
 
-#reply-input {
-  font-size: 18px;
-  font-family: 'SBAggroB';
-  background: white;
-  color: black;
-  border-radius: 10px;
-  line-height: 45px;
+#re-reply .contents{
+  width:800px;
+  min-height: 50px;
 
 }
 
@@ -166,9 +237,53 @@
     border: none;
 }
 
-#replyList button img{
-    width:40px;
+
+/*-------------------------------*/
+
+
+
+/*-----------대댓글---------------*/
+
+#reReplyWrap{
+   display: flex;
+    flex-direction:column;
 }
+
+#reReplyWrap{
+    display:flex;
+}
+
+#reReplyWrap form{
+    display:flex;
+
+}
+
+#reReplyWrap textarea {
+    display:flex;
+     width:800px;
+     border: 1px solid #DE2A60;
+     border-radius: 10px;
+     padding: 15px;
+     font-size:18px;
+}
+
+#reReplyWrap button{
+
+  width: 100px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 2px;
+  font-size: 1.5rem;
+  color : white;
+  background: #DE2A60;
+}
+
+.saveBtn{
+    margin-top:10px;
+}
+
+/*-------------------------------*/
+
 
 
 /*----- 별점주기 -----*/
@@ -182,24 +297,9 @@
 #score .checked{
     font-size: 1.5em; /* 이모지 크기 */
     color: transparent; /* 기존 이모지 컬러 제거 */
-    text-shadow: 0 0 0 #ffcf20;;
+    text-shadow: 0 0 0 #ffcf20;
 
-
-/*----- 해시태그 -----*/
-.review-hashtag{
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-.hashtag-list{
-    display:flex;
-    margin-bottom:1rem;
-}
-.review-hashtag a{
-    font-size: 18px;
-    padding-bottom: 5px;
-    margin-right:5px;
-    text-decoration: none;
-}
-.review-hashtag a:hover {
+/*----- 해시태그 호버기능 왜 안되노 시발 -----*/
+.hashtag-list a:hover{
     color:#DE2A60;
+}

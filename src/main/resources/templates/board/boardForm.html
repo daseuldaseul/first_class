@@ -40,25 +40,26 @@
             <div class="board-title">
                 <strong>리뷰 게시판</strong>
                 <p>영화에 대한 감상을 자유롭게 남겨보세요.</p>
-                <form>
-                    <button name="type" value="view">조회순</button>
-                    <button name="type" value="like">좋아요순</button>
-                    <button name="type" value="date">최신순</button>
-                </form>
-                <form action="/search" method="GET" role="search">
+
+                <form action="/search" method="GET" role="search" class="board-search">
                     <select name="searchType" id="searchType">
                         <option name="title" value="title">제목</option>
                         <option name="userId" value="userId">글쓴이</option>
                         <option name="movieTitle" value="movieTitle">영화제목</option>
                     </select>
 
-                    <input type="text" name="keyword" class="search-text" id="search" placeholder="검색">
-                    <button>검색</button>
+                    <input type="text" name="keyword" class="search-text" id="search" placeholder="리뷰 검색">
+                    <button class="board-search-btn">검색</button>
                 </form>
 
-                <form action="/hashtag" method="GET">
-                    <input type="text" name="hashtag" class="search-text" id="hashtag" placeholder="해시태그">
-                    <button>검색</button>
+                <form action="/hashtag" method="GET" class="board-search">
+                    <input type="text" name="hashtag" class="search-text" id="hashtag" placeholder="해시태그" style="width: 350px;">
+                    <button class="board-search-btn">검색</button>
+                </form>
+                <form class="board-search">
+                    <button class="sort" name="type" value="view">조회순</button>
+                    <button class="sort" name="type" value="like">좋아요순</button>
+                    <button class="sort" name="type" value="date">최신순</button>
                 </form>
             </div>
             <div class="board-list-wrap">
@@ -79,7 +80,7 @@
                         <div class="title">
                             <a th:text="${boardDto.movie != null} ? ${'['+boardDto.movie.movieTitle+']'} : '[No Movie]'"></a>
                             <a th:href="'/board/'+${boardDto.boardIndex}" th:text="${boardDto.boardTitle} "></a>
-                            <a th:text="'   ['+ ${boardDto.replyNum} +']'" style="color: #DE2A60;"></a>
+                            <span th:text="'   ['+ ${boardDto.replyNum} +']'" style="color: #DE2A60;"></span>
 
                         </div>
 

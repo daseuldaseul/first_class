@@ -15,7 +15,7 @@
 <div th:fragment="header" >
     <nav class="header">
         <!-- 관리자 페이지 로고 -->
-        <div>
+        <div style="padding-bottom: 15px;" >
             <a th:href="@{/movieMng}" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                 <button class="manager" onfocus="this.blur()">
                     <img src="/img/icon/manager.png" onmouseover="this.src='/img/icon/manager-2.png'" onmouseout="this.src='/img/icon/manager.png'">
@@ -28,9 +28,17 @@
         </a>
 
         <!-- 로그인 페이지 로고 -->
-        <div>
-        <a th:href="@{/user/login}" class="join" sec:authorize="isAnonymous()">로그인</a>
-        <a th:href="@{/user/logout}" class="join" sec:authorize="isAuthenticated()">로그아웃</a>
+        <div style="padding-bottom: 15px;" >
+            <a th:href="@{/user/login}" class="join" sec:authorize="isAnonymous()">
+                <button class="join" onfocus="this.blur()">
+                    <img src="/img/icon/user.png" onmouseover="this.src='/img/icon/user-2.png'" onmouseout="this.src='/img/icon/user.png'">
+                </button>
+            </a>
+            <a th:href="@{/user/logout}" class="join" sec:authorize="isAuthenticated()">
+                <button class="join" onfocus="this.blur()">
+                    <img class="logout" src="/img/icon/logout.png" onmouseover="this.src='/img/icon/logout-2.png'" onmouseout="this.src='/img/icon/logout.png'">
+                </button>
+            </a>
         </div>
 
     </nav>

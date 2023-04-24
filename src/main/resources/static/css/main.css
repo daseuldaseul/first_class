@@ -1,8 +1,8 @@
 @import "board.css";
 
 @font-face {
-  font-family: 'Happiness-Sans-Title';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2') format('woff2');
+  font-family: 'SBAggroB';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
 
   font-family: 'Happiness-Sans-Title';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2') format('woff2');
@@ -53,7 +53,7 @@ a {
   flex-direction: row;
   justify-content: center;
   font-size: 30px;
-  align-items: center
+  align-items: center;
 }
 
 .header-logo {
@@ -72,7 +72,11 @@ a {
   background-color: transparent;
   border:none; box-shadow:none;
   border-radius:0; padding:0;
-  overflow:visible; cursor:pointer
+  overflow:visible; cursor:pointer;
+}
+
+.join .logout {
+    width: 40px;
 }
 
 
