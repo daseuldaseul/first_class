@@ -22,7 +22,7 @@
 
                 <div sec:authorize="isAuthenticated()">
                 <form th:action="${boardDto.boardIndex}" method="post" th:object="${replyFormDto}">
-                    <textarea name="replyContent" class="reply-input" cols="50" rows="1" placeholder="댓글 내용 입력하쇼" th:field="*{replyContent}"></textarea>
+                    <textarea name="replyContent" class="reply-input" cols="50" rows="1" placeholder="댓글 내용을 입력하세요." th:field="*{replyContent}"></textarea>
                     <button class="btn" type="submit">댓글등록</button>
                     <input type="hidden" th:name="${_csrf.parameterName}"
                            th:value="${_csrf.token}">
@@ -31,7 +31,7 @@
                 </div>
                 <div sec:authorize="isAnonymous()">
                     <form th:action="${boardDto.boardIndex}" method="post" th:object="${replyFormDto}">
-                        <textarea name="replyContent" class="reply-input" cols="50" rows="1" placeholder="로그인하쇼" th:field="*{replyContent}" readonly></textarea>
+                        <textarea name="replyContent" class="reply-input" cols="50" rows="1" placeholder="로그인 해주세요." th:field="*{replyContent}" readonly></textarea>
                         <button class="btn" type="submit" disabled>댓글등록</button>
                     </form>
 
@@ -71,8 +71,8 @@
                             <!-- 대댓 입력창-->
                             <form method="get"  th:object="${reReplyFormDto}" th:action="'/reReply/' + ${boardDto.boardIndex} +'/'+ ${replyList.replyIndex}" style="display:none;">
                                 <div class="row" sec:authorize="isAuthenticated()">
-                                    <textarea name="reReplyContent" cols="50" rows="1" placeholder="대댓글 내용 입력하쇼"></textarea>
-                                    <button type="submit" class="saveBtn">저장</button>
+                                    <textarea name="reReplyContent" cols="50" rows="1" placeholder="댓글 내용을 입력하세요."></textarea>
+                                    <button type="submit" class="saveBtn">댓글등록</button>
                                     <input type="hidden" th:name="${_csrf.parameterName}"
                                            th:value="${_csrf.token}">
                                     <input type="hidden" name="author" value="${authentication.name}">

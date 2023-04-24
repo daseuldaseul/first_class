@@ -87,6 +87,7 @@
             <div class="title">
               <a th:text="${boardDto.movie != null} ? ${'['+boardDto.movie.movieTitle+']'} : '[No Movie]'"></a>
               <a th:href="'/board/'+${boardDto.boardIndex}" th:text="${boardDto.boardTitle}"></a>
+              <span th:text="'   ['+ ${boardDto.replyNum} +']'" style="color: #DE2A60;"></span>
             </div>
             <div class="writer" th:text="${boardDto.user != null} ? ${boardDto.user.userNickname} : 'No User'"></div>
             <div class="date" th:text="${#temporals.format(boardDto.boardDate, 'yyyy-MM-dd')}"></div>
