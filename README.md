@@ -1,12 +1,12 @@
 # 영화 리뷰 게시판, FILMCRUSH
 
-#### * 로그인, 회원가입
+### * 로그인, 회원가입
 ![image](https://github.com/daseuldaseul/first_class/assets/121841821/9c375c07-6d42-4a95-82b2-417f5e201ac9)
 ![image](https://github.com/daseuldaseul/first_class/assets/121841821/c8c531ac-2cd4-4f20-9cf9-1560fa61cf9c)
 * 아이디, 닉네임 중복 alert 경고 메시지
 
 
-#### * 메인 페이지
+### * 메인 페이지
 ![image](https://github.com/daseuldaseul/first_class/assets/121841821/7e358535-8d68-4ce1-a979-df4aaf70caed)
 * 회원 아이콘 클릭시 로그인 가능
 * 상단 영화 포스터는 홈페이지 관리자가 가장 최근에 등록한 네 개의 영화 포스터 이미지 출력
@@ -21,7 +21,7 @@
  
  
  
- #### * 리뷰 등록 페이지
+ ### * 리뷰 등록 페이지
  ![image](https://github.com/daseuldaseul/first_class/assets/121841821/fe1bf481-6b40-45cc-86a4-d7eca20a41f9)
 * 제목, 별점, 내용, 해시태그 입력 후 등록 
 * 영화는 검색 후 관리자가 등록한 영화 내에서만 리뷰 작성 가능
@@ -31,7 +31,7 @@
 
 
 
-#### * 리뷰 조회 페이지
+### * 리뷰 조회 페이지
 ![image](https://github.com/daseuldaseul/first_class/assets/121841821/e931a9aa-fe87-4cd7-b7e6-ecab8b324804)
 * 영화 정보 및 좋아요 기능
 * 작성자 본인과 관리자에게만 수정/삭제 버튼이 활성화
@@ -47,7 +47,7 @@
 
 
 
-#### * 관리자 페이지
+### * 관리자 페이지
 ![image](https://github.com/daseuldaseul/first_class/assets/121841821/75185a40-c001-4396-b7e9-67d692cbcba3)
 * 관리자가 영화를 등록할 수 있음
 * 등록한 영화 정보 목록 조회
@@ -55,7 +55,7 @@
 
 
 
-#### * 영화 등록, 수정, 삭제 페이지
+### * 영화 등록, 수정, 삭제 페이지
 ![image](https://github.com/daseuldaseul/first_class/assets/121841821/2671e1d2-e6af-4c2b-8088-9b7ec6b7ef04)
 ![image](https://github.com/daseuldaseul/first_class/assets/121841821/fde3956b-3297-40c4-97f4-4b7e6305615f)
 * 영화 정보 등록 및 수정, 삭제 기능
