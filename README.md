@@ -3,7 +3,7 @@
 #### * 로그인, 회원가입
 ![image](https://github.com/daseuldaseul/first_class/assets/121841821/9c375c07-6d42-4a95-82b2-417f5e201ac9)
 ![image](https://github.com/daseuldaseul/first_class/assets/121841821/c8c531ac-2cd4-4f20-9cf9-1560fa61cf9c)
-* 아이디, 닉네임 중복 alert 경고창
+* 아이디, 닉네임 중복 alert 경고 메시지
 
 
 #### * 메인 페이지
